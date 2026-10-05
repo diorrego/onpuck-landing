@@ -8,21 +8,24 @@ export default function Home() {
     error: 'Please enter a valid email address.',
   });
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
-  const [emailSended, setEmailSended] = useState(false);
-  const [emailSentError, setEmailSentError] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'invalid' | 'success' | 'error'
+  >('idle');
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    setSubmitStatus('idle');
   };
 
   const emailIsValid = emailSchema.safeParse(email).success;
 
   const joinWaitlistButtonHandler = async () => {
     if (!emailIsValid) {
-      setEmailError(true);
+      setSubmitStatus('invalid');
       return;
     }
+
+    setSubmitStatus('idle');
 
     try {
       const response = await fetch(
@@ -41,12 +44,11 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(`Webhook failed: ${response.status}`);
       } else {
-        setEmailSended(true);
-        setEmailSentError(false);
+        setSubmitStatus('success');
         setEmail('');
       }
     } catch {
-      setEmailSentError(true);
+      setSubmitStatus('error');
     }
   };
 
@@ -85,13 +87,15 @@ export default function Home() {
             </button>
           </div>
           <p
-            className={`mt-2 text-xs ${emailError || emailSentError ? 'text-red-300' : ''} ${emailSended ? 'text-green-300' : ''}`}
+            className={`mt-2 text-xs ${submitStatus === 'invalid' || submitStatus === 'error' ? 'text-red-300' : ''} ${submitStatus === 'success' ? 'text-green-300' : ''}`}
           >
-            {emailError ? 'Please enter a valid email address.' : ''}
-            {emailSended
+            {submitStatus === 'invalid'
+              ? 'Please enter a valid email address.'
+              : ''}
+            {submitStatus === 'success'
               ? `You're on the waitlist. We'll be in touch soon.`
               : ''}
-            {emailSentError
+            {submitStatus === 'error'
               ? 'Something went wrong. Please reload the page and try again.'
               : ''}
             <span className="text-black">{' .'}</span>
