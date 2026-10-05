@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'woku',
     images: [
       {
-        url: 'https://onpuck.com/og-landing.jpg',
+        url: 'https://onpuck.com/og-image.jpg',
         width: 1200,
         height: 600,
         alt: 'Agentic Customer Development for helping startup teams decide what to build next.',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: 'Building AI for continuous customer development with hard data',
     description:
       'Agentic Customer Development for founders. AI agents interview customers and turn insights into build-ready specs. San Francisco, USA. Join the waitlist.',
-    images: ['https://onpuck.com/og-landing.jpg'],
+    images: ['https://onpuck.com/og-image.jpg'],
   },
 };
 
