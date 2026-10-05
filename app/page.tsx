@@ -78,7 +78,7 @@ export default function Home() {
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-sm focus:outline-none focus:border-white/30 placeholder:text-white/40"
             />
             <button
-              className={`w-full max-w-44 px-6 py-3 text-black rounded-lg text-sm font-medium hover:bg-white/90 transition ${!email || emailIsValid ? 'bg-white' : 'bg-white/80'}`}
+              className={`w-full md:max-w-44 px-6 py-3 text-black rounded-lg text-sm font-medium hover:bg-white/90 transition ${!email || emailIsValid ? 'bg-white' : 'bg-white/80'}`}
               onClick={joinWaitlistButtonHandler}
             >
               Join waitlist
@@ -93,7 +93,8 @@ export default function Home() {
               : ''}
             {emailSentError
               ? 'Something went wrong. Please reload the page and try again.'
-              : ''}{' '}
+              : ''}
+            <span className="text-black">{' .'}</span>
           </p>
         </div>
       </section>

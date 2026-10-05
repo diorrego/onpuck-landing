@@ -15,18 +15,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Building AI for continuous customer development with hard data',
   description:
-    'Agentic Customer Development for helping startup teams decide what to build next.',
+    'Agentic Customer Development for founders. AI agents interview customers and turn insights into build-ready specs. San Francisco, USA. Join the waitlist.',
   openGraph: {
     title: 'Building AI for continuous customer development with hard data',
     description:
-      'Agentic Customer Development for helping startup teams decide what to build next.',
+      'Agentic Customer Development for founders. AI agents interview customers and turn insights into build-ready specs. San Francisco, USA. Join the waitlist.',
     url: 'https://onpuck.com',
     siteName: 'woku',
     images: [
       {
         url: 'https://onpuck.com/og-landing.jpg',
         width: 1200,
-        height: 630,
+        height: 600,
         alt: 'Agentic Customer Development for helping startup teams decide what to build next.',
       },
     ],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Building AI for continuous customer development with hard data',
     description:
-      'Agentic Customer Development for helping startup teams decide what to build next.',
+      'Agentic Customer Development for founders. AI agents interview customers and turn insights into build-ready specs. San Francisco, USA. Join the waitlist.',
     images: ['https://onpuck.com/og-landing.jpg'],
   },
 };
