@@ -115,9 +115,12 @@ export default function Home() {
             <div className="flex gap-6 items-start">
               <div className="text-white/40 text-sm pt-1">01</div>
               <div>
-                <h3 className="text-lg mb-1">Connects to your stack</h3>
+                <h3 className="text-lg mb-1">
+                  Connects to your data and systems
+                </h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-4">
-                  Links the stories to real product data and systems:
+                  Hooks into the stack you already run and ties user stories to
+                  real product data.
                 </p>
                 <div className="flex flex-wrap gap-4 items-center">
                   <img src="/github-dark.svg" alt="GitHub" className="h-5" />
@@ -141,8 +144,9 @@ export default function Home() {
               <div>
                 <h3 className="text-lg mb-1">Interviews</h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-4">
-                  Multi-agent system runs customer interviews over Google Meet
-                  (or takes your existing ones).
+                  A multi-agent system runs customer interviews over Google
+                  Meet, or you upload the interviews and transcripts you already
+                  have.
                 </p>
                 <img src="/google-meet.svg" alt="Google Meet" className="h-5" />
               </div>
@@ -152,11 +156,30 @@ export default function Home() {
             <div className="flex gap-6 items-start">
               <div className="text-white/40 text-sm pt-1">03</div>
               <div>
-                <h3 className="text-lg mb-1">Actionable specs</h3>
-                <p className="text-white/60 text-sm leading-relaxed">
-                  Outputs a clear product specification of what to build or fix
-                  next, grounded in both human stories and real system data.
+                <h3 className="text-lg mb-1">
+                  Specs your coding agent can ship
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-4">
+                  Turns that into a clear product spec of what to build or fix
+                  next, grounded in user stories and live system data, ready for
+                  a coding agent to pick up.
                 </p>
+                <div className="flex flex-wrap gap-4 items-center">
+                  <img
+                    src="/claude-code.svg"
+                    alt="Claude Code"
+                    className="h-5"
+                  />
+                  <img src="/codex-dark.svg" alt="Codex" className="h-5" />
+                  <img src="/cursor.svg" alt="Cursor" className="h-5" />
+                  <img src="/opencode.svg" alt="Open Code" className="h-5" />
+                  <img src="/kimi.svg" alt="Kimi" className="h-5" />
+                  <img
+                    src="/github-copilot.svg"
+                    alt="GitHub Copilot"
+                    className="h-5"
+                  />
+                </div>
               </div>
             </div>
           </div>
