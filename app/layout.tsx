@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { GoogleTagManager } from '@next/third-parties/google';
+import Script from 'next/script';
+
 import './globals.css';
 
 const geistSans = Geist({
@@ -47,6 +50,16 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <GoogleTagManager gtmId="GTM-MGCZH8CB" />
+      <Script id="microsoft-clarity" strategy="afterInteractive">
+        {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "yt7eu1y73o");
+          `}
+      </Script>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
