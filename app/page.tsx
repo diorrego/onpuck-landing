@@ -195,8 +195,9 @@ export default function Home() {
 
           <div className="space-y-12">
             <div className="flex gap-6">
-              <span className="w-16 shrink-0 text-white/40 text-sm pt-0.5">
+              <span className="w-20 shrink-0 text-white/40 text-sm pt-0.5">
                 Sep 28
+                <span className="block text-xs text-emerald-400/80">Done</span>
               </span>
               <div>
                 <h3 className="text-lg mb-1">Internal experiment ends</h3>
@@ -215,8 +216,8 @@ export default function Home() {
             </div>
 
             <div className="flex gap-6">
-              <span className="w-16 shrink-0 text-white/40 text-sm pt-0.5">
-                Oct 19
+              <span className="w-20 shrink-0 text-white/40 text-sm pt-0.5">
+                Nov–Dec
               </span>
               <div>
                 <h3 className="text-lg mb-1">5 SF startups</h3>
@@ -229,8 +230,8 @@ export default function Home() {
             </div>
 
             <div className="flex gap-6">
-              <span className="w-16 shrink-0 text-white/40 text-sm pt-0.5">
-                Nov 16
+              <span className="w-20 shrink-0 text-white/40 text-sm pt-0.5">
+                Jan–Feb
               </span>
               <div>
                 <h3 className="text-lg mb-1">Full system test</h3>
@@ -242,8 +243,8 @@ export default function Home() {
             </div>
 
             <div className="flex gap-6">
-              <span className="w-16 shrink-0 text-white/40 text-sm pt-0.5">
-                Dec 07
+              <span className="w-20 shrink-0 text-white/40 text-sm pt-0.5">
+                Q1 2027
               </span>
               <div>
                 <h3 className="text-lg mb-1">Launch</h3>
