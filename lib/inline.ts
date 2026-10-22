@@ -36,3 +36,10 @@ export function citationIds(source: string): number[] {
   }
   return ids;
 }
+
+/** Plain text: citations kept as [n], code and emphasis unwrapped, links reduced to their label. */
+export function plainText(source: string): string {
+  return parseInline(source)
+    .map((t) => (t.type === 'cite' ? `[${t.ids.join(', ')}]` : t.value))
+    .join('');
+}

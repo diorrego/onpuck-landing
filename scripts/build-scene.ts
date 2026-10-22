@@ -35,11 +35,19 @@ const sprites = new Map<string, RgbaSprite>();
 for (const [key, s] of atlas) sprites.set(key, { ...toRgba(s), anchorX: s.anchorX, anchorY: s.anchorY });
 const basePx = toRgba(base).px;
 
-function poster(name: string, sim: Simulation, seconds: number) {
+function upscale(px: Uint32Array, w: number, h: number, k: number): Uint32Array {
+  const out = new Uint32Array(w * k * h * k);
+  for (let y = 0; y < h * k; y++) for (let x = 0; x < w * k; x++) out[y * w * k + x] = px[Math.floor(y / k) * w + Math.floor(x / k)];
+  return out;
+}
+
+function poster(name: string, sim: Simulation, seconds: number, twoX?: string) {
   for (let t = 0; t < seconds; t += 1 / 15) sim.step(1 / 15);
   const target = new Uint32Array(CANVAS_W * CANVAS_H);
   compose(target, basePx, CANVAS_W, CANVAS_H, sprites, sim.drawables(sim.time));
   savePng(name, CANVAS_W, CANVAS_H, target);
+  // nearest-neighbour 2x for places that cannot scale pixel art crisply (the OG image)
+  if (twoX) savePng(twoX, CANVAS_W * 2, CANVAS_H * 2, upscale(target, CANVAS_W, CANVAS_H, 2));
   return sim;
 }
 
@@ -63,7 +71,7 @@ function callouts(sim: Simulation) {
     });
 }
 
-const life = poster('poster.png', new Simulation({ population: 24, seed: 42 }), Number(process.env.POSTER_T ?? 26));
+const life = poster('poster.png', new Simulation({ population: 24, seed: 42 }), Number(process.env.POSTER_T ?? 26), 'poster-2x.png');
 poster('poster-ab.png', new Simulation({ population: 12, seed: 7, mode: 'ab', arm: 'test' }), 9);
 writeFileSync(
   join(__dirname, '..', 'lib', 'scene', 'poster-callouts.json'),

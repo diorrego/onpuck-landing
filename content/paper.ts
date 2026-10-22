@@ -8,6 +8,9 @@ export const CTA_LABEL = 'Apply to be a design partner';
 export const CONTACT_EMAIL = 'paula@onpuck.com';
 export const VERSION = '1.0';
 export const SITE_URL = 'https://www.onpuck.com';
+// Metadata only (D6): never shown in the story.
+export const CONTENT_UPDATED = '2026-10-22';
+export const CONTENT_PUBLISHED = '2026-10-22';
 export const PURPOSE_LINE = 'We exist to turn stories into evidence, and evidence into better decisions.';
 
 export type FigureId = 'loop' | 'trackers' | 'simulated-run' | 'prediction';

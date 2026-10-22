@@ -1,6 +1,7 @@
 import BlockRenderer from '@/components/paper/BlockRenderer';
 import Contents from '@/components/paper/Contents';
 import Hero from '@/components/paper/Hero';
+import PaperAnalytics from '@/components/paper/PaperAnalytics';
 import PaperSection from '@/components/paper/PaperSection';
 import References from '@/components/paper/References';
 import SiteFooter from '@/components/paper/SiteFooter';
@@ -31,6 +32,7 @@ export default function Paper() {
         </article>
       </main>
       <SiteFooter />
+      <PaperAnalytics />
     </>
   );
 }

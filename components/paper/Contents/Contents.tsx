@@ -7,7 +7,7 @@ export default function Contents() {
     <ol className="grid gap-0.5 text-[0.9375rem]">
       {items.map((s) => (
         <li key={s.id}>
-          <a href={`#${s.id}`} className="grid grid-cols-[1.75rem_1fr] gap-1 px-2 py-1.5 no-underline hover:bg-glow" data-toc={s.id}>
+          <a href={`#${s.id}`} className="grid grid-cols-[1.75rem_1fr] gap-1 px-2 py-1.5 no-underline hover:bg-glow aria-[current=location]:bg-ink aria-[current=location]:text-paper-raised aria-[current=location]:[&>span:first-child]:text-paper-raised/70" data-toc={s.id}>
             <span className="font-pixel text-[0.625rem] leading-6 text-ink-soft">{s.number ? `§${s.number}` : ''}</span>
             <span>{s.title}</span>
           </a>
