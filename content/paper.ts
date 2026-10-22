@@ -380,12 +380,43 @@ export const apply = {
     title: 'Application received.',
     body: 'Pick a time for a 30-minute intro call with Diego or Paula.',
   },
+  calendarFallback: `Write to ${CONTACT_EMAIL} with two or three times that suit you, and we will send an invite.`,
   error: `Something failed on our side and your application was not sent. Write to ${CONTACT_EMAIL} and we will reply within a working day.`,
   security: [
     'Read-only credentials you grant and can revoke at any time.',
     'Nothing we run writes to your systems.',
     'Your users are interviewed only after you introduce them.',
   ],
+};
+
+// Fig. 2 (synthetic): one sentence from an interview, resolved against the system.
+export const trackerExample = {
+  source: 'Interview with a simulated example user, 10 minutes',
+  quote: 'Last night I tried to export the monthly report from my phone, and it never downloaded.',
+  rows: [
+    { tracker: 'Time', kind: 'anchor', said: 'last night', recorded: '`export_clicked` at 21:42', resolution: 'confirmed' },
+    { tracker: 'Device', kind: 'dimension', said: 'my phone', recorded: 'iOS Safari, 390 x 844', resolution: 'confirmed' },
+    { tracker: 'Feature', kind: 'dimension', said: 'export the monthly report', recorded: '`POST /reports/export` returned 200', resolution: 'confirmed' },
+    { tracker: 'Outcome', kind: 'dimension', said: 'it never downloaded', recorded: 'File served, 1.2 MB; no open event after it', resolution: 'contradicted' },
+  ],
+  spec: {
+    actionType: 'fix',
+    title: 'Make the exported file findable on iOS Safari',
+    why: 'The download worked. The user could not find the file, so the spec is about finding it, not about the export.',
+    evidence: '4 trackers, 3 queries, 1 story',
+  },
+} as const;
+
+// Fig. 3 interface copy.
+export const simulatedRun = {
+  armsLabel: 'Arm of the A/B test',
+  prediction: 'Registered prediction',
+  predictionNote: 'Share of people whose first action is writing, among those who start.',
+  replay: 'This replay so far',
+  started: 'started',
+  wroteFirst: 'wrote first',
+  submitted: 'submitted',
+  pending: 'Result pending. We publish it when the A/B closes, hit or miss.',
 };
 
 export const founders = [
@@ -404,13 +435,23 @@ export const paper = {
     'onpuck checks your users’ stories against your repo, analytics and logs, turns them into specs for your coding agent, and tests each spec on simulated users first.',
   version: VERSION,
   hero: {
-    kicker: `A light paper on the onpuck model · Version ${VERSION}`,
+    byline: `A light paper on the onpuck model · Version ${VERSION}`,
     headline: 'Know what your users will do before your agent builds it.',
     subline:
       'onpuck interviews your users, checks every story against your repo, analytics and logs, and turns it into specs for your coding agent. Before a spec is built, simulated users calibrated on your own sessions test it.',
     primaryCta: { label: CTA_LABEL, href: '#apply' },
     secondaryCta: { label: 'Read the light paper', href: '#abstract' },
     sceneLabel: 'Illustration of a simulated run',
+    sceneCaption:
+      'People at laptops, desktops, tablets, phones and smart speakers. Each one carries frustration, fatigue and motivation, and leaves when the hazard rule in section 3 fires. Drawn, not recorded.',
+    sceneHint: 'Hover or tap a person to see their state.',
+    legend: [
+      { icon: 'alert', label: 'Friction' },
+      { icon: 'tired', label: 'Tired' },
+      { icon: 'check', label: 'Task done' },
+      { icon: 'leave', label: 'Leaving' },
+      { icon: 'sound', label: 'Talking to a speaker' },
+    ],
   },
   abstract,
   figures,
@@ -551,12 +592,15 @@ export function allCopy(): string[] {
   const out: string[] = [
     paper.title,
     paper.description,
-    paper.hero.kicker,
+    paper.hero.byline,
     paper.hero.headline,
     paper.hero.subline,
     paper.hero.primaryCta.label,
     paper.hero.secondaryCta.label,
     paper.hero.sceneLabel,
+    paper.hero.sceneCaption,
+    paper.hero.sceneHint,
+    ...paper.hero.legend.map((l) => l.label),
     PURPOSE_LINE,
     ...figures.flatMap((f) => [f.title, f.caption]),
     ...faq.flatMap((f) => [f.q, ...f.a]),
@@ -571,8 +615,16 @@ export function allCopy(): string[] {
     apply.success.title,
     apply.success.body,
     apply.error,
+    apply.calendarFallback,
     ...apply.security,
     ...founders.flatMap((f) => [f.name, f.role, f.line]),
+    ...Object.values(simulatedRun),
+    trackerExample.source,
+    trackerExample.quote,
+    ...trackerExample.rows.flatMap((r) => [r.tracker, r.said, r.recorded, r.resolution]),
+    trackerExample.spec.title,
+    trackerExample.spec.why,
+    trackerExample.spec.evidence,
   ];
   for (const section of paper.sections) {
     out.push(section.title, section.lede);

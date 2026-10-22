@@ -189,7 +189,10 @@ export class Simulation {
     a.view = seat?.view ?? (this.rand() < 0.5 ? 'front' : 'back');
     a.mirror = seat?.mirror ?? this.rand() < 0.5;
     if (!seat) a.poses = ['phone'];
-    if (this.mode === 'ab') this.startAb(a);
+    if (this.mode === 'ab') {
+      a.poses = seat && seat.z > 0 ? ['tablet'] : ['phone'];
+      this.startAb(a);
+    }
   }
 
   private startAb(a: Agent) {

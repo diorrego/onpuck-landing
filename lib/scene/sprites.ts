@@ -446,7 +446,7 @@ export function propSprite(name: PropName): PropSprite {
 // ---------------------------------------------------------------- bubble icons
 
 // a alert (frustration), z tired, c check, w writing, x star, n sound, q question, l leave
-const ICON_GRIDS = {
+export const ICON_GRIDS = {
   alert: ['...ff...', '...ff...', '...ff...', '...ff...', '........', '...ff...'],
   tired: ['aaaa....', '..a.....', '.a......', 'aaaa.aaa', '......a.', '.....aaa'],
   check: ['.......m', '......mm', 'm....mm.', 'mm..mm..', '.mmmm...', '..mm....'],
@@ -460,16 +460,18 @@ const ICON_GRIDS = {
 export type IconName = keyof typeof ICON_GRIDS;
 export const ICONS = Object.keys(ICON_GRIDS) as IconName[];
 
+export const ICON_COLORS: Record<string, number> = {
+  f: P.frustration,
+  a: P.fatigue,
+  m: P.motivation,
+  k: P.ink,
+  w: P.bubble,
+  r: P.speakerRing,
+};
+
 export function iconSprite(name: IconName): IndexedSprite {
   const grid = ICON_GRIDS[name];
-  const map: Record<string, number> = {
-    f: P.frustration,
-    a: P.fatigue,
-    m: P.motivation,
-    k: P.ink,
-    w: P.bubble,
-    r: P.speakerRing,
-  };
+  const map = ICON_COLORS;
   const w = grid[0].length;
   const r = new Raster(w, grid.length);
   grid.forEach((row, y) => {

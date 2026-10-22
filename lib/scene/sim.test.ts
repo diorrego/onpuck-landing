@@ -70,6 +70,26 @@ describe('Simulation (life)', () => {
     }
   });
 
+  it('never leaves anyone half faded once they have arrived', () => {
+    for (const seed of [1, 2, 3, 42]) {
+      const sim = new Simulation({ population: 24, seed });
+      for (let i = 0; i < 1800; i++) {
+        sim.step(1 / 15);
+        for (const a of sim.agents) {
+          if (a.state === 'settling' || a.state === 'using') expect(a.alpha, `${a.label} ${a.state}`).toBe(1);
+        }
+      }
+    }
+  });
+
+  it('uses phones and tablets in the A/B replay, never laptops', () => {
+    const sim = new Simulation({ population: 12, seed: 3, mode: 'ab', arm: 'test' });
+    run(sim, 30);
+    for (const a of sim.agents.filter((x) => x.state === 'using')) {
+      expect(a.poses.every((p) => p === 'phone' || p === 'tablet')).toBe(true);
+    }
+  });
+
   it('describes a person for the state card', () => {
     const sim = new Simulation({ population: 12, seed: 2 });
     run(sim, 5);

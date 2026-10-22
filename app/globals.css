@@ -1,5 +1,246 @@
 @import 'tailwindcss';
 
-body {
-  background: #000;
+/* The simulation floor: a cool paper ground, near-black ink, the pixel scene in a handheld
+   palette, and three state colours used only as data. Window chrome borrows early one-bit
+   desktops: 2px ink borders, striped title bars, hard offset shadows on controls. */
+
+@theme {
+  --color-paper: #f2f4f7;
+  --color-paper-raised: #fbfbfd;
+  --color-paper-sunk: #e6e9f0;
+  --color-ink: #12141c;
+  --color-ink-soft: #464b60;
+  --color-ink-faint: #6b7088;
+  --color-rule: #c9cedb;
+  --color-glow: #9ef0ff;
+  --color-glow-deep: #2a7fa3;
+  --color-link: #1f56c8;
+  --color-frustration: #f0604d;
+  --color-fatigue: #f4ab2f;
+  --color-motivation: #35b86b;
+  --color-frustration-ink: #b3291a;
+  --color-fatigue-ink: #8a5a00;
+  --color-motivation-ink: #17723f;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: var(--font-silkscreen), ui-monospace, monospace;
+  --font-mono: var(--font-martian), ui-monospace, monospace;
+
+  --text-display: clamp(2.35rem, 1.4rem + 3.6vw, 4.35rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-feature-settings: 'ss01', 'tnum' 0;
+  }
+
+  ::selection {
+    background: var(--color-glow);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px var(--color-glow);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+    background: var(--color-paper-sunk);
+    padding: 0.08em 0.32em;
+    border: 1px solid var(--color-rule);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* One-bit desktop window: 2px ink frame, striped title bar with a close box. */
+  .pixel-window {
+    background: var(--color-paper-raised);
+    border: 2px solid var(--color-ink);
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+
+  .pixel-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 1.75rem;
+    padding: 0 0.5rem;
+    border-bottom: 2px solid var(--color-ink);
+    background-color: var(--color-paper-raised);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--color-ink) 0 1px,
+      transparent 1px 3px
+    );
+    background-size: 100% 15px;
+    background-position: 0 6px;
+    background-repeat: repeat-x;
+  }
+
+  .pixel-titlebar > * {
+    background: var(--color-paper-raised);
+  }
+
+  .pixel-close {
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 2px solid var(--color-ink);
+    flex: none;
+  }
+
+  .pixel-title {
+    font-family: var(--font-pixel);
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    padding: 0.2rem 0.45rem 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Pixel buttons: hard offset shadow that the press pushes into. */
+  .pixel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.7rem 1.25rem 0.75rem;
+    border: 2px solid var(--color-ink);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.1;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition:
+      transform 120ms var(--ease-out-expo),
+      box-shadow 120ms var(--ease-out-expo),
+      background-color 120ms linear;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .pixel-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--color-ink);
+  }
+
+  .pixel-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 var(--color-ink);
+  }
+
+  .pixel-btn[disabled],
+  .pixel-btn[aria-disabled='true'] {
+    cursor: progress;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+
+  .pixel-btn-primary {
+    background: var(--color-glow);
+    color: var(--color-ink);
+  }
+
+  .pixel-btn-primary:hover {
+    background: #c4f7ff;
+  }
+
+  .pixel-btn-secondary {
+    background: var(--color-paper-raised);
+    color: var(--color-ink);
+  }
+
+  .pixel-btn-sm {
+    min-height: 2.5rem;
+    padding: 0.45rem 0.85rem 0.5rem;
+    font-size: 0.9375rem;
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+
+  .pixel-btn-sm:hover {
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+
+  /* Dithered fills: the one-bit way to shade a bar or a band. */
+  .dither-ink {
+    background-image: conic-gradient(var(--color-ink) 25%, transparent 0 50%, var(--color-ink) 0 75%, transparent 0);
+    background-size: 4px 4px;
+  }
+
+  .pixelated {
+    image-rendering: pixelated;
+  }
+
+  .prose-paper {
+    max-width: 68ch;
+  }
+
+  .prose-paper p + p {
+    margin-top: 1.1em;
+  }
+
+  .link {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  .link:hover {
+    background: var(--color-glow);
+    color: var(--color-ink);
+    text-decoration-thickness: 2px;
+  }
+
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
