@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T22:37:00.290009+00:00",
+  "title": "Design System: onpuck light paper",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool Paper",
+        "canonical": "#f2f4f7",
+        "tonalRamp": [
+          "#48494a",
+          "#797a7b",
+          "#b7b9bb",
+          "#f2f4f7",
+          "#f5f6f8",
+          "#f8f9fb",
+          "#fbfbfc",
+          "#fdfdfe"
+        ]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Raised Paper",
+        "canonical": "#fbfbfd",
+        "tonalRamp": [
+          "#4b4b4b",
+          "#7d7d7e",
+          "#bebec0",
+          "#fbfbfd",
+          "#fbfbfd",
+          "#fdfdfe",
+          "#fdfdfe",
+          "#fefefe"
+        ]
+      },
+      "paper-sunk": {
+        "role": "neutral",
+        "displayName": "Sunk Paper",
+        "canonical": "#e6e9f0",
+        "tonalRamp": [
+          "#454548",
+          "#737478",
+          "#aeb1b6",
+          "#e6e9f0",
+          "#eceef3",
+          "#f2f4f7",
+          "#f8f8fa",
+          "#fcfcfd"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#12141c",
+        "tonalRamp": [
+          "#050608",
+          "#090a0e",
+          "#0d0f15",
+          "#12141c",
+          "#4a4c52",
+          "#88898d",
+          "#bcbdbf",
+          "#e7e7e8"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#464b60",
+        "tonalRamp": [
+          "#15161c",
+          "#232530",
+          "#353948",
+          "#464b60",
+          "#727686",
+          "#a2a5af",
+          "#cbccd2",
+          "#ececef"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Faint Ink",
+        "canonical": "#6b7088",
+        "tonalRamp": [
+          "#202128",
+          "#353844",
+          "#515567",
+          "#6b7088",
+          "#8e92a4",
+          "#b5b7c3",
+          "#d5d6dd",
+          "#f0f0f3"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#c9cedb",
+        "tonalRamp": [
+          "#3c3d41",
+          "#64676d",
+          "#989ca6",
+          "#c9cedb",
+          "#d5d9e3",
+          "#e4e6ed",
+          "#eff1f4",
+          "#f9fafb"
+        ]
+      },
+      "screen-glow": {
+        "role": "primary",
+        "displayName": "Screen Glow",
+        "canonical": "#9ef0ff",
+        "tonalRamp": [
+          "#2f484c",
+          "#4f787f",
+          "#78b6c1",
+          "#9ef0ff",
+          "#b5f3ff",
+          "#cef7ff",
+          "#e3faff",
+          "#f5fdff"
+        ]
+      },
+      "frustration": {
+        "role": "data",
+        "displayName": "Frustration Coral",
+        "canonical": "#f0604d",
+        "tonalRamp": [
+          "#481c17",
+          "#783026",
+          "#b6483a",
+          "#f0604d",
+          "#f38677",
+          "#f7afa6",
+          "#fad2cd",
+          "#fdefed"
+        ]
+      },
+      "fatigue": {
+        "role": "data",
+        "displayName": "Fatigue Amber",
+        "canonical": "#f4ab2f",
+        "tonalRamp": [
+          "#49330e",
+          "#7a5517",
+          "#b98123",
+          "#f4ab2f",
+          "#f6bf60",
+          "#f9d597",
+          "#fbe7c4",
+          "#fdf6ea"
+        ]
+      },
+      "motivation": {
+        "role": "data",
+        "displayName": "Motivation Green",
+        "canonical": "#35b86b",
+        "tonalRamp": [
+          "#0f3720",
+          "#1a5c35",
+          "#288b51",
+          "#35b86b",
+          "#65c98e",
+          "#9adbb5",
+          "#c6ebd5",
+          "#eaf7f0"
+        ]
+      },
+      "frustration-ink": {
+        "role": "data",
+        "displayName": "Frustration Ink",
+        "canonical": "#b3291a",
+        "tonalRamp": [
+          "#350c07",
+          "#59140d",
+          "#881f13",
+          "#b3291a",
+          "#c55c50",
+          "#d9948c",
+          "#e9c3be",
+          "#f7e9e8"
+        ]
+      },
+      "fatigue-ink": {
+        "role": "data",
+        "displayName": "Fatigue Ink",
+        "canonical": "#8a5a00",
+        "tonalRamp": [
+          "#291b00",
+          "#452d00",
+          "#684400",
+          "#8a5a00",
+          "#a6813d",
+          "#c4ac7f",
+          "#ded0b7",
+          "#f3eee5"
+        ]
+      },
+      "motivation-ink": {
+        "role": "data",
+        "displayName": "Motivation Ink",
+        "canonical": "#17723f",
+        "tonalRamp": [
+          "#062212",
+          "#0b391f",
+          "#11562f",
+          "#17723f",
+          "#4e936d",
+          "#8bb89f",
+          "#bed7c9",
+          "#e7f0eb"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The one H1."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2s after the § number."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Step, limit and loop node names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paper prose at 68ch."
+      },
+      "label": {
+        "displayName": "Label (Silkscreen)",
+        "purpose": "Window titles, step numbers, chips, table heads. Capitals only; never the brand name."
+      },
+      "data": {
+        "displayName": "Data (Martian Mono)",
+        "purpose": "Measured values, intervals, formulas, code, citation numbers."
+      }
+    },
+    "shadows": [
+      {
+        "name": "window",
+        "value": "4px 4px 0 #12141c",
+        "purpose": "Figures and the form window."
+      },
+      {
+        "name": "button",
+        "value": "4px 4px 0 #12141c",
+        "purpose": "Pixel buttons; 5px on hover, 0 on press."
+      },
+      {
+        "name": "card",
+        "value": "3px 3px 0 #12141c",
+        "purpose": "State card and still-scene callouts."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Button lift and press, 120ms."
+      },
+      {
+        "name": "scene-walk",
+        "value": "6 frames/s walk, 3 frames/s device use, 30 fps render",
+        "purpose": "The scene's own life; nothing else animates beyond state changes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one CTA, screen glow fill.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Apply to be a design partner</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:48px;padding:11px 20px 12px;border:2px solid var(--color-ink,#12141c);font:700 1rem/1.1 'Schibsted Grotesk',system-ui,sans-serif;color:#12141c;box-shadow:4px 4px 0 #12141c;transition:transform 120ms cubic-bezier(0.16,1,0.3,1),box-shadow 120ms cubic-bezier(0.16,1,0.3,1);cursor:pointer}.ds-btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #12141c}.ds-btn:active{transform:translate(4px,4px);box-shadow:0 0 0 #12141c}.ds-btn:focus-visible{outline:3px solid #12141c;outline-offset:2px;box-shadow:0 0 0 6px #9ef0ff}.ds-btn-primary{background:#9ef0ff}.ds-btn-primary:hover{background:#c4f7ff}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper fill, same geometry.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">Read the light paper</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:48px;padding:11px 20px 12px;border:2px solid var(--color-ink,#12141c);font:700 1rem/1.1 'Schibsted Grotesk',system-ui,sans-serif;color:#12141c;box-shadow:4px 4px 0 #12141c;transition:transform 120ms cubic-bezier(0.16,1,0.3,1),box-shadow 120ms cubic-bezier(0.16,1,0.3,1);cursor:pointer}.ds-btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #12141c}.ds-btn:active{transform:translate(4px,4px);box-shadow:0 0 0 #12141c}.ds-btn:focus-visible{outline:3px solid #12141c;outline-offset:2px;box-shadow:0 0 0 6px #9ef0ff}.ds-btn-secondary{background:#fbfbfd}"
+    },
+    {
+      "name": "Window",
+      "kind": "custom",
+      "refersTo": "window",
+      "description": "One-bit desktop window for figures and the form.",
+      "html": "<div class=\"ds-win\"><div class=\"ds-win-bar\"><span class=\"ds-win-close\"></span><span class=\"ds-win-title\">FIG. 3  SIMULATED RUN</span></div><div class=\"ds-win-body\">Figure content</div></div>",
+      "css": ".ds-win{background:#fbfbfd;border:2px solid #12141c;box-shadow:4px 4px 0 #12141c;color:#12141c;font:400 1rem/1.5 'Schibsted Grotesk',system-ui,sans-serif}.ds-win-bar{display:flex;align-items:center;gap:12px;height:28px;padding:0 8px;border-bottom:2px solid #12141c;background:#fbfbfd repeating-linear-gradient(to bottom,#12141c 0 1px,transparent 1px 3px) 0 6px/100% 15px repeat-x}.ds-win-bar>*{background:#fbfbfd}.ds-win-close{width:14px;height:14px;border:2px solid #12141c}.ds-win-title{font:400 0.75rem/1 Silkscreen,monospace;padding:3px 7px 4px}.ds-win-body{padding:24px}"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square field with a bold label.",
+      "html": "<label class=\"ds-field\"><span>Work email</span><input placeholder=\"you@company.com\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;font:700 1rem/1.4 'Schibsted Grotesk',system-ui,sans-serif;color:#12141c}.ds-field input{border:2px solid #12141c;background:#fbfbfd;padding:10px 12px;font:400 1rem 'Schibsted Grotesk',system-ui,sans-serif}.ds-field input::placeholder{color:#6b7088}.ds-field input:focus-visible{outline:3px solid #12141c;outline-offset:2px;box-shadow:0 0 0 6px #9ef0ff;background:#fff}"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "Outcome and status labels.",
+      "html": "<span class=\"ds-chip\">REGISTERED, RESULT PENDING</span>",
+      "css": ".ds-chip{display:inline-block;border:2px solid #12141c;background:rgba(158,240,255,0.6);padding:3px 6px 4px;font:400 0.625rem/1.15 Silkscreen,monospace;color:#12141c}"
+    },
+    {
+      "name": "State Meter",
+      "kind": "custom",
+      "description": "R, F or M as ten stepped cells.",
+      "html": "<div class=\"ds-meter\"><span class=\"ds-meter-l\">FRUSTRATION R</span><span class=\"ds-meter-bar\"><i></i><i></i><i></i><i></i><i class=\"off\"></i><i class=\"off\"></i><i class=\"off\"></i><i class=\"off\"></i><i class=\"off\"></i><i class=\"off\"></i></span><span class=\"ds-meter-v\">0.42</span></div>",
+      "css": ".ds-meter{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;color:#12141c}.ds-meter-l{font:400 0.6875rem/1 Silkscreen,monospace}.ds-meter-bar{display:flex;gap:1px;height:10px;border:2px solid #12141c;padding:1px;background:#fbfbfd}.ds-meter-bar i{flex:1;background:#f0604d}.ds-meter-bar i.off{background:transparent}.ds-meter-v{font:400 0.75rem 'Martian Mono',monospace}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Sticky bar with the lowercase wordmark and the small CTA.",
+      "html": "<nav class=\"ds-nav\"><b>onpuck</b><a href=\"#\">Model</a><a href=\"#\">Evidence</a><a href=\"#\">Research</a><button class=\"ds-nav-cta\">Apply to be a design partner</button></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:8px;height:64px;padding:0 24px;background:#f2f4f7;border-bottom:2px solid #12141c;font:600 0.9375rem 'Schibsted Grotesk',system-ui,sans-serif}.ds-nav b{font-weight:800;font-size:1.35rem;letter-spacing:-0.03em;margin-right:auto}.ds-nav a{padding:8px 10px;color:#12141c;text-decoration:none}.ds-nav a:hover{background:#9ef0ff}.ds-nav-cta{margin-left:8px;min-height:40px;padding:7px 14px 8px;border:2px solid #12141c;background:#9ef0ff;font-weight:700;box-shadow:3px 3px 0 #12141c}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Simulation Floor",
+    "overview": "The page reads as a research paper laid on cool paper and opens on the mechanism itself: an isometric pixel-art cutaway where simulated users work on laptops, desktops, tablets, phones and a smart speaker, each carrying frustration, fatigue and motivation and leaving by the hazard rule the paper prints. Interface chrome borrows the grammar of early one-bit desktops: windows with striped title bars, hard-edged buttons with offset shadows, dithered fills.",
+    "keyCharacteristics": [
+      "Cool paper ground, near-black ink, one accent (screen glow cyan).",
+      "Three state colours used only as data: frustration, fatigue, motivation.",
+      "One-bit desktop windows for figures and the form; pixel buttons with hard offset shadows.",
+      "Pixel art at whole-device-pixel scale, image-rendering: pixelated, authored as code.",
+      "Text always in the DOM, never inside the canvas."
+    ],
+    "rules": [
+      {
+        "name": "The One Glow Rule",
+        "body": "Screen glow is the only accent. Links are ink with an underline; a second accent (a link blue) is a defect.",
+        "section": "colors"
+      },
+      {
+        "name": "The Data-Only Triad Rule",
+        "body": "Coral, amber and green mean frustration, fatigue and motivation. They never decorate props, clothes, headings or buttons.",
+        "section": "colors"
+      },
+      {
+        "name": "The Lowercase Brand Rule",
+        "body": "\"onpuck\" is never set in Silkscreen, because the face has no lowercase. Labels that would contain the name are reworded or set in the grotesk.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Is Measurement Rule",
+        "body": "Martian Mono appears only where a value is measured, computed or typed. Never as a \"technical\" costume for prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Press-In Rule",
+        "body": "Offset shadows are mechanical: hover lifts by 1 px, press translates into the shadow and removes it. They never soften, blur or tint.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep every word in the DOM; the canvas holds pixels and icons only.",
+      "**Do** scale pixel art by whole device pixels and keep `image-rendering: pixelated` on the poster and canvas.",
+      "**Do** draw new icons as pixel grids (`components/ui/PixelIcon`), one path per colour.",
+      "**Do** label anything illustrative as synthetic or an illustration, in the caption.",
+      "**Do** put the claim in the lede and the evidence (a citation or an experiment link) in the same block."
+    ],
+    "donts": [
+      "**Don't** add a second accent colour, gradients, glass, blur or soft shadows.",
+      "**Don't** use coral, amber or green for anything that is not a state value.",
+      "**Don't** set \"onpuck\" in Silkscreen or capitalise it.",
+      "**Don't** place a kicker or eyebrow above a heading; bylines and versions go after the headline.",
+      "**Don't** use text characters (+, −, #, arrows) as icons.",
+      "**Don't** round corners."
+    ]
+  }
+}
