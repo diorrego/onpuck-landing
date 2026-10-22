@@ -3,6 +3,8 @@
 import * as z from 'zod';
 import { useState, ChangeEvent } from 'react';
 
+import { joinWaitlist } from './actions';
+
 export default function Home() {
   const emailSchema = z.email({
     error: 'Please enter a valid email address.',
@@ -27,29 +29,9 @@ export default function Home() {
 
     setSubmitStatus('idle');
 
-    try {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL!,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            content: `New waitlist signup: ${email}`,
-          }),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`Webhook failed: ${response.status}`);
-      } else {
-        setSubmitStatus('success');
-        setEmail('');
-      }
-    } catch {
-      setSubmitStatus('error');
-    }
+    const result = await joinWaitlist(email);
+    setSubmitStatus(result.status);
+    if (result.status === 'success') setEmail('');
   };
 
   return (
