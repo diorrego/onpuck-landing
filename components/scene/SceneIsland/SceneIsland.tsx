@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import SceneStatus, { type SceneStatusLabels } from '@/components/scene/SceneStatus';
 import StateCard from '@/components/scene/StateCard';
 import PixelButton from '@/components/ui/PixelButton';
 import callouts from '@/lib/scene/poster-callouts.json';
@@ -20,6 +21,8 @@ type Props = {
   onTally?: (tally: Tally) => void;
   /** Max share of the viewport height the scene may take. */
   maxVh?: number;
+  /** Labels for the live status bar (hero only). */
+  statusLabels?: SceneStatusLabels;
 };
 
 type Phase = 'poster' | 'running' | 'failed';
@@ -59,7 +62,7 @@ function scaleFor(width: number, maxVh: number): number {
   return Math.max(1, n) / dpr;
 }
 
-export default function SceneIsland({ mode, label, priority = false, arm, onTally, maxVh = 0.64 }: Props) {
+export default function SceneIsland({ mode, label, priority = false, arm, onTally, maxVh = 0.64, statusLabels }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -68,6 +71,7 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
   const [phase, setPhase] = useState<Phase>('poster');
   const [scale, setScale] = useState<number | null>(null);
   const [card, setCard] = useState<AgentCard | null>(null);
+  const [stats, setStats] = useState<{ onFloor: number; frustrated: number; done: number; left: number } | null>(null);
   const lastCard = useRef(0);
   const onTallyRef = useRef(onTally);
   useEffect(() => {
@@ -83,10 +87,14 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
     if (!el) return;
     const update = () => setScale(scaleFor(el.clientWidth, maxVh));
     update();
-    if (typeof ResizeObserver === 'undefined') return;
+    window.addEventListener('resize', update);
+    if (typeof ResizeObserver === 'undefined') return () => window.removeEventListener('resize', update);
     const ro = new ResizeObserver(update);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', update);
+    };
   }, [maxVh]);
 
   const onSelected = useCallback((next: AgentCard | null, x: number, y: number) => {
@@ -145,6 +153,7 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
           arm,
           onTally: (t) => onTallyRef.current?.(t),
           onSelected,
+          onStats: statusLabels ? setStats : undefined,
         });
         if (cancelled) return engine.current.destroy();
         setPhase('running');
@@ -270,7 +279,7 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
 
       {phase === 'running' && (
         <div
-          className="absolute bottom-3 -translate-x-full max-md:hidden"
+          className="absolute bottom-3 -translate-x-full whitespace-nowrap max-md:hidden"
           style={{ left: scale ? `calc(50% + ${(W * scale) / 2}px - 12px)` : 'calc(100% - 12px)' }}
           onPointerUp={(e) => e.stopPropagation()}
         >
@@ -285,6 +294,10 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
             Inspect a person
           </PixelButton>
         </div>
+      )}
+      {statusLabels && (
+        // space reserved from the first paint so the bar never shifts the caption
+        <div className="h-[4.25rem] sm:h-10">{phase === 'running' && stats && <SceneStatus labels={statusLabels} stats={stats} />}</div>
       )}
       <span className="sr-only">{label}</span>
       <span className="sr-only" role="status" aria-live="polite">

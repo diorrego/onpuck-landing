@@ -90,6 +90,16 @@ describe('Simulation (life)', () => {
     }
   });
 
+  it('counts the floor for the status bar', () => {
+    const sim = new Simulation({ population: 24, seed: 11 });
+    run(sim, 240);
+    const snap = sim.snapshot();
+    expect(snap.onFloor).toBe(24);
+    expect(snap.done).toBe(sim.stats.done);
+    expect(snap.left).toBe(sim.stats.quit);
+    expect(snap.frustrated).toBeGreaterThanOrEqual(0);
+  });
+
   it('describes a person for the state card', () => {
     const sim = new Simulation({ population: 12, seed: 2 });
     run(sim, 5);

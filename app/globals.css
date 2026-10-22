@@ -223,7 +223,7 @@
   }
 
   .link {
-    color: var(--color-link);
+    color: var(--color-ink);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;

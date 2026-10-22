@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Inline from '@/components/ui/Inline';
+import PixelIcon from '@/components/ui/PixelIcon';
 
 type Props = { id: string; number?: string; title: string; lede?: string; children: ReactNode; ledeLarge?: boolean };
 
@@ -15,8 +16,8 @@ export default function PaperSection({ id, number, title, lede, children, ledeLa
             </span>
           )}
           {title}
-          <span aria-hidden="true" className="ml-2 font-pixel text-base text-ink-faint opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100">
-            #
+          <span aria-hidden="true" className="ml-3 inline-block align-middle text-ink-faint opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100">
+            <PixelIcon name="link" size={3} color="currentColor" />
           </span>
         </a>
       </h2>

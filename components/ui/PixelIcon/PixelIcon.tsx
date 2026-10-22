@@ -1,7 +1,15 @@
 import { PALETTE } from '@/lib/scene/palette';
 import { ICON_COLORS, ICON_GRIDS, type IconName } from '@/lib/scene/sprites';
 
-type Props = { name: IconName; size?: number; className?: string };
+// Interface glyphs in the same pixel grammar (never text characters standing in for icons).
+const UI_GRIDS = {
+  plus: ['..kk..', '..kk..', 'kkkkkk', 'kkkkkk', '..kk..', '..kk..'],
+  minus: ['......', '......', 'kkkkkk', 'kkkkkk', '......', '......'],
+  link: ['...kkk.', '..k...k', '.k...k.', 'k.k.k..', '.k...k.', 'k...k..', '.kkk...'],
+} as const;
+export type UiIconName = keyof typeof UI_GRIDS;
+
+type Props = { name: IconName | UiIconName; size?: number; className?: string; color?: string };
 
 /** One path per colour: each horizontal run of pixels becomes a rectangle command. */
 function paths(grid: readonly string[]): Record<string, string> {
@@ -20,8 +28,8 @@ function paths(grid: readonly string[]): Record<string, string> {
 }
 
 /** A scene bubble icon as crisp SVG, drawn from the same grid as the canvas sprite. */
-export default function PixelIcon({ name, size = 2, className }: Props) {
-  const grid = ICON_GRIDS[name];
+export default function PixelIcon({ name, size = 2, className, color }: Props) {
+  const grid: readonly string[] = name in UI_GRIDS ? UI_GRIDS[name as UiIconName] : ICON_GRIDS[name as IconName];
   const w = grid[0].length;
   const h = grid.length;
   return (
@@ -34,7 +42,7 @@ export default function PixelIcon({ name, size = 2, className }: Props) {
       className={className}
     >
       {Object.entries(paths(grid)).map(([ch, d]) => (
-        <path key={ch} d={d} fill={PALETTE[ICON_COLORS[ch]]!} />
+        <path key={ch} d={d} fill={color && ch === 'k' ? color : PALETTE[ICON_COLORS[ch]]!} />
       ))}
     </svg>
   );

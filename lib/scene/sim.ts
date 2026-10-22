@@ -46,7 +46,7 @@ export type Agent = StateVector & {
 
 export type SimConfig = { population: number; seed: number; mode?: 'life' | 'ab'; arm?: Arm; h0?: number };
 
-export const H0 = -4.5;
+export const H0 = -4; // illustration: about 3 to 7 people give up per minute out of 24
 const WALK_SPEED = 1.7; // tiles per second
 const FADE = 0.5;
 
@@ -359,6 +359,17 @@ export class Simulation {
       this.bubble(a, submits ? 'check' : 'leave', 1.6);
       a.leaveAt = this.time + 1.7;
     }
+  }
+
+  /** Live counts for the status bar under the scene. */
+  snapshot() {
+    const live = this.agents.filter((a) => a.state !== 'gone');
+    return {
+      onFloor: live.length,
+      frustrated: live.filter((a) => a.R > 0.35).length,
+      done: this.stats.done,
+      left: this.stats.quit,
+    };
   }
 
   inspect(id: number): AgentCard | null {

@@ -13,6 +13,7 @@ export type EngineOptions = {
   arm?: Arm;
   onTally?: (tally: Simulation['tally']) => void;
   onSelected?: (card: AgentCard | null, x: number, y: number) => void;
+  onStats?: (stats: ReturnType<Simulation['snapshot']>) => void;
 };
 
 const STEP = 1 / 30;
@@ -127,6 +128,7 @@ export class SceneEngine {
     this.stop();
     this.opts.onSelected = undefined;
     this.opts.onTally = undefined;
+    this.opts.onStats = undefined;
   }
 
   setArm(arm: Arm) {
@@ -168,9 +170,10 @@ export class SceneEngine {
     compose(this.target, this.assets.base, CANVAS_W, CANVAS_H, this.assets.sprites, this.sim.drawables(this.sim.time, this.selected));
     this.ctx.putImageData(this.image, 0, 0);
     if (this.selected !== null) this.emitSelection();
-    if (this.opts.onTally && this.sim.time - this.tallyAt > 0.5) {
+    if (this.sim.time - this.tallyAt > 0.5) {
       this.tallyAt = this.sim.time;
-      this.opts.onTally({ ...this.sim.tally });
+      this.opts.onTally?.({ ...this.sim.tally });
+      this.opts.onStats?.(this.sim.snapshot());
     }
   }
 }

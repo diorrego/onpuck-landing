@@ -448,6 +448,7 @@ export const paper = {
     sceneCaption:
       'People at laptops, desktops, tablets, phones and smart speakers. Each one carries frustration, fatigue and motivation, and leaves when the hazard rule in section 3 fires. Drawn, not recorded.',
     sceneHint: 'Hover or tap a person to see their state.',
+    status: { onFloor: 'on the floor', frustrated: 'frustrated now', done: 'tasks done', left: 'gave up and left' },
     legend: [
       { icon: 'alert', label: 'Friction' },
       { icon: 'tired', label: 'Tired' },
@@ -603,6 +604,7 @@ export function allCopy(): string[] {
     paper.hero.sceneLabel,
     paper.hero.sceneCaption,
     paper.hero.sceneHint,
+    ...Object.values(paper.hero.status),
     ...paper.hero.legend.map((l) => l.label),
     PURPOSE_LINE,
     ...figures.flatMap((f) => [f.title, f.caption]),

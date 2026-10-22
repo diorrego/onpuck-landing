@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import SceneIsland from '.';
 
@@ -32,5 +32,21 @@ describe('SceneIsland', () => {
     const { container } = render(<SceneIsland mode="ab" label="x" arm="control" />);
     expect(container.querySelector('img')).toHaveAttribute('src', '/scene/poster-ab.png');
     expect(container.querySelector('img')).toHaveAttribute('loading', 'lazy');
+  });
+
+  it('rescales by whole pixels when only the window height changes', () => {
+    mockMotion(false);
+    Object.defineProperty(HTMLElement.prototype, 'clientWidth', { configurable: true, get: () => 1440 });
+    vi.stubGlobal('devicePixelRatio', 1);
+    vi.stubGlobal('innerHeight', 600);
+    const { container } = render(<SceneIsland mode="life" label="x" />);
+    const box = () => (container.querySelector('[data-scene] > div') as HTMLElement).style.width;
+    expect(box()).toBe('432px');
+    act(() => {
+      vi.stubGlobal('innerHeight', 900);
+      window.dispatchEvent(new Event('resize'));
+    });
+    expect(box()).toBe('864px');
+    delete (HTMLElement.prototype as { clientWidth?: number }).clientWidth;
   });
 });

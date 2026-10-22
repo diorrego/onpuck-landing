@@ -23,7 +23,7 @@ export default function Hero() {
         </div>
       </div>
       <div className="relative">
-        <SceneIsland mode="life" priority label={h.sceneLabel} />
+        <SceneIsland mode="life" priority label={h.sceneLabel} statusLabels={h.status} />
         <div className="mx-auto flex max-w-[80rem] flex-col gap-3 px-4 pt-3 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:px-8">
           <p className="max-w-[70ch] text-[0.9375rem] leading-relaxed text-ink-soft">
             <span className="font-bold text-ink">{h.sceneLabel}.</span> {h.sceneCaption}{' '}
