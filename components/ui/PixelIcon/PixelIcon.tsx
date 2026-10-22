@@ -3,6 +3,22 @@ import { ICON_COLORS, ICON_GRIDS, type IconName } from '@/lib/scene/sprites';
 
 type Props = { name: IconName; size?: number; className?: string };
 
+/** One path per colour: each horizontal run of pixels becomes a rectangle command. */
+function paths(grid: readonly string[]): Record<string, string> {
+  const out: Record<string, string> = {};
+  grid.forEach((row, y) => {
+    let x = 0;
+    while (x < row.length) {
+      const ch = row[x];
+      let end = x + 1;
+      while (end < row.length && row[end] === ch) end++;
+      if (ICON_COLORS[ch]) out[ch] = `${out[ch] ?? ''}M${x} ${y}h${end - x}v1h-${end - x}z`;
+      x = end;
+    }
+  });
+  return out;
+}
+
 /** A scene bubble icon as crisp SVG, drawn from the same grid as the canvas sprite. */
 export default function PixelIcon({ name, size = 2, className }: Props) {
   const grid = ICON_GRIDS[name];
@@ -17,11 +33,9 @@ export default function PixelIcon({ name, size = 2, className }: Props) {
       aria-hidden="true"
       className={className}
     >
-      {grid.flatMap((row, y) =>
-        [...row].map((ch, x) =>
-          ICON_COLORS[ch] ? <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill={PALETTE[ICON_COLORS[ch]]!} /> : null,
-        ),
-      )}
+      {Object.entries(paths(grid)).map(([ch, d]) => (
+        <path key={ch} d={d} fill={PALETTE[ICON_COLORS[ch]]!} />
+      ))}
     </svg>
   );
 }

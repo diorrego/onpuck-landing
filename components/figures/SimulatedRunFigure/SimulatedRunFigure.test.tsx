@@ -1,22 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import SimulatedRunFigure from '.';
 
 describe('SimulatedRunFigure', () => {
-  it('shows the registered prediction for both arms', () => {
-    render(<SimulatedRunFigure />);
-    expect(screen.getAllByText('7%').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('20%').length).toBeGreaterThan(0);
-    expect(screen.getByText(/Result pending/)).toBeInTheDocument();
-  });
-
-  it('switches arms through an accessible radio group', async () => {
-    render(<SimulatedRunFigure />);
-    const group = screen.getAllByRole('radiogroup', { name: 'Arm of the A/B test' })[0];
-    const radios = group.querySelectorAll('[role="radio"]');
-    expect(radios[1]).toHaveAttribute('aria-checked', 'true');
-    await userEvent.click(radios[0] as HTMLElement);
-    expect(radios[0]).toHaveAttribute('aria-checked', 'true');
+  it('is Fig. 3, labelled as an illustration, with the replay scene inside', () => {
+    const { container } = render(<SimulatedRunFigure />);
+    expect(container.querySelector('figure')).toHaveAttribute('id', 'fig-3');
+    expect(container.querySelector('figcaption')).toHaveTextContent(/Illustration of a simulated run/);
+    expect(container.querySelector('[data-scene="ab"]')).not.toBeNull();
   });
 });

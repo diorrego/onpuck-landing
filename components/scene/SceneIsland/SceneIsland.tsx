@@ -131,7 +131,10 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
       idleTimer = setTimeout(pause, IDLE_AFTER);
     };
 
+    let booting = false;
     const boot = async () => {
+      if (booting) return;
+      booting = true;
       try {
         const { SceneEngine } = await import('@/lib/scene/engine');
         if (cancelled) return;
@@ -156,9 +159,11 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
         visible = entry.isIntersecting;
         if (!visible) return pause();
         if (engine.current) return bumpIdle();
+        // after the document has loaded and the main thread is free: the poster already did the job
         const idle = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
-        if (idle) idle(boot, { timeout: 2500 });
-        else setTimeout(boot, 600);
+        const schedule = () => (idle ? idle(boot, { timeout: 4000 }) : setTimeout(boot, 800));
+        if (document.readyState === 'complete') schedule();
+        else window.addEventListener('load', schedule, { once: true });
       },
       { rootMargin: '200px 0px' },
     );

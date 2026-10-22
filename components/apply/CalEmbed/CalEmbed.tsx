@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { apply, CONTACT_EMAIL } from '@/content/paper';
 import { track } from '@/lib/analytics';
 
 type CalFn = ((...args: unknown[]) => void) & { ns?: Record<string, (...args: unknown[]) => void>; loaded?: boolean; q?: unknown[] };
@@ -43,7 +42,9 @@ function ensureCal(w: CalWindow): CalFn {
   return cal;
 }
 
-export default function CalEmbed({ email }: { email: string }) {
+type Props = { email: string; contactEmail: string; fallback: string };
+
+export default function CalEmbed({ email, contactEmail: CONTACT_EMAIL, fallback }: Props) {
   const link = process.env.NEXT_PUBLIC_CALCOM_LINK;
   const mounted = useRef(false);
 
@@ -72,11 +73,11 @@ export default function CalEmbed({ email }: { email: string }) {
   if (!link) {
     return (
       <p className="border-2 border-ink bg-paper-sunk p-4">
-        {apply.calendarFallback.split(CONTACT_EMAIL)[0]}
+        {fallback.split(CONTACT_EMAIL)[0]}
         <a className="link font-bold" href={`mailto:${CONTACT_EMAIL}?subject=Design%20partner%20intro%20call`}>
           {CONTACT_EMAIL}
         </a>
-        {apply.calendarFallback.split(CONTACT_EMAIL)[1]}
+        {fallback.split(CONTACT_EMAIL)[1]}
       </p>
     );
   }

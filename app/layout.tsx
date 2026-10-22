@@ -7,8 +7,9 @@ import { paper, SITE_URL } from '@/content/paper';
 import './globals.css';
 
 const schibsted = Schibsted_Grotesk({ variable: '--font-schibsted', subsets: ['latin'], display: 'swap' });
-const silkscreen = Silkscreen({ variable: '--font-silkscreen', subsets: ['latin'], weight: '400', display: 'swap' });
-const martian = Martian_Mono({ variable: '--font-martian', subsets: ['latin'], display: 'swap', adjustFontFallback: false });
+// only the grotesk is above the fold; the label and number faces load without a preload
+const silkscreen = Silkscreen({ variable: '--font-silkscreen', subsets: ['latin'], weight: '400', display: 'swap', preload: false });
+const martian = Martian_Mono({ variable: '--font-martian', subsets: ['latin'], display: 'swap', adjustFontFallback: false, preload: false });
 
 const TITLE = 'onpuck: test product specs on simulated users first';
 
@@ -47,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${schibsted.variable} ${silkscreen.variable} ${martian.variable} antialiased`}>
       <GoogleTagManager gtmId="GTM-MGCZH8CB" />
-      <Script id="microsoft-clarity" strategy="afterInteractive">
+      <Script id="microsoft-clarity" strategy="lazyOnload">
         {`
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

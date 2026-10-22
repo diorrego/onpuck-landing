@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // one page, mostly first-time visitors, 9 KB of atomic CSS: inline it and drop the blocking request
   // Agents asking for Markdown get the same paper as text (content negotiation).
   async rewrites() {
     return {

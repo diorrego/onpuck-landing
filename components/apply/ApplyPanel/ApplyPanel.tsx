@@ -1,13 +1,13 @@
 import ApplyForm from '@/components/apply/ApplyForm';
 import PixelIcon from '@/components/ui/PixelIcon';
 import PixelWindow from '@/components/ui/PixelWindow';
-import { apply } from '@/content/paper';
+import { apply, CONTACT_EMAIL } from '@/content/paper';
 
 export default function ApplyPanel() {
   return (
     <div className="grid items-start gap-10 lg:-mx-16 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] xl:-mx-24">
       <PixelWindow title="Design partner application" titleId="apply-form-title">
-        <ApplyForm titleId="apply-form-title" />
+        <ApplyForm titleId="apply-form-title" copy={apply} contactEmail={CONTACT_EMAIL} />
       </PixelWindow>
       <aside aria-label="Access and data" className="grid gap-4 lg:pt-2">
         <h3 className="font-pixel text-[0.75rem]">Access and data</h3>

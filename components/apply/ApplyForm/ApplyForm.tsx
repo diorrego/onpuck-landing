@@ -4,9 +4,17 @@ import { useActionState, useEffect, useRef } from 'react';
 import { applyDesignPartner } from '@/app/actions';
 import CalEmbed from '@/components/apply/CalEmbed';
 import PixelButton from '@/components/ui/PixelButton';
-import { apply as copy, CONTACT_EMAIL } from '@/content/paper';
 import { track } from '@/lib/analytics';
 import { ATTRIBUTION_FIELDS, type ApplyState, type Field } from '@/lib/apply';
+
+export type ApplyCopy = {
+  fields: Record<Field, { label: string; placeholder: string }>;
+  submit: string;
+  submitting: string;
+  success: { title: string; body: string };
+  error: string;
+  calendarFallback: string;
+};
 
 const initial: ApplyState = { status: 'idle' };
 
@@ -21,7 +29,9 @@ const FIELD_META: Record<Field, { type?: string; autoComplete?: string; inputMod
   stack: { type: 'text', autoComplete: 'off', agent: 'Main tools: framework, analytics, observability, database, coding agent' },
 };
 
-export default function ApplyForm({ titleId }: { titleId: string }) {
+type Props = { titleId: string; copy: ApplyCopy; contactEmail: string };
+
+export default function ApplyForm({ titleId, copy, contactEmail: CONTACT_EMAIL }: Props) {
   const [state, formAction, pending] = useActionState(applyDesignPartner, initial);
   const started = useRef(false);
   const tracked = useRef(false);
@@ -55,7 +65,7 @@ export default function ApplyForm({ titleId }: { titleId: string }) {
       <div className="grid gap-4 p-5 sm:p-6" tabIndex={-1} ref={(el) => el?.focus()}>
         <p className="text-2xl font-extrabold">{copy.success.title}</p>
         {process.env.NEXT_PUBLIC_CALCOM_LINK && <p className="text-ink-soft">{copy.success.body}</p>}
-        <CalEmbed email={state.email} />
+        <CalEmbed email={state.email} contactEmail={CONTACT_EMAIL} fallback={copy.calendarFallback} />
       </div>
     );
   }

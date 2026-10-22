@@ -5,7 +5,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const action = vi.fn();
 vi.mock('@/app/actions', () => ({ applyDesignPartner: (...a: unknown[]) => action(...a) }));
 
-import ApplyForm from '.';
+import { apply, CONTACT_EMAIL } from '@/content/paper';
+import ApplyFormBase from '.';
+
+const ApplyForm = (p: { titleId: string }) => <ApplyFormBase {...p} copy={apply} contactEmail={CONTACT_EMAIL} />;
 
 const fill = async () => {
   const user = userEvent.setup();

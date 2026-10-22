@@ -59,9 +59,7 @@ export function buildJsonLd() {
           name: r.title,
           author: r.authors,
           datePublished: String(r.year),
-          isPartOf: r.venue,
           url: r.url,
-          ...(r.arxiv ? { identifier: `arXiv:${r.arxiv}` } : r.doi ? { identifier: `doi:${r.doi}` } : {}),
         })),
       },
       {
