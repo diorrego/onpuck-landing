@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
-import Paper from '@/components/paper/Paper';
+import Paper from '.';
 import { paper, CTA_LABEL, CONTACT_EMAIL } from '@/content/paper';
 import { references } from '@/content/references';
 
