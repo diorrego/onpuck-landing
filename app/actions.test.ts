@@ -42,6 +42,7 @@ describe('applyDesignPartner (server action)', () => {
     vi.stubEnv('RESEND_API_KEY', '');
     vi.stubEnv('APPLY_EMAIL_FROM', '');
     vi.stubEnv('APPLY_EMAIL_TO', '');
+    vi.stubEnv('ATTIO_LIST', '');
     vi.spyOn(console, 'error').mockImplementation(() => {});
   });
   afterEach(() => {
@@ -56,16 +57,21 @@ describe('applyDesignPartner (server action)', () => {
   };
   // Attio and Resend answer independently, so a test can fail either one
   const services = ({ attio = 200, resend = 200 }: { attio?: number; resend?: number }) =>
-    fetchMock.mockImplementation(async (url: string) => {
+    fetchMock.mockImplementation(async (url: string, init: RequestInit) => {
       if (url.startsWith('https://api.resend.com')) return new Response('{"id":"e1"}', { status: resend });
+      if (/\/lists\/[^/]+$/.test(url)) return new Response(JSON.stringify({ data: { id: { list_id: 'L1' }, parent_object: ['people'] } }), { status: attio });
+      if (url.includes('/entries') && init.method === 'GET') return new Response('{"data":[]}', { status: attio });
       return new Response(JSON.stringify({ data: { id: { record_id: 'r1' } } }), { status: attio });
     });
   const resendCall = () => fetchMock.mock.calls.find((c) => c[0] === 'https://api.resend.com/emails');
 
   const attioOk = () =>
-    fetchMock.mockImplementation(async (url: string) =>
-      new Response(JSON.stringify({ data: { id: { record_id: url.includes('companies') ? 'c1' : 'p1', note_id: 'n1' } } }), { status: 200 }),
-    );
+    fetchMock.mockImplementation(async (url: string, init: RequestInit) => {
+      if (/\/lists\/[^/]+$/.test(url)) return new Response(JSON.stringify({ data: { id: { list_id: 'L1' }, parent_object: ['people'] } }), { status: 200 });
+      if (url.includes('/entries') && init.method === 'GET') return new Response('{"data":[]}', { status: 200 });
+      return new Response(JSON.stringify({ data: { id: { record_id: url.includes('companies') ? 'c1' : 'p1', note_id: 'n1' } } }), { status: 200 });
+    });
+  const attioCalls = () => fetchMock.mock.calls.filter((c) => String(c[0]).startsWith('https://api.attio.com'));
 
   it('returns field errors and keeps the values', async () => {
     const state = await applyDesignPartner({ status: 'idle' }, form({ ...valid, email: 'nope', change: 'short' }));
@@ -80,8 +86,8 @@ describe('applyDesignPartner (server action)', () => {
     attioOk();
     const state = await applyDesignPartner({ status: 'idle' }, form({ ...valid, utm_source: 'hn' }));
     expect(state).toEqual({ status: 'success', email: 'cto@acme.dev' });
-    expect(fetchMock).toHaveBeenCalledTimes(3);
-    expect(JSON.parse(fetchMock.mock.calls[2][1].body).data.content).toContain('utm_source: hn');
+    const note = attioCalls().find((c) => c[0] === 'https://api.attio.com/v2/notes')!;
+    expect(JSON.parse(note[1].body).data.content).toContain('utm_source: hn');
   });
 
   it('treats a duplicate email as the same success (upsert)', async () => {
@@ -133,7 +139,7 @@ describe('applyDesignPartner (server action)', () => {
     const body = JSON.parse(resendCall()![1].body);
     expect(body.to).toEqual(['paula@onpuck.com']);
     expect(body.reply_to).toBe('cto@acme.dev');
-    expect(fetchMock.mock.calls.filter((c) => String(c[0]).startsWith('https://api.attio.com'))).toHaveLength(3);
+    expect(attioCalls().some((c) => c[0] === 'https://api.attio.com/v2/notes')).toBe(true);
   });
 
   it('sends to APPLY_EMAIL_TO when set', async () => {
@@ -182,5 +188,17 @@ describe('applyDesignPartner (server action)', () => {
     const state = await applyDesignPartner({ status: 'idle' }, form(valid));
     expect(state.status).toBe('error');
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('puts every application in the Design Partners list at Applied (ATTIO_LIST overrides the slug)', async () => {
+    attioOk();
+    await applyDesignPartner({ status: 'idle' }, form(valid));
+    const entry = attioCalls().find((c) => c[0] === 'https://api.attio.com/v2/lists/design_partners/entries' && c[1].method === 'POST');
+    expect(JSON.parse(entry![1].body).data.entry_values).toEqual({ stage: 'Applied' });
+
+    fetchMock.mockClear();
+    vi.stubEnv('ATTIO_LIST', 'partners_pipeline');
+    await applyDesignPartner({ status: 'idle' }, form(valid));
+    expect(attioCalls().some((c) => c[0] === 'https://api.attio.com/v2/lists/partners_pipeline/entries')).toBe(true);
   });
 });

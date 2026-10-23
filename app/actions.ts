@@ -60,7 +60,7 @@ export async function applyDesignPartner(_prev: ApplyState, formData: FormData):
     agentInvoked: formData.get('agent_invoked') === '1',
   };
   const writes = [
-    ...(attioKey ? [upsertApplication(attioKey, app)] : []),
+    ...(attioKey ? [upsertApplication(attioKey, app, { list: process.env.ATTIO_LIST || 'design_partners', stage: 'Applied' })] : []),
     ...(canMail ? [sendApplicationEmail(mailKey!, { from: mailFrom!, to: process.env.APPLY_EMAIL_TO || CONTACT_EMAIL }, app)] : []),
   ];
   const results = await Promise.allSettled(writes);
