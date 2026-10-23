@@ -7,8 +7,8 @@ export default function SiteFooter() {
       <div className="mx-auto grid max-w-[80rem] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
         <div className="grid content-start gap-4">
           <span className="flex items-center gap-2">
-            <Logo size={30} decorative />
-            <span className="text-xl font-bold tracking-[-0.02em]">OnPuck</span>
+            <Logo size={56} decorative />
+            <span className="text-[2rem] leading-none font-bold">OnPuck</span>
           </span>
           <p className="max-w-[34ch] text-lg leading-snug text-white/85">{PURPOSE_LINE}</p>
         </div>
@@ -18,7 +18,17 @@ export default function SiteFooter() {
             {founders.map((f) => (
               <li key={f.name}>
                 <span className="font-semibold">{f.name}</span>
-                <span className="block text-sm text-white/70">{f.line}</span>
+                <span className="block text-sm text-white/70">
+                  {f.role}. {f.line}
+                </span>
+                <a
+                  href={f.linkedin}
+                  className="mt-1 inline-block text-sm underline decoration-white/30 underline-offset-4 hover:decoration-white"
+                  rel="noopener"
+                  aria-label={`${f.name} on LinkedIn`}
+                >
+                  LinkedIn
+                </a>
               </li>
             ))}
           </ul>
@@ -30,7 +40,7 @@ export default function SiteFooter() {
           </a>
           <p className="text-sm text-white/70">
             Lab:{' '}
-            <a href="https://woku.app" className="underline decoration-white/30 underline-offset-4 hover:decoration-white" rel="noopener">
+            <a href="https://woku.app/en" className="underline decoration-white/30 underline-offset-4 hover:decoration-white" rel="noopener">
               woku
             </a>
             , our product in production, where every experiment on this page ran.

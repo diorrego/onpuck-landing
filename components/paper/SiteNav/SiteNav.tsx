@@ -10,10 +10,10 @@ export default function SiteNav() {
       <a href="#main" className="sr-only-focusable absolute top-2 left-2 z-50 rounded-md bg-primary px-3 py-2 font-semibold text-white">
         Skip to the paper
       </a>
-      <div className="mx-auto flex h-16 max-w-[80rem] items-center gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-[4.5rem] max-w-[80rem] items-center gap-6 px-4 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center gap-2 text-ink no-underline" aria-label="OnPuck, back to top">
-          <Logo size={28} decorative />
-          <span className="text-xl leading-none font-bold tracking-[-0.02em]">OnPuck</span>
+          <Logo size={42} decorative />
+          <span className="text-[1.6rem] leading-none font-bold">OnPuck</span>
         </a>
         <nav aria-label="Primary" className="ml-auto hidden md:block">
           <ul className="flex items-center gap-1 text-[0.9375rem]">

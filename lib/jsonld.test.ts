@@ -19,6 +19,12 @@ describe('JSON-LD graph', () => {
     expect(org.logo).toMatch(/^https:\/\/www\.onpuck\.com\//);
   });
 
+  it('names both founders as authors, with their LinkedIn profiles', () => {
+    const article = byType('TechArticle');
+    expect(article.author.map((a: { name: string }) => a.name)).toEqual(['Paula Riquelme', 'Diego Orrego']);
+    expect(article.author[1].sameAs).toEqual(['https://www.linkedin.com/in/diorrego']);
+  });
+
   it('cites every reference from the article', () => {
     const article = byType('TechArticle');
     expect(article.citation).toHaveLength(references.length);

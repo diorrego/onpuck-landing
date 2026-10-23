@@ -279,12 +279,10 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
         {card && <StateCard card={card} />}
       </div>
 
-      {phase === 'running' && (
-        <div
-          className="absolute bottom-3 -translate-x-full whitespace-nowrap max-md:hidden"
-          style={{ left: scale ? `calc(50% + ${(W * scale) / 2}px - 12px)` : 'calc(100% - 12px)' }}
-          onPointerUp={(e) => e.stopPropagation()}
-        >
+      {/* below the floor, centred: the keyboard path to a person's state, then the live counts.
+          Both rows keep their height from the first paint, so nothing shifts when the engine starts. */}
+      <div className="mt-3 flex justify-center" onPointerUp={(e) => e.stopPropagation()}>
+        <div className={phase === 'running' ? '' : 'invisible'} aria-hidden={phase === 'running' ? undefined : true}>
           <Button
             size="sm"
             variant="secondary"
@@ -296,9 +294,8 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
             Inspect a person
           </Button>
         </div>
-      )}
+      </div>
       {statusLabels && (
-        // space reserved from the first paint so the bar never shifts the caption
         <div className="h-[4.25rem] sm:h-10">{phase === 'running' && stats && <SceneStatus labels={statusLabels} stats={stats} />}</div>
       )}
       <span className="sr-only">{label}</span>

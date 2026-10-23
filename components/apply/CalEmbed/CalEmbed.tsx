@@ -1,85 +1,39 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { lazy, Suspense } from 'react';
 import { track } from '@/lib/analytics';
 
-type CalFn = ((...args: unknown[]) => void) & { ns?: Record<string, (...args: unknown[]) => void>; loaded?: boolean; q?: unknown[] };
-type CalWindow = Window & { Cal?: CalFn };
+const CalBooker = lazy(() => import('@/components/apply/CalBooker'));
 
-const NS = 'intro';
-const ORIGIN = 'https://app.cal.com';
-
-// Cal.com's documented embed bootstrap, typed.
-function ensureCal(w: CalWindow): CalFn {
-  if (w.Cal) return w.Cal;
-  const push = (fn: CalFn, args: unknown) => (fn.q = fn.q ?? []).push(args);
-  const cal: CalFn = Object.assign(
-    function (...args: unknown[]) {
-      if (!cal.loaded) {
-        cal.ns = {};
-        cal.q = cal.q ?? [];
-        const s = document.createElement('script');
-        s.src = `${ORIGIN}/embed/embed.js`;
-        s.async = true;
-        document.head.appendChild(s);
-        cal.loaded = true;
-      }
-      if (args[0] === 'init') {
-        const api: CalFn = Object.assign((...a: unknown[]) => push(api, a), { q: [] as unknown[] });
-        const namespace = args[1];
-        if (typeof namespace === 'string') {
-          cal.ns![namespace] = cal.ns![namespace] ?? api;
-          push(cal.ns![namespace] as CalFn, args);
-          push(cal, ['initNamespace', namespace]);
-        } else push(cal, args);
-        return;
-      }
-      push(cal, args);
-    },
-    { q: [] as unknown[] },
-  );
-  w.Cal = cal;
-  return cal;
+/** "user/event", "/user/event/" or "https://cal.com/user/event" to the booker's two ids. */
+export function parseCalLink(link: string): { username: string; eventSlug: string } | null {
+  const path = link.trim().replace(/^https?:\/\/[^/]+/i, '');
+  const [username, eventSlug] = path.split('/').filter(Boolean);
+  return username && eventSlug ? { username, eventSlug } : null;
 }
 
 type Props = { email: string; contactEmail: string; fallback: string };
 
-export default function CalEmbed({ email, contactEmail: CONTACT_EMAIL, fallback }: Props) {
-  const link = process.env.NEXT_PUBLIC_CALCOM_LINK;
-  const mounted = useRef(false);
+/** The calendar step after a successful application: Cal.com's booker, or an email fallback. */
+export default function CalEmbed({ email, contactEmail, fallback }: Props) {
+  const cal = parseCalLink(process.env.NEXT_PUBLIC_CALCOM_LINK ?? '');
 
-  useEffect(() => {
-    if (!link || mounted.current) return;
-    mounted.current = true;
-    const w = window as CalWindow;
-    const cal = ensureCal(w);
-    if (!cal.ns?.[NS]) cal('init', NS, { origin: ORIGIN });
-    const api = cal.ns![NS];
-    api('inline', {
-      elementOrSelector: '#cal-inline',
-      calLink: link,
-      layout: 'month_view',
-      config: { email, layout: 'month_view', theme: 'light' },
-    });
-    api('ui', {
-      theme: 'light',
-      hideEventTypeDetails: false,
-      layout: 'month_view',
-      cssVarsPerTheme: { light: { 'cal-brand': '#12141c', 'cal-bg': '#fbfbfd', 'cal-text': '#12141c' } },
-    });
-    api('on', { action: 'bookingSuccessful', callback: () => track('calendar_booked') });
-  }, [link, email]);
-
-  if (!link) {
+  if (!cal) {
     return (
       <p className="rounded-xl border border-line bg-paper-sunk p-4">
-        {fallback.split(CONTACT_EMAIL)[0]}
-        <a className="link font-bold" href={`mailto:${CONTACT_EMAIL}?subject=Design%20partner%20intro%20call`}>
-          {CONTACT_EMAIL}
+        {fallback.split(contactEmail)[0]}
+        <a className="link" href={`mailto:${contactEmail}?subject=Design%20partner%20intro%20call`}>
+          {contactEmail}
         </a>
-        {fallback.split(CONTACT_EMAIL)[1]}
+        {fallback.split(contactEmail)[1]}
       </p>
     );
   }
-  return <div id="cal-inline" className="min-h-[38rem] w-full overflow-auto rounded-xl border border-line bg-paper-raised" />;
+  return (
+    <div className="min-h-[34rem] w-full">
+      <Suspense fallback={<p className="text-sm text-ink-soft">Loading the calendar…</p>}>
+        <CalBooker username={cal.username} eventSlug={cal.eventSlug} email={email} onBooked={() => track('calendar_booked')} />
+      </Suspense>
+    </div>
+  );
 }

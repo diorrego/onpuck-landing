@@ -22,6 +22,17 @@ describe('SceneIsland', () => {
     expect(container.querySelector('canvas')).toHaveClass('opacity-0');
   });
 
+  it('places the inspect button under the floor and above the counts, reserving its space before the engine runs', () => {
+    mockMotion(false);
+    const { container } = render(<SceneIsland mode="life" label="x" statusLabels={{ onFloor: 'a', frustrated: 'b', done: 'c', left: 'd' }} />);
+    const scene = container.querySelector('[data-scene] > div[aria-hidden="true"]')!;
+    const button = container.querySelector('button')!;
+    expect(button).toHaveTextContent('Inspect a person');
+    expect(button.closest('.invisible')).not.toBeNull();
+    expect(scene.compareDocumentPosition(button) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(button.closest('.justify-center')).not.toBeNull();
+  });
+
   it('keeps the poster with labelled callouts under reduced motion', () => {
     mockMotion(true);
     const { container } = render(<SceneIsland mode="life" label="x" />);

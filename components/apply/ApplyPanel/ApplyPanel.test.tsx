@@ -11,3 +11,10 @@ describe('ApplyPanel', () => {
     expect(screen.getByRole('complementary', { name: 'Access and data' })).toHaveTextContent('Nothing we run writes to your systems');
   });
 });
+
+describe('ApplyPanel links', () => {
+  it('sends "questions" to the FAQ section heading, not to the first question', () => {
+    render(<ApplyPanel />);
+    expect(screen.getByRole('link', { name: 'questions' })).toHaveAttribute('href', '#faq');
+  });
+});

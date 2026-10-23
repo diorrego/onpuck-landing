@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: TITLE, description: paper.description },
   robots: { index: true, follow: true, googleBot: { 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 } },
-  authors: [{ name: 'D. Orrego' }, { name: 'P. Riquelme' }],
+  authors: [{ name: 'Paula Riquelme' }, { name: 'Diego Orrego' }],
   creator: 'OnPuck',
 };
 
@@ -33,7 +33,7 @@ const CONTRACT = `<!--
 THESIS: A light paper set like a LaTeX article that opens on the mechanism: a running pixel-art floor where every person carries R, F and M and quits by the paper's own hazard rule.
 OWN-WORLD: White page, Computer Modern (CMU Serif) with regular-weight titles and justified prose; conventional controls like woku and simile: rounded blue-700 buttons, white cards with soft borders and shadows, pills. Pixel art lives only in the scene; coral, amber and green are data.
 STORY: A skeptical CTO reads the title page, watches the mechanism, skims concise sections, opens references if wanted, applies.
-FIRST VIEWPORT: Sticky nav; copy, actions and authors (D. Orrego and P. Riquelme) left; the isometric floor right, bleeding to the edge at a whole-pixel scale.
+FIRST VIEWPORT: Sticky nav; centred title, line, actions and authors (P. Riquelme and D. Orrego), then the isometric floor below inside the container margins.
 FORM: Founder-pinned simulation floor, restyled by founder review; seed 29dd731c.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`;

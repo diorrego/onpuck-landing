@@ -51,7 +51,7 @@ describe('paper copy', () => {
   });
 
   it('credits the authors the way papers do', () => {
-    expect(paper.hero.authors).toBe('D. Orrego and P. Riquelme');
+    expect(paper.hero.authors).toBe('P. Riquelme and D. Orrego');
   });
 
   it('publishes the contact email', () => {

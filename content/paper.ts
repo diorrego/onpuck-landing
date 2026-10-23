@@ -206,7 +206,7 @@ const faq: Faq[] = [
   },
   {
     q: 'Who runs it?',
-    a: [`The founders, D. Orrego and P. Riquelme, who also run woku, our lab in production. Write to ${CONTACT_EMAIL}.`],
+    a: [`The founders, P. Riquelme and D. Orrego: two engineers who research and build the models behind OnPuck, and run woku, our lab. Write to ${CONTACT_EMAIL}.`],
   },
 ];
 
@@ -294,8 +294,8 @@ export const simulatedRun = {
 };
 
 export const founders = [
-  { name: 'Diego Orrego', short: 'D. Orrego', role: 'Co-founder', line: 'Builds the simulator and runs the experiments.' },
-  { name: 'Paula Riquelme', short: 'P. Riquelme', role: 'Co-founder', line: 'Runs the design partner program.' },
+  { name: 'Paula Riquelme', short: 'P. Riquelme', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/pauriquelme/' },
+  { name: 'Diego Orrego', short: 'D. Orrego', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/diorrego' },
 ];
 
 export const paper = {
@@ -305,7 +305,7 @@ export const paper = {
     'OnPuck checks your users’ stories against your repo, analytics and logs, turns them into specs for your coding agent, and tests each spec on simulated users.',
   version: VERSION,
   hero: {
-    authors: 'D. Orrego and P. Riquelme',
+    authors: 'P. Riquelme and D. Orrego',
     headline: 'Know what your users will do before your agent builds it.',
     subline:
       'OnPuck turns user interviews into specs your coding agent can ship, checked against your real data and tested on simulated users first.',

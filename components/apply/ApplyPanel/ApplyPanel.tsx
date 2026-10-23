@@ -20,7 +20,7 @@ export default function ApplyPanel() {
           ))}
         </ul>
         <p className="text-sm text-ink-soft">
-          More in the <a href="#faq-1" className="link">questions</a> below.
+          More in the <a href="#faq" className="link">questions</a> below.
         </p>
       </aside>
     </div>

@@ -8,7 +8,7 @@ describe('Hero', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Know what your users will do before your agent builds it.');
     expect(screen.getByRole('link', { name: 'Apply to be a design partner' })).toHaveAttribute('href', '#apply');
     expect(screen.getByRole('link', { name: 'Read the light paper' })).toHaveAttribute('href', '#abstract');
-    expect(screen.getByText('D. Orrego and P. Riquelme')).toBeInTheDocument();
+    expect(screen.getByText('P. Riquelme and D. Orrego')).toBeInTheDocument();
   });
 
   it('centres the title page and puts the scene below the copy, with no tag above the title', () => {

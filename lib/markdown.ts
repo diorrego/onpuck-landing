@@ -122,7 +122,7 @@ export function paperMarkdown(): string {
     '## References',
     references.map((r) => `[${r.id}] ${r.authors}. "${r.title}." ${r.venue}, ${r.year}. ${r.url}`).join('\n\n'),
     '## About',
-    `${PURPOSE_LINE} Founders: ${founders.map((f) => `${f.name} (${f.role.toLowerCase()})`).join(', ')}. Lab: woku (https://woku.app). Contact: ${CONTACT_EMAIL}.`,
+    `${PURPOSE_LINE} Founders: ${founders.map((f) => `${f.name} (${f.role.toLowerCase()})`).join(', ')}. Lab: woku (https://woku.app/en). Contact: ${CONTACT_EMAIL}.`,
   );
   return out.join('\n\n') + '\n';
 }
