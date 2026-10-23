@@ -241,7 +241,7 @@ export const program = {
 
 export const apply = {
   title: 'Apply',
-  lede: 'Five fields. Then pick a 30-minute call with the founders.',
+  lede: 'Apply in five fields, or just book a 30-minute call with the founders.',
   fields: {
     email: { label: 'Work email', placeholder: 'you@company.com' },
     company: { label: 'Company URL', placeholder: 'company.com' },
@@ -252,6 +252,8 @@ export const apply = {
     },
     stack: { label: 'Stack', placeholder: 'Next.js, PostHog, Sentry, Postgres, Claude Code' },
   },
+  modes: { label: 'Apply or book a call', apply: 'Apply', book: 'Book a call' },
+  bookLede: 'Rather talk first? Pick a 30-minute slot with the founders.',
   submit: CTA_LABEL,
   submitting: 'Sending',
   success: {
@@ -468,6 +470,8 @@ export function allCopy(): string[] {
     apply.success.body,
     apply.error,
     apply.calendarFallback,
+    ...Object.values(apply.modes),
+    apply.bookLede,
     ...apply.security,
     ...founders.flatMap((f) => [f.name, f.short, f.role, f.line]),
     ...Object.values(simulatedRun),

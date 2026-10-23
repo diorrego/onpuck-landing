@@ -1,14 +1,11 @@
 import { Check } from 'lucide-react';
-import ApplyForm from '@/components/apply/ApplyForm';
-import Card from '@/components/ui/Card';
+import ApplyOrBook from '@/components/apply/ApplyOrBook';
 import { apply, CONTACT_EMAIL } from '@/content/paper';
 
 export default function ApplyPanel() {
   return (
     <div className="grid items-start gap-10 lg:-mx-16 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] xl:-mx-24">
-      <Card title="Design partner application" titleId="apply-form-title">
-        <ApplyForm titleId="apply-form-title" copy={apply} contactEmail={CONTACT_EMAIL} />
-      </Card>
+      <ApplyOrBook copy={apply} contactEmail={CONTACT_EMAIL} />
       <aside aria-label="Access and data" className="grid gap-4 lg:pt-4">
         <h3 className="text-lg">Access and data</h3>
         <ul className="grid gap-2.5">

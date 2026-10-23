@@ -13,7 +13,7 @@ export default function CalBooker({ username, eventSlug, email, onBooked }: Prop
       username={username}
       eventSlug={eventSlug}
       view="MONTH_VIEW"
-      defaultFormValues={{ email }}
+      defaultFormValues={email ? { email } : undefined}
       customClassNames={{ bookerContainer: 'rounded-xl border border-line' }}
       onCreateBookingSuccess={() => onBooked?.()}
     />
