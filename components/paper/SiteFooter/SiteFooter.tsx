@@ -1,5 +1,5 @@
 import Logo from '@/components/ui/Logo';
-import { CONTACT_EMAIL, PURPOSE_LINE, VERSION, founders } from '@/content/paper';
+import { CONTACT_EMAIL, PURPOSE_LINE, VERSION, founders } from '@/content/site';
 
 export default function SiteFooter() {
   return (

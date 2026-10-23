@@ -10,4 +10,12 @@ describe('SiteNav', () => {
     expect(within(nav).getAllByRole('link').map((a) => a.textContent)).toEqual(['Model', 'Evidence', 'Research', 'Limits', 'Program']);
     expect(screen.getByRole('link', { name: 'Apply to be a design partner' })).toHaveAttribute('href', '#apply');
   });
+
+  it('points back to the paper from other routes', () => {
+    render(<SiteNav base="/" />);
+    expect(screen.getByRole('link', { name: 'OnPuck, back to the light paper' })).toHaveAttribute('href', '/');
+    const nav = screen.getByRole('navigation', { name: 'Primary' });
+    expect(within(nav).getByRole('link', { name: 'Model' })).toHaveAttribute('href', '/#model');
+    expect(screen.getByRole('link', { name: 'Apply to be a design partner' })).toHaveAttribute('href', '/#apply');
+  });
 });

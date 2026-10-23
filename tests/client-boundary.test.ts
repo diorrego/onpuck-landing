@@ -41,4 +41,24 @@ describe('client bundle boundary', () => {
     expect(server.length).toBeGreaterThan(3);
     expect([...new Set(offenders)]).toEqual([]);
   });
+
+  it('keeps the paper content out of the error boundary (a client component and everything it imports)', () => {
+    const resolve = (spec: string, from: string) => {
+      const base = spec.startsWith('@/') ? join(ROOT, spec.slice(2)) : join(dirname(from), spec);
+      return [`${base}.ts`, `${base}.tsx`, join(base, 'index.ts')].find(existsSync);
+    };
+    const seen = new Set<string>();
+    const walk = (f: string) => {
+      if (seen.has(f)) return;
+      seen.add(f);
+      for (const m of readFileSync(f, 'utf8').matchAll(/from '((?:@\/|\.)[^']+)'/g)) {
+        const hit = resolve(m[1], f);
+        if (hit) walk(hit);
+      }
+    };
+    walk(join(ROOT, 'app/error.tsx'));
+    const reached = [...seen].map((f) => f.replace(ROOT, ''));
+    expect(reached).toContain('/components/paper/SiteNav/SiteNav.tsx');
+    expect(reached.filter((f) => /^\/content\/(paper|references)\.ts$/.test(f))).toEqual([]);
+  });
 });

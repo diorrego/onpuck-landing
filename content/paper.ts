@@ -5,14 +5,12 @@
 // Open founder decisions built provisionally with the recommendation (PLAN.md):
 // D1 headline (a), D5 founders named, D6 version label, D9 cohort of 5.
 
-export const CTA_LABEL = 'Apply to be a design partner';
-export const CONTACT_EMAIL = 'paula@onpuck.com';
-export const VERSION = '1.0';
-export const SITE_URL = 'https://www.onpuck.com';
+import { CONTACT_EMAIL, CTA_LABEL, founders, PURPOSE_LINE, scene, VERSION } from './site';
+
+export { CONTACT_EMAIL, CTA_LABEL, founders, PURPOSE_LINE, SITE_URL, VERSION } from './site';
 // Metadata only (D6): never shown in the story.
 export const CONTENT_UPDATED = '2026-10-22';
 export const CONTENT_PUBLISHED = '2026-10-22';
-export const PURPOSE_LINE = 'We exist to turn stories into evidence, and evidence into better decisions.';
 
 export type FigureId = 'loop' | 'trackers' | 'simulated-run' | 'prediction';
 
@@ -54,7 +52,6 @@ export type Block =
 export type Section = {
   id: string;
   number?: string;
-  nav?: string;
   /** Short label for the contents rail; `title` is the descriptive H2 people search for. */
   short?: string;
   title: string;
@@ -297,11 +294,6 @@ export const simulatedRun = {
   pending: 'Result pending. We publish it either way.',
 };
 
-export const founders = [
-  { name: 'Paula Riquelme', short: 'P. Riquelme', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/pauriquelme/' },
-  { name: 'Diego Orrego', short: 'D. Orrego', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/diorrego' },
-];
-
 export const paper = {
   title: 'OnPuck: know what your users will do before your agent builds it',
   shortTitle: 'OnPuck',
@@ -317,10 +309,10 @@ export const paper = {
       'OnPuck turns user interviews into specs your coding agent can ship, checked against your real data and tested on simulated users first.',
     primaryCta: { label: CTA_LABEL, href: '#apply' },
     secondaryCta: { label: 'Read the light paper', href: '#abstract' },
-    sceneLabel: 'Illustration of a simulated run',
+    sceneLabel: scene.label,
     sceneCaption: 'Each person carries frustration, fatigue and motivation, and leaves when the section 3 rule fires. Drawn, not recorded.',
     sceneHint: 'Hover or tap a person.',
-    status: { onFloor: 'on the floor', frustrated: 'frustrated now', done: 'tasks done', left: 'gave up' },
+    status: scene.status,
     legend: [
       { icon: 'alert', label: 'Friction' },
       { icon: 'tired', label: 'Tired' },
@@ -335,7 +327,6 @@ export const paper = {
   sections: [
     {
       id: 'abstract',
-      nav: 'Abstract',
       short: 'Abstract',
       title: 'What OnPuck is: AI user research for coding agents',
       lede: abstract,
@@ -364,7 +355,6 @@ export const paper = {
     {
       id: 'model',
       number: '2',
-      nav: 'Model',
       short: 'The model',
       title: 'How OnPuck turns user stories into specs for your coding agent',
       lede: 'Seven steps, each backed by research or by our own experiments.',
@@ -393,7 +383,6 @@ export const paper = {
     {
       id: 'evidence',
       number: '4',
-      nav: 'Evidence',
       short: 'Validation',
       title: 'How accurate are simulated users? Our validation',
       lede: 'Four experiments on woku, misses included, and one blind prediction waiting for its result.',
@@ -409,7 +398,6 @@ export const paper = {
     {
       id: 'research',
       number: '5',
-      nav: 'Research',
       short: 'Research',
       title: 'The research behind AI interviews and simulated users',
       lede: 'What the research found, and what OnPuck does with it.',
@@ -418,7 +406,6 @@ export const paper = {
     {
       id: 'limits',
       number: '6',
-      nav: 'Limits',
       short: 'Limits',
       title: 'What simulated users cannot predict',
       lede: 'What we can’t promise, and what we do about it.',
@@ -427,7 +414,6 @@ export const paper = {
     {
       id: 'program',
       number: '7',
-      nav: 'Program',
       short: 'Design partners',
       title: 'Design partner program for startups in San Francisco',
       lede: 'We’re building OnPuck with 5 teams. The founders run it for you while the platform is built.',
