@@ -33,4 +33,14 @@ describe('GET /llms.txt (llmstxt.org format)', () => {
     expect(t).toContain('(https://www.onpuck.com/sitemap.xml)');
     expect(t).toContain('paula@onpuck.com');
   });
+
+  it('keeps proper nouns cased and links sections by their page titles', async () => {
+    const t = await text();
+    expect(t).toContain('5 teams in San Francisco');
+    expect(t).not.toMatch(/san francisco|onpuck(?!\.com)/);
+    for (const id of ['model', 'evidence', 'limits']) {
+      const s = paper.sections.find((x) => x.id === id)!;
+      expect(t).toContain(`- [${s.title}](https://www.onpuck.com/#${id})`);
+    }
+  });
 });

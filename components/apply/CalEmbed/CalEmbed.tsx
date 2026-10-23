@@ -2,16 +2,10 @@
 
 import { lazy, Suspense } from 'react';
 import { track } from '@/lib/analytics';
+import { parseCalLink } from '@/lib/cal';
 
 const CalBooker = lazy(() => import('@/components/apply/CalBooker'));
 const onBooked = () => track('calendar_booked');
-
-/** "user/event", "/user/event/" or "https://cal.com/user/event" to the booker's two ids. */
-export function parseCalLink(link: string): { username: string; eventSlug: string } | null {
-  const path = link.trim().replace(/^https?:\/\/[^/]+/i, '');
-  const [username, eventSlug] = path.split('/').filter(Boolean);
-  return username && eventSlug ? { username, eventSlug } : null;
-}
 
 type Props = { email: string; contactEmail: string; fallback: string };
 

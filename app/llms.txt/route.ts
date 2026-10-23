@@ -1,6 +1,6 @@
 import { CONTACT_EMAIL, founders, paper, program, SITE_URL } from '@/content/paper';
 import { references } from '@/content/references';
-import { parseCalLink } from '@/components/apply/CalEmbed';
+import { parseCalLink } from '@/lib/cal';
 
 export const dynamic = 'force-static';
 
@@ -8,7 +8,8 @@ export const dynamic = 'force-static';
 // "- [name](url): notes" link lists. "Optional" holds what an agent can skip.
 export async function GET() {
   const cal = parseCalLink(process.env.NEXT_PUBLIC_CALCOM_LINK ?? '');
-  const terms = program.terms.map((t) => `${t.label.toLowerCase()}: ${t.value.toLowerCase()}`).join('; ');
+  const title = (id: string) => paper.sections.find((s) => s.id === id)!.title;
+  const terms = program.terms.map((t) => `${t.label.toLowerCase()}: ${t.value}`).join('; ');
   const body = [
     '# OnPuck',
     `> ${paper.description}`,
@@ -17,9 +18,9 @@ export async function GET() {
     [
       `- [Light paper as Markdown](${SITE_URL}/index.md): the full page as text, with figures, experiments and references`,
       `- [Light paper](${SITE_URL}/): the same content as HTML`,
-      `- [The model](${SITE_URL}/#model): connect, listen, anchor, spec, simulate, ship, calibrate`,
-      `- [Validation comes first](${SITE_URL}/#evidence): four experiments on woku, misses included, one blind prediction pending`,
-      `- [Limits](${SITE_URL}/#limits): what OnPuck cannot promise, and the mitigation for each`,
+      `- [${title('model')}](${SITE_URL}/#model): connect, listen, anchor, spec, simulate, ship, calibrate`,
+      `- [${title('evidence')}](${SITE_URL}/#evidence): four experiments on woku, misses included, one blind prediction pending`,
+      `- [${title('limits')}](${SITE_URL}/#limits): what OnPuck cannot promise, and the mitigation for each`,
     ].join('\n'),
     '## Design partner program',
     [
