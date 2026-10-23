@@ -11,14 +11,18 @@ const NS = 'intro';
 export default function CalBooker({ calLink, email, onBooked }: Props) {
   useEffect(() => {
     let cancelled = false;
+    // the namespace outlives this component: remove the listener, or the next booker reports twice
+    const callback = () => onBooked?.();
+    const api = getCalApi({ namespace: NS });
     (async () => {
-      const cal = await getCalApi({ namespace: NS });
+      const cal = await api;
       if (cancelled) return;
       cal('ui', { theme: 'light', layout: 'month_view', hideEventTypeDetails: false, cssVarsPerTheme: { light: { 'cal-brand': '#1d4ed8' }, dark: { 'cal-brand': '#1d4ed8' } } });
-      cal('on', { action: 'bookingSuccessful', callback: () => onBooked?.() });
+      cal('on', { action: 'bookingSuccessful', callback });
     })();
     return () => {
       cancelled = true;
+      void api.then((cal) => cal('off', { action: 'bookingSuccessful', callback }));
     };
   }, [onBooked]);
 

@@ -29,4 +29,13 @@ describe('CalBooker', () => {
     on.callback();
     expect(onBooked).toHaveBeenCalled();
   });
+
+  it('removes its booking listener on unmount, so a later booker never reports one booking twice', async () => {
+    api.mockClear();
+    const { unmount } = render(<CalBooker calLink="paulariquelme/30min" email="" onBooked={() => {}} />);
+    await waitFor(() => expect(api).toHaveBeenCalledWith('on', expect.anything()));
+    const on = api.mock.calls.find((c) => c[0] === 'on')![1] as { callback: () => void };
+    unmount();
+    await waitFor(() => expect(api).toHaveBeenCalledWith('off', { action: 'bookingSuccessful', callback: on.callback }));
+  });
 });
