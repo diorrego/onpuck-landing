@@ -41,13 +41,24 @@ function upscale(px: Uint32Array, w: number, h: number, k: number): Uint32Array 
   return out;
 }
 
+/** Nearest-neighbour resample to any size (used for the 1.5x Open Graph still). */
+function resample(px: Uint32Array, w: number, h: number, w2: number, h2: number): Uint32Array {
+  const out = new Uint32Array(w2 * h2);
+  for (let y = 0; y < h2; y++) for (let x = 0; x < w2; x++) out[y * w2 + x] = px[Math.floor((y * h) / h2) * w + Math.floor((x * w) / w2)];
+  return out;
+}
+
 function poster(name: string, sim: Simulation, seconds: number, twoX?: string) {
   for (let t = 0; t < seconds; t += 1 / 15) sim.step(1 / 15);
   const target = new Uint32Array(CANVAS_W * CANVAS_H);
   compose(target, basePx, CANVAS_W, CANVAS_H, sprites, sim.drawables(sim.time));
   savePng(name, CANVAS_W, CANVAS_H, target);
   // nearest-neighbour 2x for places that cannot scale pixel art crisply (the OG image)
-  if (twoX) savePng(twoX, CANVAS_W * 2, CANVAS_H * 2, upscale(target, CANVAS_W, CANVAS_H, 2));
+  if (twoX) {
+    savePng(twoX, CANVAS_W * 2, CANVAS_H * 2, upscale(target, CANVAS_W, CANVAS_H, 2));
+    // the whole scene at 1.5x for the 1200x630 Open Graph image
+    savePng('poster-og.png', CANVAS_W * 1.5, CANVAS_H * 1.5, resample(target, CANVAS_W, CANVAS_H, CANVAS_W * 1.5, CANVAS_H * 1.5));
+  }
   return sim;
 }
 

@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/components/apply/CalBooker', () => ({
-  default: (p: { username: string; eventSlug: string; email: string }) => (
+  default: (p: { calLink: string; email: string }) => (
     <div data-testid="booker">
-      {p.username}|{p.eventSlug}|{p.email}
+      {p.calLink}|{p.email}
     </div>
   ),
 }));
@@ -38,6 +38,6 @@ describe('CalEmbed', () => {
   it('loads the Cal.com booker for the configured user and event, email prefilled', async () => {
     vi.stubEnv('NEXT_PUBLIC_CALCOM_LINK', 'onpuck/design-partner-intro');
     render(<CalEmbed email="cto@acme.dev" contactEmail="paula@onpuck.com" fallback="x" />);
-    expect(await screen.findByTestId('booker')).toHaveTextContent('onpuck|design-partner-intro|cto@acme.dev');
+    expect(await screen.findByTestId('booker')).toHaveTextContent('onpuck/design-partner-intro|cto@acme.dev');
   });
 });

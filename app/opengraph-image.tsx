@@ -8,12 +8,12 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 // The headline in three balanced lines (Satori has no text-wrap: balance).
-const LINES = ['Know what your users', 'will do before your', 'agent builds it.'];
+const LINES = ['Know what your', 'users will do before', 'your agent builds it.'];
 
 export default async function Image() {
   const root = process.cwd();
   const [poster, cmu, logo] = await Promise.all([
-    readFile(join(root, 'public/scene/poster-2x.png')),
+    readFile(join(root, 'public/scene/poster-og.png')),
     readFile(join(root, 'assets-og/cmu-serif-500-roman.ttf')),
     readFile(join(root, 'assets-og/puck-line.svg'), 'utf8'),
   ]);
@@ -24,12 +24,12 @@ export default async function Image() {
   return new ImageResponse(
     (
       <div style={{ width: '100%', height: '100%', display: 'flex', background: '#ffffff', color: '#171717', fontFamily: 'CMU Serif' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '56px 0 56px 64px', width: 600 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '56px 0 56px 64px', width: 520 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <img src={mark} width={72} height={72} alt="" />
             <span style={{ fontSize: 44 }}>OnPuck</span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', fontSize: 52, lineHeight: 1.14 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', fontSize: 46, lineHeight: 1.16 }}>
             {LINES.map((l) => (
               <span key={l}>{l}</span>
             ))}
@@ -41,9 +41,9 @@ export default async function Image() {
             </div>
           </div>
         </div>
-        {/* the scene in its own column, centred and cropped, never under the text */}
-        <div style={{ display: 'flex', width: 600, height: 630, overflow: 'hidden', alignItems: 'center' }}>
-          <img src={scene} width={864} height={560} alt="" style={{ marginLeft: -120, flexShrink: 0 }} />
+        {/* the whole scene in its own column, never under the text */}
+        <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', paddingRight: 20 }}>
+          <img src={scene} width={648} height={420} alt="" />
         </div>
       </div>
     ),

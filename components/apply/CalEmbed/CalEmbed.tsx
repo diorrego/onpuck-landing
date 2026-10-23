@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react';
 import { track } from '@/lib/analytics';
 
 const CalBooker = lazy(() => import('@/components/apply/CalBooker'));
+const onBooked = () => track('calendar_booked');
 
 /** "user/event", "/user/event/" or "https://cal.com/user/event" to the booker's two ids. */
 export function parseCalLink(link: string): { username: string; eventSlug: string } | null {
@@ -14,7 +15,7 @@ export function parseCalLink(link: string): { username: string; eventSlug: strin
 
 type Props = { email: string; contactEmail: string; fallback: string };
 
-/** The calendar step after a successful application: Cal.com's booker, or an email fallback. */
+/** The calendar: Cal.com's inline embed, or an email fallback when no link is configured. */
 export default function CalEmbed({ email, contactEmail, fallback }: Props) {
   const cal = parseCalLink(process.env.NEXT_PUBLIC_CALCOM_LINK ?? '');
 
@@ -32,7 +33,7 @@ export default function CalEmbed({ email, contactEmail, fallback }: Props) {
   return (
     <div className="min-h-[34rem] w-full">
       <Suspense fallback={<p className="text-sm text-ink-soft">Loading the calendar…</p>}>
-        <CalBooker username={cal.username} eventSlug={cal.eventSlug} email={email} onBooked={() => track('calendar_booked')} />
+        <CalBooker calLink={`${cal.username}/${cal.eventSlug}`} email={email} onBooked={onBooked} />
       </Suspense>
     </div>
   );
