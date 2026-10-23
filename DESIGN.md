@@ -96,7 +96,7 @@ components:
 
 **Creative North Star: "The LaTeX paper with a live figure"**
 
-The page is a research paper written as marketing: a centred title page (title, one line, two actions, the authors "D. Orrego and P. Riquelme"), then numbered sections, numbered figures, citations and a references list that the visitor opens on demand. It is set in Computer Modern with regular-weight titles and justified, hyphenated prose, like an article compiled with LaTeX, on a plain white page.
+The page is a research paper written as marketing: a centred title page (display line, one line, two actions, the authors "P. Riquelme and D. Orrego", the live figure, then the H1), then numbered sections, numbered figures, citations and a references list that the visitor opens on demand. It is set in Computer Modern with regular-weight titles and justified, hyphenated prose, like an article compiled with LaTeX, on a plain white page.
 
 Controls are conventional and calm, in the family of woku.app and simile.com: rounded blue-700 buttons, white cards with a soft border and shadow, rounded pills, a segmented control. The only illustration is the isometric pixel-art simulation floor under the title, where simulated people work, get frustrated and leave by the paper's own hazard rule. Pixel art never appears in the interface chrome.
 
@@ -130,8 +130,9 @@ Neutral paper with a single blue.
 **Font:** CMU Serif (Computer Modern Unicode, OFL, self-hosted in `public/fonts`), with Latin Modern and Georgia as fallbacks. **Data font:** CMU Typewriter Text.
 
 ### Hierarchy
-- **Display** (400, clamp(2.4rem to 3.75rem), 1.12): the one H1, centred.
-- **Headline** (400, 1.875rem to 2.25rem): section H2s preceded by the section number, LaTeX style ("4 Validation comes first").
+- **Display** (400, clamp(2.4rem to 3.75rem), 1.12): the hero line, centred. It is a paragraph, not the H1.
+- **H1** (400, 1.25rem to 1.5rem, balanced): under the hero figure; says what OnPuck does, for whom and where, like the meta description.
+- **Headline** (400, 1.875rem to 2.25rem): section H2s preceded by the section number, LaTeX style ("4 How accurate are simulated users? Our validation"). H2s are written as the searches they answer; the contents rail uses each section's short label.
 - **Title** (700, 1.25rem): step, limit and card headings.
 - **Body** (400, 1.1875rem, 1.6, 64ch): justified with hyphenation from 768 px.
 - **Caption**: "Figure N: ..." centred under the figure, 0.9375rem.
@@ -144,7 +145,7 @@ Neutral paper with a single blue.
 
 ## Layout
 
-80rem container, 16/32 px gutters. Centred hero: title, subline, actions, authors, then the scene fitted to the container (whole-device-pixel scale when within 85% of the fitted size). Below, a 13rem sticky contents rail on extra-large screens (collapsible on smaller ones) and a 64ch column; figures, tables and lists break out wider. Sections are separated by a 1 px rule.
+80rem container, 16/32 px gutters. Centred hero: display line, subline, actions, authors, then the scene fitted to the container, its caption and the H1 (whole-device-pixel scale when within 85% of the fitted size). Below, a 13rem sticky contents rail on extra-large screens (collapsible on smaller ones) and a 64ch column; figures, tables and lists break out wider. Sections are separated by a 1 px rule.
 
 ## Elevation & Depth
 
