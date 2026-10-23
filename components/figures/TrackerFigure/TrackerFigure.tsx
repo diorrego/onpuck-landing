@@ -50,7 +50,7 @@ export default function TrackerFigure() {
           <code>{ex.spec.actionType}</code> {ex.spec.title}
         </p>
         <p className="mt-1 text-ink-soft">{ex.spec.why}</p>
-        <p className="mt-2 text-sm text-ink-faint">{ex.spec.evidence}</p>
+        <p className="mt-2 text-sm text-ink-soft">{ex.spec.evidence}</p>
       </div>
     </Figure>
   );
