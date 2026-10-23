@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import SceneStatus, { type SceneStatusLabels } from '@/components/scene/SceneStatus';
 import StateCard from '@/components/scene/StateCard';
-import PixelButton from '@/components/ui/PixelButton';
+import Button from '@/components/ui/Button';
 import callouts from '@/lib/scene/poster-callouts.json';
 import type { SceneEngine } from '@/lib/scene/engine';
 import type { AgentCard, Arm } from '@/lib/scene/sim';
@@ -52,14 +52,16 @@ function useStill(): boolean {
   return useSyncExternalStore(subscribeMotion, staticPreferred, () => false);
 }
 
-/** Device pixels per scene pixel, kept an integer so the pixel art stays crisp. */
-function scaleFor(width: number, maxVh: number): number {
-  const dpr = Math.min(window.devicePixelRatio || 1, 3);
-  const maxCss = (window.innerHeight * maxVh) / H;
-  let n = Math.floor((Math.min(width, W * maxCss) * dpr) / W);
-  // small screens: the nearest integer scale at or just above the box width, centre-cropped
-  if (n / dpr < 1) n = Math.ceil((width * dpr) / W);
-  return Math.max(1, n) / dpr;
+/**
+ * CSS scale that fits the scene to its box (width, and a share of the viewport height). Snaps to
+ * a whole number of device pixels per scene pixel when that keeps at least 85% of the fitted
+ * size, so the pixel art stays crisp; otherwise keeps the fitted size.
+ */
+export function scaleFor(width: number, maxVh: number, dpr = Math.min(window.devicePixelRatio || 1, 3), viewportH = window.innerHeight): number {
+  const fit = Math.min(width / W, (viewportH * maxVh) / H);
+  const t = fit * dpr;
+  const n = Math.floor(t);
+  return (n >= 1 && n / t >= 0.85 ? n : t) / dpr;
 }
 
 export default function SceneIsland({ mode, label, priority = false, arm, onTally, maxVh = 0.64, statusLabels }: Props) {
@@ -261,10 +263,10 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
               className="absolute -translate-x-1/2 -translate-y-full"
               style={{ left: `${(c.x / W) * 100}%`, top: `${((c.y - 10) / H) * 100}%` }}
             >
-              <span className="block border-2 border-ink bg-paper-raised px-1.5 py-1 font-pixel text-[0.625rem] leading-tight whitespace-nowrap shadow-[2px_2px_0_var(--color-ink)]">
+              <span className="block rounded-lg border border-line bg-white px-2 py-1 text-xs leading-tight whitespace-nowrap shadow-[var(--shadow-float)]">
                 {CALLOUT_TEXT[c.kind]} · R {c.R.toFixed(2)} F {c.F.toFixed(2)} M {c.M.toFixed(2)}
               </span>
-              <span className="mx-auto block h-3 w-0.5 bg-ink" />
+              <span className="mx-auto block h-3 w-px bg-ink-faint" />
             </span>
           ))}
       </div>
@@ -283,7 +285,7 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
           style={{ left: scale ? `calc(50% + ${(W * scale) / 2}px - 12px)` : 'calc(100% - 12px)' }}
           onPointerUp={(e) => e.stopPropagation()}
         >
-          <PixelButton
+          <Button
             size="sm"
             variant="secondary"
             onClick={() => {
@@ -292,7 +294,7 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
             }}
           >
             Inspect a person
-          </PixelButton>
+          </Button>
         </div>
       )}
       {statusLabels && (

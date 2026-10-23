@@ -11,12 +11,13 @@ describe('SimulatedRunPanel (through its figure)', () => {
     expect(screen.getByText(/Result pending/)).toBeInTheDocument();
   });
 
-  it('switches arms through an accessible radio group', async () => {
+  it('switches arms through a toggle group', async () => {
     render(<SimulatedRunFigure />);
-    const group = screen.getAllByRole('radiogroup', { name: 'Arm of the A/B test' })[0];
-    const radios = group.querySelectorAll('[role="radio"]');
-    expect(radios[1]).toHaveAttribute('aria-checked', 'true');
-    await userEvent.click(radios[0] as HTMLElement);
-    expect(radios[0]).toHaveAttribute('aria-checked', 'true');
+    const group = screen.getAllByRole('group', { name: 'Arm of the A/B test' })[0];
+    const buttons = group.querySelectorAll('button');
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(buttons[0]);
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
   });
 });

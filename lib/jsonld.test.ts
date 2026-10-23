@@ -14,7 +14,7 @@ describe('JSON-LD graph', () => {
 
   it('gives the organisation its public contact and lowercase name', () => {
     const org = byType('Organization');
-    expect(org.name).toBe('onpuck');
+    expect(org.name).toBe('OnPuck');
     expect(org.contactPoint.email).toBe('paula@onpuck.com');
     expect(org.logo).toMatch(/^https:\/\/www\.onpuck\.com\//);
   });

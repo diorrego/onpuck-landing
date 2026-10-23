@@ -25,7 +25,6 @@ describe('PaperAnalytics', () => {
       <a id="cta" href="#apply" data-event="cta_click">Apply</a>
       <sup><a id="cite" href="#ref-32" data-event="paper_link_click" data-ref="32">32</a></sup>
       <a id="exp" href="#exp-02">exp-02</a>
-      <details id="faq-1" data-event="faq_open"><summary>Q</summary>A</details>
       <section id="gap"></section>`;
   });
   afterEach(() => vi.unstubAllGlobals());
@@ -44,16 +43,6 @@ describe('PaperAnalytics', () => {
     render(<PaperAnalytics />);
     fireEvent.click(document.getElementById('exp')!);
     expect(events()).toEqual([{ event: 'experiment_expand', experiment: 'exp-02' }]);
-  });
-
-  it('tracks a FAQ only when it opens', () => {
-    render(<PaperAnalytics />);
-    const d = document.getElementById('faq-1') as HTMLDetailsElement;
-    d.open = true;
-    fireEvent(d, new Event('toggle'));
-    d.open = false;
-    fireEvent(d, new Event('toggle'));
-    expect(events()).toEqual([{ event: 'faq_open', question: 'faq-1' }]);
   });
 
   it('reports each section once and marks it current in the contents', () => {

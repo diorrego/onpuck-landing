@@ -5,7 +5,7 @@ type Props = { ids: number[] };
 /** In-text citation: [5, 6], each number linking to #ref-N. */
 export default function Cite({ ids }: Props) {
   return (
-    <sup className="font-mono text-[0.68em] leading-none whitespace-nowrap">
+    <sup className="ml-0.5 text-[0.7em] leading-none font-medium whitespace-nowrap text-primary">
       [
       {ids.map((id, i) => {
         const ref = referenceById(id);
@@ -14,7 +14,7 @@ export default function Cite({ ids }: Props) {
             {i > 0 && ', '}
             <a
               href={`#ref-${id}`}
-              className="link"
+              className="hover:underline"
               title={`${ref.authors}, ${ref.title}`}
               aria-label={`Reference ${id}: ${ref.authors}`}
               data-event="paper_link_click"

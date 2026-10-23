@@ -3,17 +3,21 @@ import { describe, expect, it } from 'vitest';
 import Hero from '.';
 
 describe('Hero', () => {
-  it('states the headline as the only h1 with both actions and the scene', () => {
-    const { container } = render(<Hero />);
+  it('reads as the paper title page: headline, actions, authors', () => {
+    render(<Hero />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Know what your users will do before your agent builds it.');
     expect(screen.getByRole('link', { name: 'Apply to be a design partner' })).toHaveAttribute('href', '#apply');
     expect(screen.getByRole('link', { name: 'Read the light paper' })).toHaveAttribute('href', '#abstract');
-    expect(container.querySelector('[data-scene="life"]')).not.toBeNull();
+    expect(screen.getByText('D. Orrego and P. Riquelme')).toBeInTheDocument();
   });
 
-  it('puts the byline after the headline, never a kicker above it', () => {
+  it('centres the title page and puts the scene below the copy, with no tag above the title', () => {
     const { container } = render(<Hero />);
+    const column = container.querySelector('header > div')!;
+    expect(column.className).toContain('text-center');
+    expect(column.firstElementChild?.tagName).toBe('H1');
     const h1 = container.querySelector('h1')!;
-    expect(h1.previousElementSibling).toBeNull();
+    const scene = container.querySelector('[data-scene="life"]')!;
+    expect(h1.compareDocumentPosition(scene) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

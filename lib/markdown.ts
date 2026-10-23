@@ -111,7 +111,7 @@ export function paperMarkdown(): string {
     `# ${paper.hero.headline}`,
     `> ${paper.abstract}`,
     `${paper.hero.subline}`,
-    `onpuck light paper, version ${VERSION}. ${SITE_URL}/ · Contact: ${CONTACT_EMAIL}`,
+    `OnPuck light paper, version ${VERSION}, by ${paper.hero.authors}. ${SITE_URL}/ · Contact: ${CONTACT_EMAIL}`,
   ];
   for (const s of paper.sections) {
     out.push(`## ${s.number ? `§${s.number} ` : ''}${s.title}`);

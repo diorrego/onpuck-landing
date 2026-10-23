@@ -22,7 +22,7 @@ export function buildJsonLd() {
       {
         '@type': 'Organization',
         '@id': ORG,
-        name: 'onpuck',
+        name: 'OnPuck',
         url: `${SITE_URL}/`,
         logo: `${SITE_URL}/icon-512.png`,
         description: paper.description,
@@ -34,7 +34,7 @@ export function buildJsonLd() {
       {
         '@type': 'WebSite',
         '@id': `${SITE_URL}/#website`,
-        name: 'onpuck',
+        name: 'OnPuck',
         url: `${SITE_URL}/`,
         inLanguage: 'en',
         publisher: { '@id': ORG },

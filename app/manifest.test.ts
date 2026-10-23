@@ -6,7 +6,7 @@ import manifest from './manifest';
 describe('manifest', () => {
   it('names the product and points at icons that exist', () => {
     const m = manifest();
-    expect(m.name).toBe('onpuck');
+    expect(m.name).toBe('OnPuck');
     for (const icon of m.icons!) expect(existsSync(join(__dirname, '..', 'public', icon.src))).toBe(true);
   });
 

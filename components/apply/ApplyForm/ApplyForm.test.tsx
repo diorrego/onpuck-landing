@@ -67,7 +67,11 @@ describe('ApplyForm', () => {
   });
 
   it('shows field errors next to their inputs', async () => {
-    action.mockResolvedValue({ status: 'invalid', errors: { email: 'Enter a work email, like you@company.com.' }, values: {} });
+    action.mockResolvedValue({
+      status: 'invalid',
+      errors: { email: 'Enter a work email, like you@company.com.' },
+      values: { email: 'cto@acme.dev', company: 'acme.dev', role: 'CTO', change: 'We moved onboarding and nothing changed.', stack: 'Next.js, PostHog' },
+    });
     render(<ApplyForm titleId="t" />);
     const user = await fill();
     await user.click(screen.getByRole('button', { name: 'Apply to be a design partner' }));
@@ -75,6 +79,7 @@ describe('ApplyForm', () => {
     await waitFor(() => expect(email).toHaveAttribute('aria-invalid', 'true'));
     expect(email).toHaveAccessibleDescription(/you@company\.com/);
     await waitFor(() => expect(email).toHaveFocus());
+    expect(screen.getByLabelText(/company url/i)).toHaveValue('acme.dev');
   });
 
   it('on success swaps the form for the calendar step and tracks it', async () => {

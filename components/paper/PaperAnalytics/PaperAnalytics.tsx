@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { track, type EventName } from '@/lib/analytics';
 
-/** Funnel events by delegation (PLAN 7.1), and the current section marked in the contents. */
+/** Funnel events by delegation (PLAN 7.1), and the current section marked in the contents.
+ * faq_open comes from ui/Accordion. */
 export default function PaperAnalytics() {
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -13,17 +14,12 @@ export default function PaperAnalytics() {
       const exp = href.match(/^#(exp-\d{2})$/);
       if (exp) return track('experiment_expand', { experiment: exp[1] });
       const event = el.dataset.event as EventName | undefined;
-      if (!event || event === 'faq_open') return;
+      if (!event) return;
       track(event, {
         ...(href ? { target: href } : {}),
         label: (el.textContent ?? '').trim().slice(0, 80),
         ...(el.dataset.ref ? { ref: el.dataset.ref } : {}),
       });
-    };
-
-    const onToggle = (e: Event) => {
-      const d = e.target as HTMLDetailsElement;
-      if (d.tagName === 'DETAILS' && d.open && d.dataset.event === 'faq_open') track('faq_open', { question: d.id });
     };
 
     const seen = new Set<string>();
@@ -47,11 +43,9 @@ export default function PaperAnalytics() {
     for (const s of document.querySelectorAll('section[id]')) io.observe(s);
 
     document.addEventListener('click', onClick);
-    document.addEventListener('toggle', onToggle, true);
     return () => {
       io.disconnect();
       document.removeEventListener('click', onClick);
-      document.removeEventListener('toggle', onToggle, true);
     };
   }, []);
   return null;

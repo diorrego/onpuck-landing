@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Button as BaseButton } from '@base-ui/react/button';
 
 type Common = {
   children: ReactNode;
@@ -11,10 +12,13 @@ type Common = {
 type AsLink = Common & { href: string; type?: never; disabled?: never };
 type AsButton = Common & { href?: never; type?: 'button' | 'submit'; disabled?: boolean; onClick?: () => void };
 
-/** One-bit desktop button with a hard offset shadow that the press pushes into. */
-export default function PixelButton(props: AsLink | AsButton) {
+/**
+ * Rounded button, primary in blue-700. Buttons are Base UI `Button` (focusable while pending);
+ * links stay real `<a>` elements, as Base UI asks, with the same look.
+ */
+export default function Button(props: AsLink | AsButton) {
   const { children, variant = 'primary', size = 'md', event, className = '', ariaLabel } = props;
-  const classes = `pixel-btn pixel-btn-${variant} ${size === 'sm' ? 'pixel-btn-sm' : ''} ${className}`.trim();
+  const classes = `btn btn-${variant} ${size === 'sm' ? 'btn-sm' : ''} ${className}`.trim();
   if (props.href !== undefined) {
     return (
       <a href={props.href} className={classes} data-event={event} aria-label={ariaLabel}>
@@ -23,16 +27,16 @@ export default function PixelButton(props: AsLink | AsButton) {
     );
   }
   return (
-    <button
+    <BaseButton
       type={props.type ?? 'button'}
       className={classes}
       data-event={event}
       aria-label={ariaLabel}
       disabled={props.disabled}
-      aria-disabled={props.disabled || undefined}
+      focusableWhenDisabled
       onClick={props.onClick}
     >
       {children}
-    </button>
+    </BaseButton>
   );
 }

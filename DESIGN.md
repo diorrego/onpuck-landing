@@ -1,239 +1,181 @@
 ---
-name: onpuck light paper
-description: A light paper on a cool paper ground, opened on a running isometric simulation floor, in the grammar of a one-bit desktop.
+name: OnPuck light paper
+description: A concise light paper set like a LaTeX article on a white page, with conventional rounded controls and one running pixel-art simulation.
 colors:
-  paper: "#f2f4f7"
-  paper-raised: "#fbfbfd"
-  paper-sunk: "#e6e9f0"
-  ink: "#12141c"
-  ink-soft: "#464b60"
-  ink-faint: "#6b7088"
-  rule: "#c9cedb"
-  screen-glow: "#9ef0ff"
+  paper: "#ffffff"
+  paper-sunk: "#fafafa"
+  muted: "#f5f5f5"
+  line: "#e5e5e5"
+  line-strong: "#d4d4d4"
+  ink: "#171717"
+  ink-soft: "#525252"
+  ink-faint: "#737373"
+  primary: "#1d4ed8"
+  primary-hover: "#1e40af"
+  primary-soft: "#eff6ff"
+  primary-tint: "#dbeafe"
   frustration: "#f0604d"
   fatigue: "#f4ab2f"
   motivation: "#35b86b"
-  frustration-ink: "#b3291a"
-  fatigue-ink: "#8a5a00"
-  motivation-ink: "#17723f"
 typography:
   display:
-    fontFamily: "Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.35rem, 1.4rem + 3.6vw, 4.35rem)"
-    fontWeight: 800
-    lineHeight: 1.02
-    letterSpacing: "-0.035em"
+    fontFamily: "CMU Serif, Latin Modern Roman, Georgia, serif"
+    fontSize: "clamp(2.4rem, 1.6rem + 2.8vw, 3.75rem)"
+    fontWeight: 400
+    lineHeight: 1.12
   headline:
-    fontFamily: "Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "2.375rem"
-    fontWeight: 800
-    lineHeight: 1.1
-    letterSpacing: "-0.025em"
+    fontFamily: "CMU Serif, Latin Modern Roman, Georgia, serif"
+    fontSize: "2.25rem"
+    fontWeight: 400
+    lineHeight: 1.2
   title:
-    fontFamily: "Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.5rem"
-    fontWeight: 800
+    fontFamily: "CMU Serif, Latin Modern Roman, Georgia, serif"
+    fontSize: "1.25rem"
+    fontWeight: 700
     lineHeight: 1.25
   body:
-    fontFamily: "Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.0625rem"
+    fontFamily: "CMU Serif, Latin Modern Roman, Georgia, serif"
+    fontSize: "1.1875rem"
     fontWeight: 400
     lineHeight: 1.6
   label:
-    fontFamily: "Silkscreen, ui-monospace, monospace"
-    fontSize: "0.6875rem"
+    fontFamily: "CMU Serif, Latin Modern Roman, Georgia, serif"
+    fontSize: "0.875rem"
     fontWeight: 400
-    lineHeight: 1
-    letterSpacing: "0.02em"
+    lineHeight: 1.4
   data:
-    fontFamily: "Martian Mono, ui-monospace, monospace"
+    fontFamily: "CMU Typewriter Text, Latin Modern Mono, monospace"
     fontSize: "0.8125rem"
     fontWeight: 400
     lineHeight: 1.4
-    fontFeature: "tnum"
 rounded:
-  none: "0px"
+  control: "0.5rem"
+  field: "0.5rem"
+  card: "1rem"
+  tile: "0.75rem"
+  pill: "9999px"
 spacing:
   gutter-mobile: "16px"
   gutter-desktop: "32px"
   section: "80px"
-  block: "32px"
 components:
   button-primary:
-    backgroundColor: "{colors.screen-glow}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "11px 20px 12px"
-    height: "48px"
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.control}"
+    padding: "10px 20px"
+    height: "44px"
+  button-primary-hover:
+    backgroundColor: "{colors.primary-hover}"
+    textColor: "{colors.paper}"
   button-secondary:
-    backgroundColor: "{colors.paper-raised}"
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "11px 20px 12px"
-    height: "48px"
-  button-small:
-    backgroundColor: "{colors.screen-glow}"
+    rounded: "{rounded.control}"
+    padding: "10px 20px"
+    height: "44px"
+  card:
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "7px 14px 8px"
-    height: "40px"
-  window:
-    backgroundColor: "{colors.paper-raised}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-  window-titlebar:
-    backgroundColor: "{colors.paper-raised}"
-    textColor: "{colors.ink}"
-    typography: "{typography.label}"
-    height: "28px"
+    rounded: "{rounded.card}"
+  badge:
+    backgroundColor: "{colors.primary-soft}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.pill}"
+    padding: "2px 10px"
   input:
-    backgroundColor: "{colors.paper-raised}"
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "10px 12px"
-  status-chip:
-    backgroundColor: "{colors.paper-sunk}"
-    textColor: "{colors.ink}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "3px 6px 4px"
-  footer:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper-raised}"
+    rounded: "{rounded.field}"
+    padding: "10px 14px"
 ---
 
-# Design System: onpuck light paper
+# Design System: OnPuck light paper
 
 ## Overview
 
-**Creative North Star: "The Simulation Floor"**
+**Creative North Star: "The LaTeX paper with a live figure"**
 
-The page reads as a research paper laid on cool paper and opens on the mechanism itself: an isometric pixel-art cutaway (kitchen, coworking floor, living room, street corner) where small simulated users work on laptops, desktops, tablets, phones and a smart speaker. Each one carries frustration, fatigue and motivation, and leaves by the same hazard rule the paper prints in section 3. The scene is the only place with saturated colour and motion; everything around it is ink on paper, organised like a paper: numbered sections, numbered figures, numbered citations, a references list.
+The page is a research paper written as marketing: a centred title page (title, one line, two actions, the authors "D. Orrego and P. Riquelme"), then numbered sections, numbered figures, citations and a references list that the visitor opens on demand. It is set in Computer Modern with regular-weight titles and justified, hyphenated prose, like an article compiled with LaTeX, on a plain white page.
 
-Interface chrome borrows the grammar of early one-bit desktops. Figures, the form and the state card are small windows with a 2 px ink frame, a striped title bar and a close box; buttons are hard-edged with an offset shadow that the press pushes into; charts and bars use dithered fills instead of gradients. Nothing is rounded, glassy or softly shadowed. The density is a paper's: generous measure, quiet sections, dense tables only where the evidence is.
-
-It rejects the dark AI landing with a neon accent, the logo-wall SaaS page, and Simile's city (rooms and devices, never landmarks).
+Controls are conventional and calm, in the family of woku.app and simile.com: rounded blue-700 buttons, white cards with a soft border and shadow, rounded pills, a segmented control. The only illustration is the isometric pixel-art simulation floor under the title, where simulated people work, get frustrated and leave by the paper's own hazard rule. Pixel art never appears in the interface chrome.
 
 **Key Characteristics:**
-- Cool paper ground, near-black ink, one accent (screen glow cyan).
-- Three state colours used only as data: frustration, fatigue, motivation.
-- One-bit desktop windows for figures and the form; pixel buttons with hard offset shadows.
-- Pixel art at whole-device-pixel scale, `image-rendering: pixelated`, authored as code.
-- Text always in the DOM, never inside the canvas.
+- White page, neutral greys, one primary (blue-700).
+- Computer Modern everywhere; titles regular weight; prose justified on tablet and up.
+- Rounded controls (8 px), cards (16 px), pills; soft borders and shadows.
+- Copy is concise: ledes under 25 words, paragraphs under 45.
+- Coral, amber and green are data only (frustration, fatigue, motivation).
 
 ## Colors
 
-A restrained ink-on-paper system with one luminous accent and a reserved data triad.
+Neutral paper with a single blue.
 
 ### Primary
-- **Screen Glow** (#9ef0ff): the light of a screen in the scene, used as the only interface accent: primary button fill, link and summary hover wash, focus halo, selection, the simulator series in Fig. 4, list markers. Never as text colour.
+- **Blue 700** (#1d4ed8): primary buttons, links and citation numbers, figure labels ("Figure 3"), step labels, the active contents item, simulator series in charts. Hover is blue 800 (#1e40af); tints #eff6ff and #dbeafe for soft fills and selection.
 
 ### Neutral
-- **Cool Paper** (#f2f4f7): page ground. Cool, never cream.
-- **Raised Paper** (#fbfbfd): window bodies, inputs, chips, secondary buttons.
-- **Sunk Paper** (#e6e9f0): inline code, the spec card, the calendar fallback.
-- **Ink** (#12141c): text, every border, offset shadows, the footer ground, the experiments table header.
-- **Soft Ink** (#464b60): ledes, captions, secondary text (7:1 on paper).
-- **Faint Ink** (#6b7088): placeholders and the hover self-link icon only.
-- **Rule** (#c9cedb): inline code border.
+- **White** (#ffffff) page and cards; **Sunk** (#fafafa) tiles and table heads; **Muted** (#f5f5f5) tracks and code; **Line** (#e5e5e5) borders and rules; **Ink** (#171717), **Soft** (#525252), **Faint** (#737373) text.
 
-### Data (state colours)
-- **Frustration Coral** (#f0604d), **Fatigue Amber** (#f4ab2f), **Motivation Green** (#35b86b): fills for the R, F, M meters, scene bubbles, the status bar dots, outcome chips. Their **-ink** companions (#b3291a, #8a5a00, #17723f) carry text on tinted chips and form errors at AA contrast.
+### Data
+- **Frustration** (#f0604d), **Fatigue** (#f4ab2f), **Motivation** (#35b86b): meter fills, scene bubbles and status dots, outcome badges (with darker text variants).
 
 ### Named Rules
-**The One Glow Rule.** Screen glow is the only accent. Links are ink with an underline; a second accent (a link blue) is a defect.
+**The One Blue Rule.** Blue 700 is the only accent. Everything else is neutral or data.
 
-**The Data-Only Triad Rule.** Coral, amber and green mean frustration, fatigue and motivation. They never decorate props, clothes, headings or buttons.
+**The Data-Only Triad Rule.** Coral, amber and green always mean a state value.
 
 ## Typography
 
-**Display and Body Font:** Schibsted Grotesk (with ui-sans-serif, system-ui)
-**Label Font:** Silkscreen (with ui-monospace)
-**Data Font:** Martian Mono (with ui-monospace)
-
-**Character:** a news grotesk with a heavy, compact display cut carries the paper's voice; a bitmap face labels the machine (window titles, step numbers, status chips); a mono sets only measurements, intervals, formulas and code.
+**Font:** CMU Serif (Computer Modern Unicode, OFL, self-hosted in `public/fonts`), with Latin Modern and Georgia as fallbacks. **Data font:** CMU Typewriter Text.
 
 ### Hierarchy
-- **Display** (800, clamp(2.35rem, 1.4rem + 3.6vw, 4.35rem), 1.02, -0.035em): the one H1.
-- **Headline** (800, 1.875rem to 2.375rem, 1.1, -0.025em): section H2s, preceded by the § number in the label face.
-- **Title** (800, 1.25rem to 1.5rem): step and limit H3s, loop node names.
-- **Lede** (400 to 500, 1.125rem to 1.4rem, 1.6): the claim under each H2; the abstract is the largest.
-- **Body** (400, 1.0625rem, 1.6, max 68ch): paper prose, `text-wrap: pretty`.
-- **Label** (Silkscreen 400, 0.625rem to 0.75rem): window titles, "Step N", "Evidence", chips, table heads. Silkscreen sets capitals only.
-- **Data** (Martian Mono, 0.75rem to 1.125rem, tabular): Δ values and intervals, formulas, `code`, citation numbers.
+- **Display** (400, clamp(2.4rem to 3.75rem), 1.12): the one H1, centred.
+- **Headline** (400, 1.875rem to 2.25rem): section H2s preceded by the section number, LaTeX style ("4 Validation comes first").
+- **Title** (700, 1.25rem): step, limit and card headings.
+- **Body** (400, 1.1875rem, 1.6, 64ch): justified with hyphenation from 768 px.
+- **Caption**: "Figure N: ..." centred under the figure, 0.9375rem.
+- **Data** (CMU Typewriter): intervals, formulas, code, experiment ids.
 
 ### Named Rules
-**The Lowercase Brand Rule.** "onpuck" is never set in Silkscreen, because the face has no lowercase. Labels that would contain the name are reworded or set in the grotesk.
+**The Light Titles Rule.** Headings are regular weight; weight comes only for small titles and labels.
 
-**The Mono Is Measurement Rule.** Martian Mono appears only where a value is measured, computed or typed. Never as a "technical" costume for prose.
+**The OnPuck Rule.** The brand is written OnPuck (capital O and P). Emails and domains stay lowercase.
 
 ## Layout
 
-Single column paper on a 80rem container with 16 px (mobile) and 32 px (desktop) gutters. Prose holds a 68ch measure; figures, the experiments table, the lineage list, the program terms and the apply panel break out wider (negative inline margins of 4 to 6rem on large screens). On extra-large screens a 13rem sticky contents rail sits left and marks the current section; below that the contents collapse into a disclosure. Sections are separated by a 2 px ink rule with 56 to 80 px above the heading and less below. The hero is two columns on large screens (H1 left; subline, actions and byline right), then the scene full width beneath, centred at the largest whole-device-pixel scale that fits 64% of the viewport height. Tables stack into labelled blocks under 768 px.
+80rem container, 16/32 px gutters. Centred hero: title, subline, actions, authors, then the scene fitted to the container (whole-device-pixel scale when within 85% of the fitted size). Below, a 13rem sticky contents rail on extra-large screens (collapsible on smaller ones) and a 64ch column; figures, tables and lists break out wider. Sections are separated by a 1 px rule.
 
 ## Elevation & Depth
 
-Flat surfaces with structural, zero-blur offset shadows from the one-bit desktop world. There is no ambient shadow, blur or glass anywhere.
-
-### Shadow Vocabulary
-- **Window** (`box-shadow: 4px 4px 0 #12141c`): figures, the form window.
-- **Button** (`box-shadow: 4px 4px 0 #12141c`; small `3px 3px 0`): grows to 5 px on hover, collapses to 0 on press.
-- **Card and callout** (`box-shadow: 2px 2px 0 to 3px 3px 0 #12141c`): the state card, still-scene callouts.
-
-### Named Rules
-**The Press-In Rule.** Offset shadows are mechanical: hover lifts by 1 px, press translates into the shadow and removes it. They never soften, blur or tint.
+Flat surfaces with soft shadows: `--shadow-card` (0 1px 2px / 4%, 0 4px 16px / 5%) on cards and tables, `--shadow-float` (0 8px 30px / 12%) on the scene's state card and callouts. No hard offset shadows.
 
 ## Shapes
 
-Square corners everywhere (0 px). Every container is drawn with a 2 px ink border; dashed borders mark something designed but not built, or the loop's return cell. Dithered checkerboards (4 px) shade bars and the real interval band. Pixel icons are drawn from text grids as one SVG path per colour, `shape-rendering: crispEdges`.
+Buttons and fields 8 px, tiles 12 px, cards and tables 16 px, badges and the status bar fully rounded. Lucide icons (stroke) for interface glyphs; pixel icons only in the scene legend.
 
 ## Components
 
-### Buttons
-- **Shape:** square, 2 px ink border, hard offset shadow (4 px).
-- **Primary:** screen glow fill, ink text, 700 weight, 48 px tall. One label everywhere: "Apply to be a design partner" (mobile nav shows "Apply" with the full accessible name).
-- **Hover / Focus:** lift 1 px and shadow 5 px; focus is a 3 px ink outline plus a 6 px glow halo.
-- **Secondary:** raised paper fill, same geometry.
-- **Disabled / Pending:** pressed halfway (2 px), `cursor: progress`.
+All foundational components live in `components/ui/<Name>/` and the interactive ones are built on Base UI (`@base-ui/react`).
 
-### Windows (signature)
-- **Frame:** raised paper body, 2 px ink border, 4 px offset shadow.
-- **Title bar:** 28 px, horizontal 1 px ink stripes, a 14 px close box, the title in Silkscreen on a paper patch ("Fig. 3  Simulated run").
-- **Use:** every numbered figure, the formulas, the application form, the state card (smaller title bar).
-
-### Status chips
-- **Style:** Silkscreen label in a 2 px bordered box; tones: hit (green tint), partial (amber tint), miss (coral tint), pending and prototype (glow), by hand (sunk paper), designed (dashed, soft ink).
-
-### Inputs
-- **Style:** raised paper, 2 px ink border, square, 16 px text; labels bold above.
-- **Focus:** the global ink outline and glow halo; background to white.
-- **Error:** border and message in frustration ink, `aria-invalid`, message linked by `aria-describedby`, focus moves to the first invalid field.
-
-### Navigation
-- **Style:** sticky 64 px bar on paper with a 2 px ink bottom rule; logo mark and lowercase wordmark left, five section links (600 weight, glow wash on hover) and the small primary button right. Links collapse on mobile; the button stays.
-
-### Simulation floor (signature)
-- **Poster first:** a server-rendered lossless PNG (432 x 280) is the LCP image and the reduced-motion, save-data and no-JS state, with labelled callouts when still.
-- **Engine:** Canvas 2D at native resolution, scaled by CSS with `image-rendering: pixelated`; boots after load and idle when visible; pauses offscreen, on hidden tabs and after 45 s idle.
-- **State card:** a small window over the person (hover, tap or the "Inspect a person" button): device, task, R, F, M meters, risk of leaving.
-- **Status bar:** a bordered strip under the floor with live counts (on the floor, frustrated now, tasks done, gave up and left); its height is reserved from first paint.
-
-### State meter
-- **Style:** Silkscreen label, ten stepped cells inside a 2 px frame filled in the state colour, the value in Martian Mono; exposed as `role="meter"`.
+- **Button** (Base UI Button; links are `<a>` with the same classes): primary blue, secondary white with a grey border, small variant in the nav.
+- **Card**: white, 1 px line, 16 px radius, optional header with a blue label and a title.
+- **Badge**: pill with a tinted fill and an inset ring per tone.
+- **TextField** (Base UI Field): bold label, 8 px field, blue focus ring, server errors from Base UI Form.
+- **Accordion** (FAQ) and **Disclosure** (contents, references) on Base UI, closed panels kept in the HTML (`hidden="until-found"`).
+- **SegmentedToggle** (Base UI ToggleGroup): grey track, white pressed segment.
+- **StateMeter** (Base UI Meter): rounded bar in the state colour.
+- **Simulation floor**: poster PNG first, Canvas 2D engine after load, state card on hover, tap or keyboard, live status pill.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep every word in the DOM; the canvas holds pixels and icons only.
-- **Do** scale pixel art by whole device pixels and keep `image-rendering: pixelated` on the poster and canvas.
-- **Do** draw new icons as pixel grids (`components/ui/PixelIcon`), one path per colour.
-- **Do** label anything illustrative as synthetic or an illustration, in the caption.
-- **Do** put the claim in the lede and the evidence (a citation or an experiment link) in the same block.
+- **Do** keep copy short; let the figures and references carry detail.
+- **Do** keep references collapsed by default and open them when a citation is followed.
+- **Do** keep every word in the DOM; the canvas holds pixels only.
 
 ### Don't:
-- **Don't** add a second accent colour, gradients, glass, blur or soft shadows.
-- **Don't** use coral, amber or green for anything that is not a state value.
-- **Don't** set "onpuck" in Silkscreen or capitalise it.
-- **Don't** place a kicker or eyebrow above a heading; bylines and versions go after the headline.
-- **Don't** use text characters (+, −, #, arrows) as icons.
-- **Don't** round corners.
+- **Don't** use pixel-art or retro-game chrome (bitmap fonts, striped title bars, hard offset shadows) in the interface.
+- **Don't** add a second accent colour.
+- **Don't** set titles bold or tightly tracked.
+- **Don't** write the brand in lowercase.

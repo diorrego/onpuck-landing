@@ -49,7 +49,7 @@ describe('the light paper page', () => {
     const { container } = setup();
     const figures = [...container.querySelectorAll('figure[id^="fig-"]')];
     expect(figures.map((f) => f.id)).toEqual(['fig-1', 'fig-2', 'fig-3', 'fig-4']);
-    for (const f of figures) expect(f.querySelector('figcaption')?.textContent).toMatch(/^Fig\. \d/);
+    for (const f of figures) expect(f.querySelector('figcaption')?.textContent).toMatch(/^Figure \d:/);
   });
 
   it('lists every reference with a stable anchor, a cite and a working link', () => {
@@ -99,9 +99,9 @@ describe('the light paper page', () => {
     expect(screen.getAllByText(/Illustration of a simulated run/).length).toBeGreaterThan(0);
   });
 
-  it('answers the FAQ in disclosure widgets', () => {
+  it('answers the FAQ in an accordion', () => {
     const { container } = setup();
-    expect(container.querySelectorAll('#faq details')).toHaveLength(paper.faq.length);
+    expect(container.querySelectorAll('#faq [id^="faq-"] button[aria-expanded]')).toHaveLength(paper.faq.length);
   });
 
   it('publishes the contact email as a mailto link', () => {

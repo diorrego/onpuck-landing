@@ -1,9 +1,11 @@
 'use client';
 
 import { useActionState, useEffect, useRef } from 'react';
+import { Form } from '@base-ui/react/form';
 import { applyDesignPartner } from '@/app/actions';
 import CalEmbed from '@/components/apply/CalEmbed';
-import PixelButton from '@/components/ui/PixelButton';
+import Button from '@/components/ui/Button';
+import TextField from '@/components/ui/TextField';
 import { track } from '@/lib/analytics';
 import { ATTRIBUTION_FIELDS, type ApplyState, type Field } from '@/lib/apply';
 
@@ -70,7 +72,7 @@ export default function ApplyForm({ titleId, copy, contactEmail: CONTACT_EMAIL }
     );
   }
 
-  const errors = state.status === 'invalid' ? state.errors : {};
+  const errors = state.status === 'invalid' ? state.errors : undefined;
   const values = state.status === 'invalid' || state.status === 'error' ? (state.values ?? {}) : {};
   const onFirstFocus = () => {
     if (started.current) return;
@@ -79,21 +81,22 @@ export default function ApplyForm({ titleId, copy, contactEmail: CONTACT_EMAIL }
   };
 
   return (
-    <form
+    <Form
       ref={formRef}
       action={formAction}
+      errors={errors}
       aria-labelledby={titleId}
       noValidate
-      className="grid gap-5 p-5 sm:p-6"
+      className="grid gap-5 p-5 sm:p-7"
       onFocus={onFirstFocus}
       {...tool({
         toolname: 'apply_design_partner',
         tooldescription:
-          'Apply to become an onpuck design partner (3 months, free, 5 teams). After a person reviews and submits, they pick a time for a 30-minute intro call.',
+          'Apply to become an OnPuck design partner (3 months, free, 5 teams). After a person reviews and submits, they pick a time for a 30-minute intro call.',
       })}
     >
       {state.status === 'error' && (
-        <p role="alert" className="border-2 border-frustration-ink bg-frustration/10 p-3 text-[0.9375rem]">
+        <p role="alert" className="rounded-lg border border-frustration/40 bg-frustration/8 p-3 text-[0.9375rem]">
           {copy.error.split(CONTACT_EMAIL)[0]}
           <a className="link font-bold" href={`mailto:${CONTACT_EMAIL}?subject=Design%20partner%20application`}>
             {CONTACT_EMAIL}
@@ -103,37 +106,22 @@ export default function ApplyForm({ titleId, copy, contactEmail: CONTACT_EMAIL }
       )}
 
       {(Object.keys(copy.fields) as Field[]).map((name) => {
-        const f = copy.fields[name];
         const meta = FIELD_META[name];
-        const error = errors[name];
-        const id = `apply-${name}`;
-        const common = {
-          id,
-          name,
-          required: true,
-          placeholder: f.placeholder,
-          defaultValue: values[name] ?? '',
-          'aria-invalid': error ? true : undefined,
-          'aria-describedby': error ? `${id}-error` : undefined,
-          className: `w-full border-2 bg-paper-raised px-3 py-2.5 text-base placeholder:text-ink-faint focus:bg-white ${error ? 'border-frustration-ink' : 'border-ink'}`,
-          ...tool({ toolparamdescription: meta.agent }),
-        };
         return (
-          <div key={name} className="grid gap-1.5">
-            <label htmlFor={id} className="font-bold">
-              {f.label}
-            </label>
-            {name === 'change' ? (
-              <textarea {...common} rows={3} maxLength={2000} className={`${common.className} resize-y`} />
-            ) : (
-              <input {...common} type={meta.type} autoComplete={meta.autoComplete} inputMode={meta.inputMode} />
-            )}
-            {error && (
-              <p id={`${id}-error`} className="text-[0.9375rem] font-semibold text-frustration-ink">
-                {error}
-              </p>
-            )}
-          </div>
+          <TextField
+            key={name}
+            name={name}
+            label={copy.fields[name].label}
+            placeholder={copy.fields[name].placeholder}
+            defaultValue={values[name] ?? ''}
+            required
+            multiline={name === 'change'}
+            maxLength={name === 'change' ? 2000 : undefined}
+            type={meta.type}
+            autoComplete={meta.autoComplete}
+            inputMode={meta.inputMode}
+            inputProps={tool({ toolparamdescription: meta.agent })}
+          />
         );
       })}
 
@@ -147,15 +135,15 @@ export default function ApplyForm({ titleId, copy, contactEmail: CONTACT_EMAIL }
       </div>
 
       <div className="flex flex-wrap items-center gap-4 pt-1">
-        <PixelButton type="submit" disabled={pending} event="cta_click">
+        <Button type="submit" disabled={pending} event="cta_click">
           {copy.submit}
-        </PixelButton>
+        </Button>
         {pending && (
-          <span className="font-pixel text-[0.6875rem]" role="status">
+          <span className="text-sm text-ink-soft" role="status">
             {copy.submitting}
           </span>
         )}
       </div>
-    </form>
+    </Form>
   );
 }

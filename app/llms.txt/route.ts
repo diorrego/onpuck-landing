@@ -4,7 +4,7 @@ export const dynamic = 'force-static';
 
 export async function GET() {
   const body = [
-    '# onpuck',
+    '# OnPuck',
     `> ${paper.abstract}`,
     `${paper.hero.headline} ${paper.hero.subline}`,
     '## Read',
@@ -12,7 +12,7 @@ export async function GET() {
       `- [The light paper in Markdown](${SITE_URL}/index.md): the whole page as text, with the experiments and 36 references`,
       `- [The light paper](${SITE_URL}/): the same content as HTML`,
       `- [Validation comes first](${SITE_URL}/#evidence): four experiments on woku, misses included, one blind prediction pending`,
-      `- [Limits](${SITE_URL}/#limits): what onpuck cannot promise and why`,
+      `- [Limits](${SITE_URL}/#limits): what OnPuck cannot promise and why`,
       `- [References](${SITE_URL}/#references)`,
     ].join('\n'),
     '## Apply',

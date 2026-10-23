@@ -25,28 +25,28 @@ export default function PredictionFigure() {
               key={row.id}
               className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 md:grid-cols-[11rem_1fr_13rem]"
             >
-              <span role="rowheader" className={`${row.kind === 'real' ? 'font-bold' : ''}`}>
+              <span role="rowheader" className={`${row.kind === 'real' ? 'text-ink' : 'text-ink-soft'}`}>
                 {row.label}
               </span>
-              <span role="cell" className="font-mono text-xs tabular-nums md:order-3">
+              <span role="cell" className="text-sm tabular-nums md:order-3">
                 {value}
               </span>
-              <span aria-hidden="true" className="relative col-span-2 h-6 border-x-2 border-ink/20 md:order-2 md:col-span-1">
+              <span aria-hidden="true" className="relative col-span-2 h-6 rounded-md bg-paper-sunk md:order-2 md:col-span-1">
                 {/* the real interval, faint on every row so each estimate reads against it */}
-                <span className="dither-ink absolute inset-y-0 opacity-15" style={{ left: pct(real.low!), right: `calc(100% - ${pct(real.high!)})` }} />
-                <span className="absolute inset-y-0 w-0.5 bg-ink" style={{ left: pct(0) }} />
+                <span className="absolute inset-y-0 bg-line/70" style={{ left: pct(real.low!), right: `calc(100% - ${pct(real.high!)})` }} />
+                <span className="absolute inset-y-0 w-px bg-ink-faint" style={{ left: pct(0) }} />
                 {row.low !== undefined && (
                   <span
-                    className={`absolute top-1.5 h-3 border-2 border-ink ${row.kind === 'real' ? 'dither-ink bg-paper-raised' : 'bg-glow'}`}
+                    className={`absolute top-2 h-2 rounded-full ${row.kind === 'real' ? 'bg-ink-soft' : 'bg-primary'}`}
                     style={{ left: pct(row.low), right: `calc(100% - ${pct(row.high!)})` }}
                   />
                 )}
                 {row.kind === 'baseline' && row.point !== 0 ? (
-                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border-2 border-ink bg-frustration" style={{ left: pct(row.point) }} />
+                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] bg-frustration" style={{ left: pct(row.point) }} />
                 ) : row.kind === 'baseline' ? (
-                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 border-2 border-ink bg-paper-raised" style={{ left: pct(row.point) }} />
+                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink-soft bg-white" style={{ left: pct(row.point) }} />
                 ) : (
-                  <span className="absolute top-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 bg-ink" style={{ left: pct(row.point) }} />
+                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-ink shadow-sm" style={{ left: pct(row.point) }} />
                 )}
               </span>
             </div>
@@ -55,7 +55,7 @@ export default function PredictionFigure() {
         <div aria-hidden="true" className="grid grid-cols-1 md:grid-cols-[11rem_1fr_13rem] md:gap-x-4">
           <span className="relative col-start-1 h-5 md:col-start-2">
             {TICKS.map((t) => (
-              <span key={t} className="absolute -translate-x-1/2 font-mono text-[0.6875rem] text-ink-soft" style={{ left: pct(t) }}>
+              <span key={t} className="absolute -translate-x-1/2 text-xs text-ink-faint tabular-nums" style={{ left: pct(t) }}>
                 {t === 0 ? '0' : `${t > 0 ? '+' : '\u2212'}${Math.abs(t).toFixed(2)}`}
               </span>
             ))}
@@ -63,10 +63,10 @@ export default function PredictionFigure() {
         </div>
       </div>
       <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
-        <span className="inline-flex items-center gap-2"><span className="dither-ink inline-block h-3 w-6 border-2 border-ink" /> Real 95% interval</span>
-        <span className="inline-flex items-center gap-2"><span className="inline-block h-3 w-6 border-2 border-ink bg-glow" /> Simulator 95% interval</span>
-        <span className="inline-flex items-center gap-2"><span className="inline-block size-3 rotate-45 border-2 border-ink bg-frustration" /> Generic prior</span>
-        <span className="inline-flex items-center gap-2"><span className="inline-block size-3 border-2 border-ink bg-paper-raised" /> &ldquo;Nothing changes&rdquo;</span>
+        <span className="inline-flex items-center gap-2"><span className="inline-block h-2 w-6 rounded-full bg-ink-soft" /> Real 95% interval</span>
+        <span className="inline-flex items-center gap-2"><span className="inline-block h-2 w-6 rounded-full bg-primary" /> Simulator 95% interval</span>
+        <span className="inline-flex items-center gap-2"><span className="inline-block size-3 rotate-45 rounded-[2px] bg-frustration" /> Generic prior</span>
+        <span className="inline-flex items-center gap-2"><span className="inline-block size-3 rounded-full border-2 border-ink-soft bg-white" /> &ldquo;Nothing changes&rdquo;</span>
       </p>
     </Figure>
   );

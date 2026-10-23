@@ -8,6 +8,6 @@ describe('Contents', () => {
     const nav = screen.getAllByRole('navigation', { name: 'Contents' })[0];
     const links = within(nav).getAllByRole('link');
     expect(links.at(-1)).toHaveAttribute('href', '#references');
-    expect(within(nav).getByText('§3')).toBeInTheDocument();
+    expect(within(nav).getByText('3')).toBeInTheDocument();
   });
 });

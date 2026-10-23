@@ -23,4 +23,13 @@ describe('experiments', () => {
     expect(exp04.outcome).toBe('pending');
     expect(exp04.real.toLowerCase()).toContain('pending');
   });
+
+  it('keeps each row short enough to scan', () => {
+    const words = (t: string) => t.split(/\s+/).filter(Boolean).length;
+    for (const e of experiments) {
+      expect(words(e.question), e.id).toBeLessThanOrEqual(20);
+      expect(words(e.verdict), e.id).toBeLessThanOrEqual(30);
+      expect(words(e.n), e.id).toBeLessThanOrEqual(14);
+    }
+  });
 });

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { citationIds } from '@/lib/inline';
 import { references } from './references';
 import { experiments } from './experiments';
-import { allCopy, paper, CTA_LABEL, CONTACT_EMAIL } from './paper';
+import { allCopy, paper, CTA_LABEL, CONTACT_EMAIL, type Block, type Limit, type Pair, type Step } from './paper';
 
 const copy = allCopy();
 const joined = copy.join('\n');
@@ -44,8 +44,14 @@ describe('paper copy', () => {
     );
   });
 
-  it('writes the name in lowercase', () => {
-    expect(joined).not.toMatch(/\bOnPuck\b|\bOnpuck\b|\bONPUCK\b/);
+  it('writes the brand as OnPuck (emails and domains stay lowercase)', () => {
+    expect(joined).toContain('OnPuck');
+    expect(joined).not.toMatch(/(?<![@.\w])onpuck(?!\.com)/);
+    expect(joined).not.toMatch(/\bOnpuck\b|\bONPUCK\b|\bonPuck\b/);
+  });
+
+  it('credits the authors the way papers do', () => {
+    expect(paper.hero.authors).toBe('D. Orrego and P. Riquelme');
   });
 
   it('publishes the contact email', () => {
@@ -68,6 +74,29 @@ describe('paper copy', () => {
     const linked = [...joined.matchAll(/\(#(exp-\d{2})\)/g)].map((m) => m[1]);
     const ids = new Set(experiments.map((e) => e.id));
     expect(linked.filter((id) => !ids.has(id))).toEqual([]);
+  });
+
+  describe('stays concise (a paper written as marketing)', () => {
+    const words = (t: string) => t.split(/\s+/).filter(Boolean).length;
+    const over = (texts: string[], max: number) => texts.filter((t) => words(t) > max);
+
+    it('keeps ledes, paragraphs and captions short', () => {
+      expect(over(paper.sections.filter((x) => x.id !== 'abstract').map((x) => x.lede), 25)).toEqual([]);
+      expect(over(paper.sections.flatMap((x) => (x.blocks as Block[]).filter((b) => b.type === 'p').map((b) => (b as { text: string }).text)), 45)).toEqual([]);
+      expect(over(paper.figures.map((f) => f.caption), 25)).toEqual([]);
+      expect(words(paper.hero.subline)).toBeLessThanOrEqual(30);
+    });
+
+    it('keeps steps, pairs, limits and answers short', () => {
+      const steps = (paper.sections.find((x) => x.id === 'model')!.blocks[0] as { steps: Step[] }).steps;
+      expect(over(steps.flatMap((x) => x.body), 25)).toEqual([]);
+      expect(over(steps.flatMap((x) => x.evidence), 30)).toEqual([]);
+      const pairs = (paper.sections.find((x) => x.id === 'research')!.blocks[0] as { pairs: Pair[] }).pairs;
+      expect(over(pairs.flatMap((x) => [x.paper, x.today]), 20)).toEqual([]);
+      const limits = (paper.sections.find((x) => x.id === 'limits')!.blocks[0] as { limits: Limit[] }).limits;
+      expect(over(limits.flatMap((x) => [x.because, x.mitigation]), 20)).toEqual([]);
+      expect(over(paper.faq.flatMap((f) => f.a), 45)).toEqual([]);
+    });
   });
 
   it('writes 5 to 8 FAQ entries', () => {

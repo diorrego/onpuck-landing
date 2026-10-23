@@ -16,7 +16,7 @@ describe('paperMarkdown (the page as Markdown, same source)', () => {
   });
 
   it('keeps [n] citations and lists every reference with its link', () => {
-    expect(md).toContain('rarely accurate [32]');
+    expect(md).toContain('rarely matched the logs [32]');
     for (const r of references) {
       expect(md).toContain(`[${r.id}] ${r.authors}`);
       expect(md).toContain(r.url);

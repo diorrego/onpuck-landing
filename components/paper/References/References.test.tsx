@@ -10,3 +10,10 @@ describe('References', () => {
     expect(container.querySelector('#ref-6 a')).toHaveAttribute('href', 'https://arxiv.org/abs/2504.09723');
   });
 });
+
+describe('References (collapsed)', () => {
+  it('starts closed: the visitor chooses to open the list', () => {
+    const { getByRole } = render(<References />);
+    expect(getByRole('button', { name: /Show all 36 references/ })).toHaveAttribute('aria-expanded', 'false');
+  });
+});

@@ -9,9 +9,9 @@ describe('BlockRenderer', () => {
   });
 
   it('renders a formula in a titled window', () => {
-    render(<BlockRenderer block={{ type: 'formula', label: 'Rule', code: 'x = 1', note: 'fitted' }} />);
-    expect(screen.getByText('Rule')).toBeInTheDocument();
-    expect(screen.getByText('x = 1').tagName).toBe('CODE');
+    render(<BlockRenderer block={{ type: 'formula', label: 'Chance of quitting', code: 'x = 1', note: 'fitted' }} />);
+    expect(screen.getByText('Chance of quitting')).toBeInTheDocument();
+    expect(screen.getByText('x = 1')).toHaveClass('font-mono');
   });
 
   it('renders the thesis as a list', () => {

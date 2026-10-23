@@ -3,8 +3,8 @@ import { paper } from '@/content/paper';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'onpuck',
-    short_name: 'onpuck',
+    name: 'OnPuck',
+    short_name: 'OnPuck',
     description: paper.description,
     start_url: '/',
     display: 'browser',

@@ -57,7 +57,7 @@ accuracy; analytics tools show how many, never why.
 
 ## Brand Commitments
 
-- Name: onpuck (lowercase in running text).
+- Name: OnPuck (capital O and P; emails and domains stay lowercase). Decided by Diego after the v1 review.
 - Public contact: paula@onpuck.com.
 - Purpose line: "We exist to turn stories into evidence, and evidence into better decisions."
 - One-liner: "Agents that research human stories with real data, code and systems, and test the
@@ -66,6 +66,11 @@ accuracy; analytics tools show how many, never why.
   isometric scene in the spirit of Habbo and classic handheld Pokemon games, showing people
   sitting, standing and walking while using computers, tablets, phones and smart speakers; the
   page reads as a light paper with references; no dates; every CTA invites design partners.
+- Revised after the v1 review (Diego): the pixel art lives only in the scene; the interface is
+  conventional (like woku.app and simile.com): rounded buttons and cards, primary blue-700; the
+  page is set like a LaTeX paper (Computer Modern, regular-weight titles); copy is concise,
+  marketing in tone; references are collapsed by default; authors shown as D. Orrego and
+  P. Riquelme.
   Reference liked: simile.com (not to be copied). Habbo and Pokemon IP must not be copied.
 
 ## Evidence on Hand

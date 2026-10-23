@@ -10,7 +10,7 @@ describe('StateCard', () => {
     expect(screen.getByText('Simulated user 03')).toBeInTheDocument();
     expect(screen.getByText(/Exporting a report/)).toBeInTheDocument();
     expect(screen.getAllByRole('meter')).toHaveLength(3);
-    expect(screen.getByText('high')).toBeInTheDocument();
+    expect(screen.getByText('Risk high')).toBeInTheDocument();
   });
 
   it('shows the first action in the A/B replay', () => {

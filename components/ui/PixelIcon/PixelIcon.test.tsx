@@ -3,11 +3,6 @@ import { describe, expect, it } from 'vitest';
 import PixelIcon from '.';
 
 describe('PixelIcon', () => {
-  it('draws interface glyphs in the same grammar, recolourable', () => {
-    const { container } = render(<PixelIcon name="plus" color="currentColor" />);
-    expect(container.querySelector('path')).toHaveAttribute('fill', 'currentColor');
-  });
-
   it('draws the same grid as the scene bubbles, one path per colour', () => {
     const { container } = render(<PixelIcon name="star" />);
     const svg = container.querySelector('svg')!;

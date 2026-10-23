@@ -3,9 +3,9 @@ import { describe, expect, it } from 'vitest';
 import Logo from '.';
 
 describe('Logo', () => {
-  it('is an accessible image named onpuck by default', () => {
+  it('is an accessible image named OnPuck by default', () => {
     render(<Logo />);
-    expect(screen.getByRole('img', { name: 'onpuck' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'OnPuck' })).toBeInTheDocument();
   });
 
   it('can be decorative', () => {

@@ -6,7 +6,8 @@ describe('Figure', () => {
   it('numbers the figure, titles its window and captions it', () => {
     const { container } = render(<Figure id="prediction"><p>chart</p></Figure>);
     expect(container.querySelector('figure')).toHaveAttribute('id', 'fig-4');
-    expect(screen.getByText(/^Fig\. 4\s+Prediction vs reality$/)).toBeInTheDocument();
-    expect(container.querySelector('figcaption')?.textContent).toMatch(/^Fig\. 4\. Change in review submission rate/);
+    expect(screen.getByText('Figure 4')).toBeInTheDocument();
+    expect(screen.getByText('Prediction vs reality')).toBeInTheDocument();
+    expect(container.querySelector('figcaption')?.textContent).toMatch(/^Figure 4: Change in review submissions/);
   });
 });

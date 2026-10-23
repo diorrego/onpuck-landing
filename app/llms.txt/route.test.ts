@@ -6,7 +6,7 @@ describe('GET /llms.txt', () => {
     const res = await GET();
     expect(res.headers.get('content-type')).toBe('text/plain; charset=utf-8');
     const text = await res.text();
-    expect(text).toMatch(/^# onpuck\n\n> /);
+    expect(text).toMatch(/^# OnPuck\n\n> /);
     expect(text).toContain('- [The light paper in Markdown](https://www.onpuck.com/index.md)');
     expect(text).toContain('## Apply');
     expect(text).toContain('paula@onpuck.com');

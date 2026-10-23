@@ -1,14 +1,19 @@
+import Disclosure from '@/components/ui/Disclosure';
 import { paper } from '@/content/paper';
 
-/** Table of contents: a sticky rail on wide screens, a collapsed list on small ones. */
+/** Table of contents: a sticky rail on wide screens, a collapsible list on small ones. */
 export default function Contents() {
   const items = [...paper.sections.map((s) => ({ id: s.id, number: s.number, title: s.title })), { id: 'references', number: undefined, title: 'References' }];
   const list = (
-    <ol className="grid gap-0.5 text-[0.9375rem]">
+    <ol className="grid gap-0.5 text-sm">
       {items.map((s) => (
         <li key={s.id}>
-          <a href={`#${s.id}`} className="grid grid-cols-[1.75rem_1fr] gap-1 px-2 py-1.5 no-underline hover:bg-glow aria-[current=location]:bg-ink aria-[current=location]:text-paper-raised aria-[current=location]:[&>span:first-child]:text-paper-raised/70" data-toc={s.id}>
-            <span className="font-pixel text-[0.625rem] leading-6 text-ink-soft">{s.number ? `§${s.number}` : ''}</span>
+          <a
+            href={`#${s.id}`}
+            className="grid grid-cols-[1.5rem_1fr] gap-1 rounded-md px-2 py-1.5 text-ink-soft no-underline hover:bg-muted hover:text-ink aria-[current=location]:bg-primary-soft aria-[current=location]:font-semibold aria-[current=location]:text-primary"
+            data-toc={s.id}
+          >
+            <span className="font-mono text-xs leading-5 opacity-60">{s.number ?? ''}</span>
             <span>{s.title}</span>
           </a>
         </li>
@@ -19,16 +24,15 @@ export default function Contents() {
     <>
       <nav aria-label="Contents" className="hidden xl:block">
         <div className="sticky top-24">
-          <p className="mb-3 px-2 font-pixel text-[0.6875rem]">Contents</p>
+          <p className="mb-2 px-2 text-xs font-semibold tracking-wide text-ink-faint uppercase">Contents</p>
           {list}
         </div>
       </nav>
-      <details className="mb-2 border-2 border-ink bg-paper-raised xl:hidden">
-        <summary className="cursor-pointer px-4 py-3 font-pixel text-[0.75rem]">Contents</summary>
-        <nav aria-label="Contents" className="border-t-2 border-ink p-2">
+      <Disclosure title="Contents" className="mb-2 xl:hidden">
+        <nav aria-label="Contents" className="mt-2 rounded-xl border border-line bg-white p-2">
           {list}
         </nav>
-      </details>
+      </Disclosure>
     </>
   );
 }

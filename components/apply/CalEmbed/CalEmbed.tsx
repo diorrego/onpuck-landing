@@ -72,7 +72,7 @@ export default function CalEmbed({ email, contactEmail: CONTACT_EMAIL, fallback 
 
   if (!link) {
     return (
-      <p className="border-2 border-ink bg-paper-sunk p-4">
+      <p className="rounded-xl border border-line bg-paper-sunk p-4">
         {fallback.split(CONTACT_EMAIL)[0]}
         <a className="link font-bold" href={`mailto:${CONTACT_EMAIL}?subject=Design%20partner%20intro%20call`}>
           {CONTACT_EMAIL}
@@ -81,5 +81,5 @@ export default function CalEmbed({ email, contactEmail: CONTACT_EMAIL, fallback 
       </p>
     );
   }
-  return <div id="cal-inline" className="min-h-[38rem] w-full overflow-auto border-2 border-ink bg-paper-raised" />;
+  return <div id="cal-inline" className="min-h-[38rem] w-full overflow-auto rounded-xl border border-line bg-paper-raised" />;
 }

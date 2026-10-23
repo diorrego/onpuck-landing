@@ -1,17 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Martian_Mono, Schibsted_Grotesk, Silkscreen } from 'next/font/google';
 import { GoogleTagManager } from '@next/third-parties/google';
 import Script from 'next/script';
 import { paper, SITE_URL } from '@/content/paper';
 
 import './globals.css';
 
-const schibsted = Schibsted_Grotesk({ variable: '--font-schibsted', subsets: ['latin'], display: 'swap' });
-// only the grotesk is above the fold; the label and number faces load without a preload
-const silkscreen = Silkscreen({ variable: '--font-silkscreen', subsets: ['latin'], weight: '400', display: 'swap', preload: false });
-const martian = Martian_Mono({ variable: '--font-martian', subsets: ['latin'], display: 'swap', adjustFontFallback: false, preload: false });
-
-const TITLE = 'onpuck: test product specs on simulated users first';
+const TITLE = 'OnPuck: test product specs on simulated users first';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -22,31 +16,34 @@ export const metadata: Metadata = {
     title: TITLE,
     description: paper.description,
     url: '/',
-    siteName: 'onpuck',
+    siteName: 'OnPuck',
     type: 'article',
     locale: 'en_US',
   },
   twitter: { card: 'summary_large_image', title: TITLE, description: paper.description },
   robots: { index: true, follow: true, googleBot: { 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 } },
-  authors: [{ name: 'Diego' }, { name: 'Paula' }],
-  creator: 'onpuck',
+  authors: [{ name: 'D. Orrego' }, { name: 'P. Riquelme' }],
+  creator: 'OnPuck',
 };
 
-export const viewport: Viewport = { themeColor: '#f2f4f7', colorScheme: 'light' };
+export const viewport: Viewport = { themeColor: '#ffffff', colorScheme: 'light' };
 
-// impeccable direction contract (seed 29dd731c). Kept in the emitted markup for audits.
+// impeccable direction contract (seed 29dd731c), revised after Diego's review. Kept in the markup for audits.
 const CONTRACT = `<!--
-THESIS: The page is the mechanism: a light paper opened on a running simulation floor where every person carries R, F and M and quits by the paper's own hazard rule. Refuses the dark neon AI landing, the logo wall and Simile's city.
-OWN-WORLD: Cool paper #f2f4f7, near-black ink, one-bit desktop windows (2px ink, striped title bars, close boxes), pixel buttons with hard offset shadows, screen-glow cyan the only accent, coral/amber/green reserved for state data, dithered fills. Schibsted Grotesk; Silkscreen labels; Martian Mono for numbers and code.
-STORY: A skeptical CTO sees the mechanism running, reads how it works and where it fails, checks references and misses, applies.
-FIRST VIEWPORT: Sticky nav; H1 left, subline + Apply + Read the light paper right; the isometric floor full width beneath at integer scale.
-FORM: Founder-pinned "simulation floor" (brief section 3), which beats the roll; seed 29dd731c.
+THESIS: A light paper set like a LaTeX article that opens on the mechanism: a running pixel-art floor where every person carries R, F and M and quits by the paper's own hazard rule.
+OWN-WORLD: White page, Computer Modern (CMU Serif) with regular-weight titles and justified prose; conventional controls like woku and simile: rounded blue-700 buttons, white cards with soft borders and shadows, pills. Pixel art lives only in the scene; coral, amber and green are data.
+STORY: A skeptical CTO reads the title page, watches the mechanism, skims concise sections, opens references if wanted, applies.
+FIRST VIEWPORT: Sticky nav; copy, actions and authors (D. Orrego and P. Riquelme) left; the isometric floor right, bleeding to the edge at a whole-pixel scale.
+FORM: Founder-pinned simulation floor, restyled by founder review; seed 29dd731c.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`;
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${schibsted.variable} ${silkscreen.variable} ${martian.variable} antialiased`}>
+    <html lang="en" className="antialiased">
+      <head>
+        <link rel="preload" href="/fonts/cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <GoogleTagManager gtmId="GTM-MGCZH8CB" />
       <Script id="microsoft-clarity" strategy="lazyOnload">
         {`
