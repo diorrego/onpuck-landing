@@ -1,8 +1,10 @@
 // Attio REST v2: "assert" (upsert) the company by domain and the person by email, attach the
-// application as a note, then put the record in the Design Partners list at Applied. Server only.
+// application (or a Cal.com booking) as a note, then put the record in the Design Partners list
+// at Applied. Server only.
 // Verify slugs against the workspace (PLAN 5.2; runbook step 3).
 
 import { applicationText, type Application } from './application';
+import { bookingText, type Booking } from './cal-webhook';
 
 const API = 'https://api.attio.com/v2';
 
@@ -70,5 +72,41 @@ export async function upsertApplication(key: string, app: Application, pipeline?
   } catch (error) {
     // the person and the note are saved; a missing list or scope must not lose the lead
     console.error(`Design partner application, pipeline: ${error instanceof Error ? error.message : error}`);
+  }
+}
+
+/** A call booked on Cal.com, with or without the form: same records, note and funnel. */
+export async function upsertBooking(key: string, booking: Booking, pipeline: Pipeline): Promise<void> {
+  const company = booking.domain
+    ? await call<RecordResponse>(key, 'PUT', '/objects/companies/records?matching_attribute=domains', {
+        data: { values: { domains: [booking.domain] } },
+      })
+    : undefined;
+  const [first, ...rest] = booking.name.split(/\s+/).filter(Boolean);
+  const person = await call<RecordResponse>(key, 'PUT', '/objects/people/records?matching_attribute=email_addresses', {
+    data: {
+      values: {
+        email_addresses: [booking.email],
+        ...(first ? { name: [{ first_name: first, last_name: rest.join(' '), full_name: booking.name }] } : {}),
+        ...(company ? { company: [{ target_object: 'companies', target_record_id: company.data.id.record_id }] } : {}),
+      },
+    },
+  });
+  await call(key, 'POST', '/notes', {
+    data: {
+      parent_object: 'people',
+      parent_record_id: person.data.id.record_id,
+      title: 'Intro call booked (Cal.com)',
+      format: 'plaintext',
+      content: bookingText(booking),
+    },
+  });
+  try {
+    await addToPipeline(key, pipeline, {
+      people: person.data.id.record_id,
+      ...(company ? { companies: company.data.id.record_id } : {}),
+    });
+  } catch (error) {
+    console.error(`Cal.com booking, pipeline: ${error instanceof Error ? error.message : error}`);
   }
 }
