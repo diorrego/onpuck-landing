@@ -33,6 +33,14 @@ describe('SceneIsland', () => {
     expect(button.closest('.justify-center')).not.toBeNull();
   });
 
+  it('renders the state card in a portal on <body>, so the figure box never clips it', () => {
+    mockMotion(false);
+    const { container } = render(<SceneIsland mode="ab" label="x" arm="control" />);
+    const card = document.body.querySelector('[data-scene-card="ab"]')!;
+    expect(card).not.toBeNull();
+    expect(container.contains(card)).toBe(false);
+  });
+
   it('keeps the poster with labelled callouts under reduced motion', () => {
     mockMotion(true);
     const { container } = render(<SceneIsland mode="life" label="x" />);

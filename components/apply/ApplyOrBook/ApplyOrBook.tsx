@@ -14,7 +14,7 @@ export default function ApplyOrBook({ copy, contactEmail }: Props) {
   const [mode, setMode] = useState<'apply' | 'book'>('apply');
   const titleId = useId();
   return (
-    <div data-mode={mode} className="card overflow-hidden data-[mode=book]:lg:col-span-2">
+    <div data-mode={mode} className="card overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-3 sm:px-6">
         <p id={titleId} className="font-semibold">
           {mode === 'apply' ? 'Design partner application' : copy.modes.book}

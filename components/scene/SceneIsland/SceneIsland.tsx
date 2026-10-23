@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import SceneStatus, { type SceneStatusLabels } from '@/components/scene/SceneStatus';
 import StateCard from '@/components/scene/StateCard';
 import Button from '@/components/ui/Button';
@@ -47,6 +48,8 @@ function subscribeMotion(onChange: () => void) {
   return () => mq?.removeEventListener?.('change', onChange);
 }
 
+const subscribeNever = () => () => {};
+
 /** Reduced motion, save-data or no observers: keep the still. The server always renders the poster. */
 function useStill(): boolean {
   return useSyncExternalStore(subscribeMotion, staticPreferred, () => false);
@@ -80,6 +83,7 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
     onTallyRef.current = onTally;
   }, [onTally]);
   const still = useStill();
+  const onClient = useSyncExternalStore(subscribeNever, () => true, () => false);
 
   const poster = mode === 'life' ? '/scene/poster.png' : '/scene/poster-ab.png';
 
@@ -102,14 +106,15 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
   const onSelected = useCallback((next: AgentCard | null, x: number, y: number) => {
     const el = cardRef.current;
     const box = canvas.current;
-    if (el && box && next && wrap.current) {
-      const outer = wrap.current.getBoundingClientRect();
+    if (el && box && next) {
+      // page coordinates: the card lives in a portal on <body>, so no box can clip it
       const inner = box.getBoundingClientRect();
       const k = inner.width / W;
-      const left = Math.min(Math.max(inner.left - outer.left + x * k, 136), outer.width - 136);
-      const top = inner.top - outer.top + (y - 24) * k;
-      el.style.setProperty('--x', `${left}px`);
-      el.style.setProperty('--y', `${top}px`);
+      const half = Math.min(136, window.innerWidth / 2 - 8);
+      const left = Math.min(Math.max(inner.left + x * k, half + 8), window.innerWidth - half - 8) + window.scrollX;
+      const top = inner.top + (y - 24) * k + window.scrollY;
+      el.style.left = `${left}px`;
+      el.style.top = `${top}px`;
     }
     const now = performance.now();
     if (!next || now - lastCard.current > 250 || next.id !== cardIdRef.current) {
@@ -271,17 +276,22 @@ export default function SceneIsland({ mode, label, priority = false, arm, onTall
           ))}
       </div>
 
-      <div
-        ref={cardRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 z-10 max-md:inset-x-4 max-md:top-auto max-md:bottom-3 md:w-64 md:translate-x-[calc(var(--x,0px)-50%)] md:translate-y-[calc(var(--y,0px)-100%)]"
-      >
-        {card && <StateCard card={card} />}
-      </div>
+      {onClient &&
+        createPortal(
+          <div
+            ref={cardRef}
+            aria-hidden="true"
+            data-scene-card={mode}
+            className="pointer-events-none absolute z-30 w-[min(17rem,calc(100vw-1rem))] -translate-x-1/2 -translate-y-full"
+          >
+            {card && <StateCard card={card} />}
+          </div>,
+          document.body,
+        )}
 
       {/* below the floor, centred: the keyboard path to a person's state, then the live counts.
           Both rows keep their height from the first paint, so nothing shifts when the engine starts. */}
-      <div className="mt-3 flex justify-center" onPointerUp={(e) => e.stopPropagation()}>
+      <div className="mt-4 mb-5 flex justify-center" onPointerUp={(e) => e.stopPropagation()}>
         <div className={phase === 'running' ? '' : 'invisible'} aria-hidden={phase === 'running' ? undefined : true}>
           <Button
             size="sm"
