@@ -14,5 +14,8 @@ describe('SiteFooter', () => {
     expect(screen.getByRole('link', { name: 'Diego Orrego on LinkedIn' })).toHaveAttribute('href', 'https://www.linkedin.com/in/diorrego');
     expect(screen.getByRole('link', { name: 'paula@onpuck.com' })).toHaveAttribute('href', 'mailto:paula@onpuck.com');
     expect(screen.getByRole('link', { name: 'woku' })).toHaveAttribute('href', 'https://woku.app/en');
+    expect(screen.getByRole('link', { name: 'llms.txt' })).toHaveAttribute('href', '/llms.txt');
+    expect(screen.getByRole('link', { name: 'Sitemap' })).toHaveAttribute('href', '/sitemap.xml');
+    expect(screen.getByRole('link', { name: 'Markdown' })).toHaveAttribute('href', '/index.md');
   });
 });

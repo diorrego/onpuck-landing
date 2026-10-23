@@ -21,6 +21,33 @@ describe('paper copy', () => {
     expect(joined).not.toMatch(/waitlist|get started|sign up|book a demo|request a demo/i);
   });
 
+  it('describes what OnPuck does, for whom and where, in a search-snippet length', () => {
+    const d = paper.description;
+    expect(d).toMatch(/^OnPuck /);
+    expect(d).toMatch(/coding agent/);
+    expect(d).toMatch(/simulated users/);
+    expect(d).toMatch(/growing startups/);
+    expect(d).toContain('San Francisco, CA, USA');
+    expect(d.length).toBeLessThanOrEqual(170);
+  });
+
+  it('has an H1 that says what, for whom and where, like the meta description', () => {
+    const h1 = paper.hero.h1;
+    expect(h1).toMatch(/simulated users/);
+    expect(h1).toMatch(/coding agent/);
+    expect(h1).toMatch(/growing startups/);
+    expect(h1).toContain('San Francisco, CA, USA');
+    expect(h1).not.toBe(paper.hero.headline);
+  });
+
+  it('gives sections descriptive H2s and keeps short labels for the contents', () => {
+    for (const sec of paper.sections) {
+      expect(sec.title.split(/\s+/).length, sec.id).toBeGreaterThanOrEqual(4);
+      expect(sec.short, sec.id).toBeTruthy();
+      expect(sec.short!.split(/\s+/).length, sec.id).toBeLessThanOrEqual(4);
+    }
+  });
+
   it('opens with a citable 40 to 60 word abstract', () => {
     const words = paper.abstract.split(/\s+/).filter(Boolean).length;
     expect(words).toBeGreaterThanOrEqual(40);

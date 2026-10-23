@@ -9,5 +9,6 @@ describe('Contents', () => {
     const links = within(nav).getAllByRole('link');
     expect(links.at(-1)).toHaveAttribute('href', '#references');
     expect(within(nav).getByText('3')).toBeInTheDocument();
+    expect(within(nav).getByText('Simulated users')).toBeInTheDocument();
   });
 });

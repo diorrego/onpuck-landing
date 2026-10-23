@@ -55,6 +55,8 @@ export type Section = {
   id: string;
   number?: string;
   nav?: string;
+  /** Short label for the contents rail; `title` is the descriptive H2 people search for. */
+  short?: string;
   title: string;
   lede: string;
   blocks: Block[];
@@ -304,11 +306,13 @@ export const paper = {
   title: 'OnPuck: know what your users will do before your agent builds it',
   shortTitle: 'OnPuck',
   description:
-    'OnPuck checks your users’ stories against your repo, analytics and logs, turns them into specs for your coding agent, and tests each spec on simulated users.',
+    'OnPuck checks user stories against your data, writes specs for your coding agent and tests them on simulated users. For growing startups in San Francisco, CA, USA.',
   version: VERSION,
   hero: {
     authors: 'P. Riquelme and D. Orrego',
+    // The display line is a paragraph; the H1 says what, for whom and where (like the description).
     headline: 'Know what your users will do before your agent builds it.',
+    h1: 'AI user research for coding agents: user stories checked against your data and specs tested on simulated users, for growing startups in San Francisco, CA, USA.',
     subline:
       'OnPuck turns user interviews into specs your coding agent can ship, checked against your real data and tested on simulated users first.',
     primaryCta: { label: CTA_LABEL, href: '#apply' },
@@ -332,7 +336,8 @@ export const paper = {
     {
       id: 'abstract',
       nav: 'Abstract',
-      title: 'Abstract',
+      short: 'Abstract',
+      title: 'What OnPuck is: AI user research for coding agents',
       lede: abstract,
       blocks: [
         {
@@ -345,7 +350,8 @@ export const paper = {
     {
       id: 'gap',
       number: '1',
-      title: 'The gap',
+      short: 'The gap',
+      title: 'Why user interviews and product analytics disagree',
       lede: 'Interviews tell you why. Analytics tell you how many. Neither tells you if the story is true.',
       blocks: [
         {
@@ -359,14 +365,16 @@ export const paper = {
       id: 'model',
       number: '2',
       nav: 'Model',
-      title: 'The model',
+      short: 'The model',
+      title: 'How OnPuck turns user stories into specs for your coding agent',
       lede: 'Seven steps, each backed by research or by our own experiments.',
       blocks: [{ type: 'steps', steps }],
     },
     {
       id: 'simulation',
       number: '3',
-      title: 'Simulated users',
+      short: 'Simulated users',
+      title: 'Simulated users that get tired, frustrated and quit',
       lede: 'An LLM alone plays a user who is too efficient. We add the part that gets tired.',
       blocks: [
         {
@@ -386,7 +394,8 @@ export const paper = {
       id: 'evidence',
       number: '4',
       nav: 'Evidence',
-      title: 'Validation comes first',
+      short: 'Validation',
+      title: 'How accurate are simulated users? Our validation',
       lede: 'Four experiments on woku, misses included, and one blind prediction waiting for its result.',
       blocks: [
         { type: 'experiments' },
@@ -401,7 +410,8 @@ export const paper = {
       id: 'research',
       number: '5',
       nav: 'Research',
-      title: 'Research lineage',
+      short: 'Research',
+      title: 'The research behind AI interviews and simulated users',
       lede: 'What the research found, and what OnPuck does with it.',
       blocks: [{ type: 'pairs', pairs }],
     },
@@ -409,7 +419,8 @@ export const paper = {
       id: 'limits',
       number: '6',
       nav: 'Limits',
-      title: 'Limits',
+      short: 'Limits',
+      title: 'What simulated users cannot predict',
       lede: 'What we can’t promise, and what we do about it.',
       blocks: [{ type: 'limits', limits }],
     },
@@ -417,19 +428,22 @@ export const paper = {
       id: 'program',
       number: '7',
       nav: 'Program',
-      title: 'Design partner program',
+      short: 'Design partners',
+      title: 'Design partner program for startups in San Francisco',
       lede: 'We’re building OnPuck with 5 teams. The founders run it for you while the platform is built.',
       blocks: [{ type: 'program' }],
     },
     {
       id: 'apply',
-      title: apply.title,
+      short: 'Apply',
+      title: 'Apply to be a design partner or book a call',
       lede: apply.lede,
       blocks: [{ type: 'apply' }],
     },
     {
       id: 'faq',
-      title: 'Questions',
+      short: 'Questions',
+      title: 'Questions about access, data, time and cost',
       lede: 'What CTOs ask us first.',
       blocks: [{ type: 'faq' }],
     },
@@ -447,6 +461,7 @@ export function allCopy(): string[] {
     paper.description,
     paper.hero.authors,
     paper.hero.headline,
+    paper.hero.h1,
     paper.hero.subline,
     paper.hero.primaryCta.label,
     paper.hero.secondaryCta.label,
@@ -483,7 +498,7 @@ export function allCopy(): string[] {
     trackerExample.spec.evidence,
   ];
   for (const section of paper.sections) {
-    out.push(section.title, section.lede);
+    out.push(section.title, section.lede, section.short ?? '');
     for (const block of section.blocks as Block[]) {
       if (block.type === 'p') out.push(block.text);
       if (block.type === 'thesis') out.push(...block.lines);

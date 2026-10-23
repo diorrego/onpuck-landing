@@ -3,7 +3,7 @@ import { paper } from '@/content/paper';
 
 /** Table of contents: a sticky rail on wide screens, a collapsible list on small ones. */
 export default function Contents() {
-  const items = [...paper.sections.map((s) => ({ id: s.id, number: s.number, title: s.title })), { id: 'references', number: undefined, title: 'References' }];
+  const items = [...paper.sections.map((s) => ({ id: s.id, number: s.number, title: s.short ?? s.title })), { id: 'references', number: undefined, title: 'References' }];
   const list = (
     <ol className="grid gap-0.5 text-sm">
       {items.map((s) => (

@@ -7,12 +7,14 @@ const md = paperMarkdown();
 
 describe('paperMarkdown (the page as Markdown, same source)', () => {
   it('opens with the title and the abstract as a quote', () => {
-    expect(md.startsWith(`# ${paper.hero.headline}`)).toBe(true);
+    expect(md.startsWith(`# ${paper.hero.h1}`)).toBe(true);
+    expect(md).toContain(paper.hero.headline);
     expect(md).toContain(`> ${paper.abstract}`);
   });
 
   it('has every section as an h2', () => {
-    for (const s of paper.sections) expect(md).toMatch(new RegExp(`^## (§${s.number} )?${s.title}$`, 'm'));
+    const esc = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    for (const s of paper.sections) expect(md).toMatch(new RegExp(`^## (§${s.number} )?${esc(s.title)}$`, 'm'));
   });
 
   it('keeps [n] citations and lists every reference with its link', () => {

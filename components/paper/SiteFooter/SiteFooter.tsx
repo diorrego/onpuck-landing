@@ -46,6 +46,18 @@ export default function SiteFooter() {
             , our product in production, where every experiment on this page ran.
           </p>
           <p className="text-xs text-white/50">Light paper · v{VERSION}</p>
+          <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/60">
+            <span className="text-white/40">For agents and search:</span>
+            <a href="/llms.txt" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+              llms.txt
+            </a>
+            <a href="/sitemap.xml" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+              Sitemap
+            </a>
+            <a href="/index.md" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+              Markdown
+            </a>
+          </p>
         </div>
       </div>
     </footer>

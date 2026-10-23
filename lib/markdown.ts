@@ -108,7 +108,8 @@ function block(b: Block): string {
 
 export function paperMarkdown(): string {
   const out: string[] = [
-    `# ${paper.hero.headline}`,
+    `# ${paper.hero.h1}`,
+    `**${paper.hero.headline}**`,
     `> ${paper.abstract}`,
     `${paper.hero.subline}`,
     `OnPuck light paper, version ${VERSION}, by ${paper.hero.authors}. ${SITE_URL}/ · Contact: ${CONTACT_EMAIL}`,

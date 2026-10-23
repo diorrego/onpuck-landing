@@ -8,6 +8,6 @@ describe('GET /index.md', () => {
     expect(res.headers.get('vary')).toBe('Accept');
     expect(res.headers.get('x-robots-tag')).toBe('noindex');
     expect(res.headers.get('link')).toBe('<https://www.onpuck.com/>; rel="canonical"');
-    expect(await res.text()).toMatch(/^# Know what your users/);
+    expect(await res.text()).toMatch(/^# AI user research for coding agents/);
   });
 });

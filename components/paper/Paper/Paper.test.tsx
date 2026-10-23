@@ -22,7 +22,7 @@ describe('the light paper page', () => {
     expect(container.querySelectorAll('main article')).toHaveLength(1);
     const h1s = screen.getAllByRole('heading', { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0]).toHaveTextContent(paper.hero.headline);
+    expect(h1s[0]).toHaveTextContent(paper.hero.h1);
   });
 
   it('renders every section as section#id with its h2 and a self link', () => {
