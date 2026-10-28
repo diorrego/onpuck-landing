@@ -13,12 +13,13 @@ export async function GET() {
   const body = [
     '# OnPuck',
     `> ${paper.description}`,
-    `${paper.abstract} Today the founders run the model for each design partner; the simulator is a research prototype validated on woku, with its misses published. Contact: ${CONTACT_EMAIL}.`,
+    `${paper.abstract} The founders applied the evidence workflow in Woku; the simulator is a separate research prototype under evaluation, with its misses published. Contact: ${CONTACT_EMAIL}.`,
     '## Light paper',
     [
       `- [Light paper as Markdown](${SITE_URL}/index.md): the full page as text, with figures, experiments and references`,
       `- [Light paper](${SITE_URL}/): the same content as HTML`,
       `- [${title('model')}](${SITE_URL}/#model): connect, listen, anchor, spec, simulate, ship, calibrate`,
+      `- [${title('field-work')}](${SITE_URL}/#field-work): human-led interviews, 79 trackers, evidence-backed specs and recorded production rollouts; no claim of causal uplift or simulator accuracy`,
       `- [${title('evidence')}](${SITE_URL}/#evidence): four experiments on woku, misses included, one blind prediction pending`,
       `- [${title('limits')}](${SITE_URL}/#limits): what OnPuck cannot promise, and the mitigation for each`,
     ].join('\n'),

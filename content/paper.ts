@@ -9,7 +9,7 @@ import { CONTACT_EMAIL, CTA_LABEL, founders, PURPOSE_LINE, scene, VERSION } from
 
 export { CONTACT_EMAIL, CTA_LABEL, founders, PURPOSE_LINE, SITE_URL, VERSION } from './site';
 // Metadata only (D6): never shown in the story.
-export const CONTENT_UPDATED = '2026-10-22';
+export const CONTENT_UPDATED = '2026-10-27';
 export const CONTENT_PUBLISHED = '2026-10-22';
 
 export type FigureId = 'loop' | 'trackers' | 'simulated-run' | 'prediction';
@@ -60,14 +60,14 @@ export type Section = {
 };
 
 const abstract =
-  'OnPuck checks what your users say against what your system recorded. It interviews users about one recent episode, verifies every detail read-only in your repo, analytics and logs, writes specs your coding agent can ship, and tests each spec on simulated users before it is built.';
+  'OnPuck turns user stories into specs checked against code, analytics and logs. The founders applied this workflow in Woku and shipped changes. We are building a repeatable platform for coding agents, alongside a separate research prototype that tests preview builds with simulated users.';
 
 const figures: FigureMeta[] = [
   {
     id: 'loop',
     number: 1,
     title: 'The loop',
-    caption: 'Seven steps, one loop. Steps 1 to 4 run by hand today; step 5 is a research prototype.',
+    caption: 'The founders ran the evidence workflow in Woku and shipped resulting changes. Simulation is a separate research prototype.',
     synthetic: false,
   },
   {
@@ -98,7 +98,7 @@ const steps: Step[] = [
     n: 1,
     name: 'Connect',
     output: 'Trackers verified against live data',
-    status: 'Specified, run by hand',
+    status: 'Applied in Woku',
     body: ['An agent reads your repo, analytics and logs, and keeps only the trackers that show up in live data.'],
     evidence: [
       'Agents solve 21.3% of real enterprise SQL tasks without schema context [23, 24], and can trace errors in logs [25, 26].',
@@ -108,15 +108,15 @@ const steps: Step[] = [
     n: 2,
     name: 'Listen',
     output: 'One concrete story per interview',
-    status: 'Specified, run by hand',
-    body: ['A 10-minute AI interview about one recent episode, guided by your data. Never "would you use it?"'],
+    status: 'Human-led in Woku',
+    body: ['Our Woku field work used human-led interviews. Automated interviews are specified; existing transcripts can feed the same evidence workflow.'],
     evidence: ['AI interviewers match human ones [28, 29, 30]; concrete incidents beat opinions [31, 16].'],
   },
   {
     n: 3,
     name: 'Anchor',
     output: 'Each detail confirmed or contradicted',
-    status: 'Specified, run by hand',
+    status: 'Applied in Woku',
     body: ['Every tracker is resolved against your system. Contradictions are kept: that is where the spec changes.'],
     evidence: ['Self-reports rarely match logs [32]; time landmarks improve recall [33].'],
   },
@@ -124,7 +124,7 @@ const steps: Step[] = [
     n: 4,
     name: 'Spec',
     output: 'A spec with the evidence attached',
-    status: 'Specified, run by hand',
+    status: 'Applied in Woku',
     body: ['Each spec carries an action type (`fix`, `build`, `refactor`, `remove`) and the queries behind it.'],
     evidence: ['Coding agents fail on underspecified tasks [21, 22, 34].'],
   },
@@ -140,8 +140,8 @@ const steps: Step[] = [
     n: 6,
     name: 'Ship',
     output: 'The change in production',
-    status: 'Your coding agent',
-    body: ['Your agent implements the spec, delivered over MCP [27].'],
+    status: 'Shipped in Woku; MCP planned',
+    body: ['Woku changes were implemented with agents. Repeatable delivery to your agent over MCP [27] is being built.'],
     evidence: [],
   },
   {
@@ -155,15 +155,15 @@ const steps: Step[] = [
 ];
 
 const pairs: Pair[] = [
-  { paper: 'Agents grounded in interviews beat demographic ones [1, 2, 3].', today: 'Simulated users start from your sessions and interviews.', status: 'prototype' },
+  { paper: 'Agents grounded in interviews beat demographic ones [1, 2, 3].', today: 'Our prototype uses sessions; interview-grounded digital users remain planned.', status: 'prototype' },
   { paper: 'LLM agents act too efficient and know too much [4, 6].', today: 'A state layer decides when someone gets tired or quits.', status: 'prototype' },
   { paper: 'Simulations get the direction right and the size wrong [5].', today: 'We report a direction and an interval, never exact magnitudes.', status: 'prototype' },
   { paper: 'Verbalized sampling restores diversity lost to tuning [17, 18, 19].', today: 'The model proposes actions with probabilities; code samples them.', status: 'prototype' },
   { paper: 'Keystroke-level models predict task time [20].', today: 'Time per action is fitted on real sessions.', status: 'prototype' },
   { paper: 'World models learn how apps respond [8, 9, 10, 11].', today: 'We run your real preview build instead.', status: 'prototype' },
   { paper: 'Cognitive models, identity labels and twins distort people [12, 14, 15].', today: 'Every prediction is scored against "nothing changes". Misses are published.', status: 'by-hand' },
-  { paper: 'AI interviewers match human ones [28, 29, 30].', today: '10-minute AI interviews about one recent episode.', status: 'by-hand' },
-  { paper: 'Agents on real data need its schema, values and code [23, 24, 25, 26].', today: 'Trackers are verified against live data before any interview.', status: 'by-hand' },
+  { paper: 'AI interviewers match human ones [28, 29, 30].', today: 'Human-led Woku interviews; automated interviewing is specified.', status: 'designed' },
+  { paper: 'Agents on real data need its schema, values and code [23, 24, 25, 26].', today: 'We checked Woku trackers against live data and resolved existing interview stories.', status: 'by-hand' },
   { paper: 'Clear specs and good tools make coding agents succeed [21, 22, 34].', today: 'Specs carry their evidence, designed to reach your agent over MCP [27].', status: 'designed' },
 ];
 
@@ -173,7 +173,7 @@ const limits: Limit[] = [
   { title: 'One person’s exact session', because: 'Next-action accuracy is 11 to 21% [35, 36].', mitigation: 'We predict rates across a population, never one person.' },
   { title: 'Replacing interviews', because: 'Without real input, simulated people are generic [15].', mitigation: 'Interviews feed every step.' },
   { title: 'Stable results across models', because: 'Results shift with prompts and models [13].', mitigation: 'Model versions are pinned and baselines re-run.' },
-  { title: 'Proof on steps 1 to 3', because: 'Our experiments so far cover the simulator only.', mitigation: 'The first design partner is that experiment.' },
+  { title: 'Transfer beyond Woku', because: 'The evidence workflow has been applied in the founders’ product.', mitigation: 'Design partners test repeatability, cost and usefulness in other teams.' },
 ];
 
 const faq: Faq[] = [
@@ -206,6 +206,10 @@ const faq: Faq[] = [
   {
     q: 'Who runs it?',
     a: [`The founders, P. Riquelme and D. Orrego: two engineers who research and build the models behind OnPuck, and run woku, our lab. Write to ${CONTACT_EMAIL}.`],
+  },
+  {
+    q: 'What have you already applied in Woku?',
+    a: ['Human-led interviews, agent-assisted tracker discovery and story checks produced specifications and shipped changes. The [field work](#field-work) is separate from simulator validation. Woku is the founders’ product, not an independent OnPuck customer.'],
   },
 ];
 
@@ -306,11 +310,11 @@ export const paper = {
     headline: 'Know what your users will do before your agent builds it.',
     h1: 'AI user research for coding agents: user stories checked against your data and specs tested on simulated users, for growing startups in San Francisco, CA, USA.',
     subline:
-      'OnPuck turns user interviews into specs your coding agent can ship, checked against your real data and tested on simulated users first.',
+      'User stories checked against your data, turned into specs your coding agent can ship. Applied in Woku; simulated users are a separate research prototype.',
     primaryCta: { label: CTA_LABEL, href: '#apply' },
     secondaryCta: { label: 'Read the light paper', href: '#abstract' },
     sceneLabel: scene.label,
-    sceneCaption: 'Each person carries frustration, fatigue and motivation, and leaves when the section 3 rule fires. Drawn, not recorded.',
+    sceneCaption: 'Each person carries frustration, fatigue and motivation, and leaves under the simulated-user rule. Drawn, not recorded.',
     sceneHint: 'Hover or tap a person.',
     status: scene.status,
     legend: [
@@ -361,8 +365,41 @@ export const paper = {
       blocks: [{ type: 'steps', steps }],
     },
     {
-      id: 'simulation',
+      id: 'field-work',
       number: '3',
+      short: 'Woku field work',
+      title: 'From customer interviews to shipped changes in Woku',
+      lede: 'Before digital users, we ran the evidence workflow on Woku and shipped changes from its customer stories.',
+      blocks: [
+        {
+          type: 'p',
+          text: 'Woku is the feedback product the founders operate. Its customer interviews were human-led; agents helped trace stories through code and read-only data into specifications.',
+        },
+        {
+          type: 'p',
+          text: 'One investigation catalogued **79 trackers**: **65 marked verified**, 7 stale and 7 unverifiable. Account analyses retained confirmations, contradictions and gaps.',
+        },
+        {
+          type: 'list',
+          items: [
+            '**Review reliability.** Customers described blank pages and uncertain submissions. Code and error records shaped the specification. The implementation added retries, pending drafts and explicit submission outcomes; its engineering plan records a production rollout.',
+            '**Repeated account warnings.** An interview about repeated inactivity emails was traced to duplicate jobs and account records. Warning and account deduplication were implemented; the batch plan records a production rollout.',
+            '**Reports by period.** Customers assembled reports manually. Checking report scope exposed missing date controls. Period filters and reports were implemented; the batch plan records their production rollout.',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'This field work demonstrates execution and delivery. It does not establish causal uplift or simulator accuracy. Woku is the founders’ lab, not an independent OnPuck customer.',
+        },
+        {
+          type: 'p',
+          text: 'We are turning that agent-assisted process into a repeatable platform. Human review and source links remain part of the workflow.',
+        },
+      ],
+    },
+    {
+      id: 'simulation',
+      number: '4',
       short: 'Simulated users',
       title: 'Simulated users that get tired, frustrated and quit',
       lede: 'An LLM alone plays a user who is too efficient. We add the part that gets tired.',
@@ -382,7 +419,7 @@ export const paper = {
     },
     {
       id: 'evidence',
-      number: '4',
+      number: '5',
       short: 'Validation',
       title: 'How accurate are simulated users? Our validation',
       lede: 'Four experiments on woku, misses included, and one blind prediction waiting for its result.',
@@ -397,7 +434,7 @@ export const paper = {
     },
     {
       id: 'research',
-      number: '5',
+      number: '6',
       short: 'Research',
       title: 'The research behind AI interviews and simulated users',
       lede: 'What the research found, and what OnPuck does with it.',
@@ -405,7 +442,7 @@ export const paper = {
     },
     {
       id: 'limits',
-      number: '6',
+      number: '7',
       short: 'Limits',
       title: 'What simulated users cannot predict',
       lede: 'What we can’t promise, and what we do about it.',
@@ -413,7 +450,7 @@ export const paper = {
     },
     {
       id: 'program',
-      number: '7',
+      number: '8',
       short: 'Design partners',
       title: 'Design partner program for startups in San Francisco',
       lede: 'We’re building OnPuck with 5 teams. The founders run it for you while the platform is built.',

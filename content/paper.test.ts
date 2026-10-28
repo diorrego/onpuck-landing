@@ -10,9 +10,24 @@ const joined = copy.join('\n');
 describe('paper copy', () => {
   it('uses the brief section anchors in order', () => {
     expect(paper.sections.map((s) => s.id)).toEqual([
-      'abstract', 'gap', 'model', 'simulation', 'evidence', 'research', 'limits', 'program',
+      'abstract', 'gap', 'model', 'field-work', 'simulation', 'evidence', 'research', 'limits', 'program',
       'apply', 'faq',
     ]);
+  });
+
+  it('preserves Woku field work as delivery evidence, separate from simulator validation', () => {
+    const field = paper.sections.find((s) => s.id === 'field-work');
+    expect(field).toBeDefined();
+    const text = JSON.stringify(field);
+    expect(text).toContain('79 trackers');
+    expect(text).toContain('65 marked verified');
+    expect(text).toContain('Review reliability');
+    expect(text).toContain('Repeated account warnings');
+    expect(text).toContain('Reports by period');
+    expect(text).toMatch(/human-led/i);
+    expect(text).toMatch(/does not establish.*simulator accuracy/i);
+    expect(joined).not.toContain('The first design partner is that experiment');
+    expect(joined).not.toContain('Our experiments so far cover the simulator only');
   });
 
   it('has exactly one CTA label, "Apply to be a design partner"', () => {

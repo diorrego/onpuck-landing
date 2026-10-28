@@ -16,7 +16,8 @@ export const founders = [
 /** Primary nav: section ids of the paper (checked in content/site.test.ts). */
 export const navLinks = [
   { id: 'model', label: 'Model' },
-  { id: 'evidence', label: 'Evidence' },
+  { id: 'field-work', label: 'Field work' },
+  { id: 'evidence', label: 'Simulation tests' },
   { id: 'research', label: 'Research' },
   { id: 'limits', label: 'Limits' },
   { id: 'program', label: 'Program' },

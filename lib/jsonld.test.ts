@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { references } from '@/content/references';
+import { CONTENT_UPDATED, paper } from '@/content/paper';
 import { buildJsonLd, serializeJsonLd } from './jsonld';
 
 const ld = buildJsonLd();
@@ -29,13 +30,13 @@ describe('JSON-LD graph', () => {
     const article = byType('TechArticle');
     expect(article.citation).toHaveLength(references.length);
     expect(article.citation[0]).toMatchObject({ '@type': 'ScholarlyArticle', url: references[0].url });
-    expect(article.dateModified).toBe('2026-10-22');
+    expect(article.dateModified).toBe(CONTENT_UPDATED);
     expect(article.version).toBe('1.0');
   });
 
   it('marks up the visible FAQ only', () => {
     const faq = byType('FAQPage');
-    expect(faq.mainEntity).toHaveLength(7);
+    expect(faq.mainEntity).toHaveLength(paper.faq.length);
     expect(faq.mainEntity[0]['@type']).toBe('Question');
     expect(faq.mainEntity[0].acceptedAnswer.text).not.toMatch(/`/);
   });

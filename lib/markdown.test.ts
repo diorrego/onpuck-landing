@@ -47,4 +47,13 @@ describe('paperMarkdown (the page as Markdown, same source)', () => {
     expect(md).not.toMatch(/<[a-z]/i);
     expect(md).not.toContain('—');
   });
+
+  it('keeps the executed Woku workflow and its limits available to text readers', () => {
+    expect(md).toContain('79 trackers');
+    expect(md).toContain('65 marked verified');
+    expect(md).toContain('Review reliability');
+    expect(md).toContain('Repeated account warnings');
+    expect(md).toContain('Reports by period');
+    expect(md).toMatch(/does not establish.*simulator accuracy/i);
+  });
 });

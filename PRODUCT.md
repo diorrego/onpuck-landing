@@ -47,7 +47,9 @@ accuracy; analytics tools show how many, never why.
 
 ## Capabilities and Constraints
 
-- Steps connect, listen, anchor and spec are specified (`core/SPECS.md`), run manually today.
+- The founders already applied connect, listen, anchor and spec in Woku with real Woku customers,
+  human-led interviews and agent-assisted investigation. Resulting projects have recorded
+  production rollouts. The repeatable platform and automated interviews remain under development.
 - The simulator is a research prototype (LLM plus explicit fatigue/frustration state, Playwright
   sandbox), used in experiments exp-01 to exp-04.
 - Must not claim: exact magnitudes, "users will love it", replacing talking to users, any
@@ -76,6 +78,14 @@ accuracy; analytics tools show how many, never why.
 ## Evidence on Hand
 
 - 34 references with verified titles and first authors: `business-vault/engineering/product-model.md`.
+- Executed Woku field work, separate from the simulator: `research/woku-field-work/README.md`
+  and its `evidence.json` preserve source commits, file hashes and excerpts. Historical catalogue:
+  79 trackers, 65 marked verified, 7 stale, 7 unverifiable. Three documented chains: review
+  reliability, repeated account warnings, reports by period. Each connects customer stories,
+  code/data investigation, specifications and recorded production rollouts.
+- This field record proves execution and delivery, not measured causal uplift, automated
+  interviewing or simulator accuracy. Woku's customers must not be presented as OnPuck customers,
+  logos or endorsements. Customer names, contacts and transcripts stay out of public copy.
 - Own experiments (woku as lab), `onpuck/research`:
   - exp-01: predicted direction of a past change; "nothing changes" did too.
   - exp-02: reproduced abandonment out of sample (0.24 vs 0.20 real); found a real bug (form

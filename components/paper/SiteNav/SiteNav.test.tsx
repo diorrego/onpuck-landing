@@ -7,7 +7,7 @@ describe('SiteNav', () => {
     render(<SiteNav />);
     expect(screen.getByRole('link', { name: 'Skip to the paper' })).toHaveAttribute('href', '#main');
     const nav = screen.getByRole('navigation', { name: 'Primary' });
-    expect(within(nav).getAllByRole('link').map((a) => a.textContent)).toEqual(['Model', 'Evidence', 'Research', 'Limits', 'Program']);
+    expect(within(nav).getAllByRole('link').map((a) => a.textContent)).toEqual(['Model', 'Field work', 'Simulation tests', 'Research', 'Limits', 'Program']);
     expect(screen.getByRole('link', { name: 'Apply to be a design partner' })).toHaveAttribute('href', '#apply');
   });
 
