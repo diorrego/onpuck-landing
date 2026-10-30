@@ -268,6 +268,70 @@ export const apply = {
   security: ['Read-only, revocable access', 'Nothing we run writes to your systems', 'We only interview users you introduce'],
 };
 
+// The pitch between the hero and the paper: how it works in three steps, what changes, the
+// tools, and a bridge that sells the paper as the proof. Marketing in tone, no citations.
+// Step 2 and 3 replay the Fig. 2 synthetic story.
+export const overview = {
+  id: 'how-it-works',
+  title: 'How OnPuck works',
+  hook: { lead: 'Building got cheap.', emphasis: 'Building the wrong thing', tail: 'didn’t.' },
+  subline: 'OnPuck finds out what your users really need, and hands your coding agent a spec it can trust.',
+  steps: [
+    { title: 'Plug in your stack', body: 'Read-only access to your repo and data. Revoke it anytime.' },
+    { title: 'We talk to your users', body: 'Short interviews about one real moment, every detail checked against your data.' },
+    { title: 'Your agent ships the right fix', body: 'A spec with the evidence attached, ready for your coding agent.' },
+  ],
+  connections: { tools: ['github', 'posthog', 'sentry'], access: 'read-only' },
+  story: {
+    speaker: 'Your user',
+    lead: '“I tried to export the report and ',
+    claim: 'it never downloaded',
+    tail: '.”',
+    check: 'Your data says otherwise',
+    recorded: 'file served 21:42 · never opened',
+  },
+  terminal: [
+    { prompt: 'OnPuck ›', text: 'new spec for Claude Code' },
+    { tag: 'fix', text: 'make the export findable on iOS' },
+    { text: 'evidence: 4 trackers · 3 queries' },
+    { text: 'checks: 3 confirmed · 1 contradicted' },
+    { done: '✓ ready to build' },
+  ],
+  compare: {
+    title: 'What changes for your team',
+    before: 'Today',
+    after: 'With OnPuck',
+    rows: [
+      ['Guessing from a handful of interviews', 'Every story checked against your data'],
+      ['Vague tickets your agent misreads', 'Specs with the evidence attached'],
+      ['Building on what users say', 'Building on what they actually did'],
+      ['Research eating your team’s week', 'Run for you, free during the partnership'],
+    ],
+  },
+  stackLabel: 'Works with the tools you already use',
+  // Brand-coloured marks in public/logos: data sources first, then the coding agents.
+  stack: [
+    { id: 'github', name: 'GitHub' },
+    { id: 'posthog', name: 'PostHog' },
+    { id: 'sentry', name: 'Sentry' },
+    { id: 'axiom', name: 'Axiom' },
+    { id: 'cloudwatch', name: 'CloudWatch' },
+    { id: 'postgresql', name: 'Postgres' },
+    { id: 'mongodb', name: 'MongoDB' },
+    { id: 'claude-code', name: 'Claude Code' },
+    { id: 'codex', name: 'Codex' },
+    { id: 'cursor', name: 'Cursor' },
+    { id: 'github-copilot', name: 'Copilot' },
+    { id: 'opencode', name: 'OpenCode' },
+  ],
+  bridge: {
+    title: 'We publish our misses.',
+    body: 'The light paper shows how we applied it in Woku, every simulator experiment and what simulation can’t do yet.',
+    proof: { references: 'references', experiments: 'simulator experiments', pending: 'blind prediction pending' },
+    cta: { label: 'Read the light paper', href: '#abstract' },
+  },
+} as const;
+
 // Fig. 2 (synthetic): one sentence from an interview, resolved against the system.
 export const trackerExample = {
   source: 'Interview with a synthetic example user',
@@ -519,6 +583,23 @@ export function allCopy(): string[] {
     trackerExample.spec.title,
     trackerExample.spec.why,
     trackerExample.spec.evidence,
+    overview.title,
+    ...Object.values(overview.hook),
+    overview.subline,
+    ...overview.steps.flatMap((s) => [s.title, s.body]),
+    overview.connections.access,
+    ...Object.values(overview.story),
+    ...overview.terminal.flatMap((l) => Object.values(l)),
+    overview.compare.title,
+    overview.compare.before,
+    overview.compare.after,
+    ...overview.compare.rows.flat(),
+    overview.stackLabel,
+    ...overview.stack.map((s) => s.name),
+    overview.bridge.title,
+    overview.bridge.body,
+    ...Object.values(overview.bridge.proof),
+    overview.bridge.cta.label,
   ];
   for (const section of paper.sections) {
     out.push(section.title, section.lede, section.short ?? '');

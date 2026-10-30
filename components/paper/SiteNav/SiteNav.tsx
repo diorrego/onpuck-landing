@@ -22,18 +22,18 @@ export default function SiteNav({ base = '' }: Props) {
           <Logo size={42} decorative />
           <span className="text-[1.6rem] leading-none font-bold">OnPuck</span>
         </a>
-        <nav aria-label="Primary" className="ml-auto hidden md:block">
+        <nav aria-label="Primary" className="ml-auto hidden xl:block">
           <ul className="flex items-center gap-1 text-[0.9375rem]">
             {navLinks.map((l) => (
               <li key={l.id}>
-                <a href={`${base}#${l.id}`} className="rounded-md px-3 py-2 text-ink-soft no-underline hover:bg-muted hover:text-ink">
+                <a href={`${base}#${l.id}`} className="rounded-md px-3 py-2 whitespace-nowrap text-ink-soft no-underline hover:bg-muted hover:text-ink">
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <Button href={`${base}#apply`} size="sm" event="cta_click" className="ml-auto md:ml-2" ariaLabel={CTA_LABEL}>
+        <Button href={`${base}#apply`} size="sm" event="cta_click" className="ml-auto xl:ml-2" ariaLabel={CTA_LABEL}>
           <span className="sm:hidden" aria-hidden="true">
             Apply
           </span>

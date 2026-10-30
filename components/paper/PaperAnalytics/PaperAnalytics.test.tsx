@@ -25,7 +25,8 @@ describe('PaperAnalytics', () => {
       <a id="cta" href="#apply" data-event="cta_click">Apply</a>
       <sup><a id="cite" href="#ref-32" data-event="paper_link_click" data-ref="32">32</a></sup>
       <a id="exp" href="#exp-02">exp-02</a>
-      <section id="gap"></section>`;
+      <section id="gap"></section>
+      <section id="how-it-works"><a id="read" href="#abstract" data-event="paper_link_click">Read the light paper</a></section>`;
   });
   afterEach(() => vi.unstubAllGlobals());
 
@@ -36,6 +37,14 @@ describe('PaperAnalytics', () => {
     expect(events()).toEqual([
       { event: 'cta_click', target: '#apply', label: 'Apply' },
       { event: 'paper_link_click', target: '#ref-32', label: '32', ref: '32' },
+    ]);
+  });
+
+  it('says where on the page a click happened', () => {
+    render(<PaperAnalytics />);
+    fireEvent.click(document.getElementById('read')!);
+    expect(events()).toEqual([
+      { event: 'paper_link_click', target: '#abstract', location: 'how-it-works', label: 'Read the light paper' },
     ]);
   });
 

@@ -145,7 +145,7 @@ Neutral paper with a single blue.
 
 ## Layout
 
-80rem container, 16/32 px gutters. Centred hero: display line, subline, actions, authors, then the scene fitted to the container, its caption and the H1 (whole-device-pixel scale when within 85% of the fitted size). Below, a 13rem sticky contents rail on extra-large screens (collapsible on smaller ones) and a 64ch column; figures, tables and lists break out wider. Sections are separated by a 1 px rule.
+80rem container, 16/32 px gutters. Between the hero and the paper, a full-width sunk band (`#how-it-works`) pitches the product landing-style, with little text: an uppercase blue label (the H2, no pill), a large hook, three step cards with small product visuals, a Today / With OnPuck table, the tools as pills with their brand-coloured marks (`public/logos`), and a blue card with the paper's numbers that leads to the Abstract. The paper keeps the detail. Centred hero: display line, subline, actions, authors, then the scene fitted to the container, its caption and the H1 (whole-device-pixel scale when within 85% of the fitted size). Below, a 13rem sticky contents rail on extra-large screens (collapsible on smaller ones) and a 64ch column; figures, tables and lists break out wider. Sections are separated by a 1 px rule.
 
 ## Elevation & Depth
 
@@ -159,7 +159,7 @@ Buttons and fields 8 px, tiles 12 px, cards and tables 16 px, badges and the sta
 
 All foundational components live in `components/ui/<Name>/` and the interactive ones are built on Base UI (`@base-ui/react`).
 
-- **Button** (Base UI Button; links are `<a>` with the same classes): primary blue, secondary white with a grey border, small variant in the nav.
+- **Button** (Base UI Button; links are `<a>` with the same classes): primary blue, secondary white with a grey border, small variant in the nav; light (white) and ghost (white outline) only on the blue band.
 - **Card**: white, 1 px line, 16 px radius, optional header with a blue label and a title.
 - **Badge**: pill with a tinted fill and an inset ring per tone.
 - **TextField** (Base UI Field): bold label, 8 px field, blue focus ring, server errors from Base UI Form.

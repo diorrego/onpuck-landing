@@ -3,7 +3,8 @@ import { Button as BaseButton } from '@base-ui/react/button';
 
 type Common = {
   children: ReactNode;
-  variant?: 'primary' | 'secondary';
+  /** light and ghost sit on a blue band. */
+  variant?: 'primary' | 'secondary' | 'light' | 'ghost';
   size?: 'md' | 'sm';
   event?: string;
   className?: string;

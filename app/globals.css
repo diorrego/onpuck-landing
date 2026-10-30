@@ -179,6 +179,26 @@
     border-color: #a3a3a3;
   }
 
+  /* on the blue band of the overview */
+  .btn-light {
+    background: #fff;
+    color: var(--color-primary);
+  }
+
+  .btn-light:hover {
+    background: var(--color-primary-soft);
+  }
+
+  .btn-ghost {
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.45);
+  }
+
+  .btn-ghost:hover {
+    background: rgb(255 255 255 / 0.08);
+    border-color: #fff;
+  }
+
   .btn-sm {
     min-height: 2.25rem;
     padding: 0.4rem 0.9rem;

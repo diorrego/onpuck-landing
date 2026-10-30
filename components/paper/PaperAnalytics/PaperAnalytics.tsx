@@ -15,8 +15,11 @@ export default function PaperAnalytics() {
       if (exp) return track('experiment_expand', { experiment: exp[1] });
       const event = el.dataset.event as EventName | undefined;
       if (!event) return;
+      // where on the page: the same CTA lives in the hero (#top), the overview and the paper
+      const where = el.closest('section[id], header[id]')?.id;
       track(event, {
         ...(href ? { target: href } : {}),
+        ...(where ? { location: where } : {}),
         label: (el.textContent ?? '').trim().slice(0, 80),
         ...(el.dataset.ref ? { ref: el.dataset.ref } : {}),
       });

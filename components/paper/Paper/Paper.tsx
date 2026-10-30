@@ -1,6 +1,7 @@
 import BlockRenderer from '@/components/paper/BlockRenderer';
 import Contents from '@/components/paper/Contents';
 import Hero from '@/components/paper/Hero';
+import HowItWorks from '@/components/paper/HowItWorks';
 import PaperAnalytics from '@/components/paper/PaperAnalytics';
 import PaperSection from '@/components/paper/PaperSection';
 import References from '@/components/paper/References';
@@ -16,6 +17,7 @@ export default function Paper() {
       <main id="main">
         <article>
           <Hero />
+          <HowItWorks />
           <div className="mx-auto mt-10 grid max-w-[80rem] grid-cols-1 gap-x-12 px-4 sm:px-6 lg:px-8 xl:grid-cols-[13rem_minmax(0,1fr)]">
             <Contents />
             <div className="min-w-0 lg:px-16 xl:px-24">

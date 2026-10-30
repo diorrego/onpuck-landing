@@ -29,6 +29,7 @@ describe('GET /llms.txt (llmstxt.org format)', () => {
     const t = await text();
     expect(t).toContain('- [Light paper as Markdown](https://www.onpuck.com/index.md)');
     expect(t).toContain('(https://www.onpuck.com/#apply)');
+    expect(t).toContain('- [How OnPuck works](https://www.onpuck.com/#how-it-works): plug in your stack');
     expect(t).toContain('(https://www.linkedin.com/in/pauriquelme/)');
     expect(t).toContain('(https://www.onpuck.com/sitemap.xml)');
     expect(t).toContain('paula@onpuck.com');

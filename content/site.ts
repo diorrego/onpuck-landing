@@ -13,8 +13,9 @@ export const founders = [
   { name: 'Diego Orrego', short: 'D. Orrego', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/diorrego' },
 ];
 
-/** Primary nav: section ids of the paper (checked in content/site.test.ts). */
+/** Primary nav: the overview and section ids of the paper (checked in content/site.test.ts). */
 export const navLinks = [
+  { id: 'how-it-works', label: 'How it works' },
   { id: 'model', label: 'Model' },
   { id: 'field-work', label: 'Field work' },
   { id: 'evidence', label: 'Simulation tests' },

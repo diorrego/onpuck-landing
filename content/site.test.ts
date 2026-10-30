@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { paper } from './paper';
+import { overview, paper } from './paper';
 import { errorCopy, navLinks, scene } from './site';
 
 describe('site-wide copy (nav, footer, scene, error pages)', () => {
   it('links the nav only to sections that exist', () => {
-    const ids = paper.sections.map((s) => s.id);
+    const ids = [overview.id, ...paper.sections.map((s) => s.id)];
     for (const l of navLinks) expect(ids).toContain(l.id);
   });
 

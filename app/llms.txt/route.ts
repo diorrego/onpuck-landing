@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, founders, paper, program, SITE_URL } from '@/content/paper';
+import { CONTACT_EMAIL, founders, overview, paper, program, SITE_URL } from '@/content/paper';
 import { references } from '@/content/references';
 import { parseCalLink } from '@/lib/cal';
 
@@ -18,6 +18,7 @@ export async function GET() {
     [
       `- [Light paper as Markdown](${SITE_URL}/index.md): the full page as text, with figures, experiments and references`,
       `- [Light paper](${SITE_URL}/): the same content as HTML`,
+      `- [${overview.title}](${SITE_URL}/#${overview.id}): ${overview.steps.map((s) => s.title.toLowerCase()).join(', ')}; works with ${overview.stack.map((s) => s.name).join(', ')}`,
       `- [${title('model')}](${SITE_URL}/#model): connect, listen, anchor, spec, simulate, ship, calibrate`,
       `- [${title('field-work')}](${SITE_URL}/#field-work): human-led interviews, 79 trackers, evidence-backed specs and recorded production rollouts; no claim of causal uplift or simulator accuracy`,
       `- [${title('evidence')}](${SITE_URL}/#evidence): four experiments on woku, misses included, one blind prediction pending`,

@@ -13,6 +13,7 @@ import {
   trackerExample,
   VERSION,
   figureMeta,
+  overview,
   type Block,
   type FigureId,
   type Step,
@@ -113,6 +114,11 @@ export function paperMarkdown(): string {
     `> ${paper.abstract}`,
     `${paper.hero.subline}`,
     `OnPuck light paper, version ${VERSION}, by ${paper.hero.authors}. ${SITE_URL}/ · Contact: ${CONTACT_EMAIL}`,
+    `## ${overview.title}`,
+    `${overview.hook.lead} ${overview.hook.emphasis} ${overview.hook.tail} ${overview.subline}`,
+    overview.steps.map((s, i) => `${i + 1}. **${s.title}.** ${s.body}`).join('\n'),
+    table([overview.compare.before, overview.compare.after], overview.compare.rows.map((r) => [...r])),
+    `${overview.stackLabel}: ${overview.stack.map((s) => s.name).join(', ')}.`,
   ];
   for (const s of paper.sections) {
     out.push(`## ${s.number ? `§${s.number} ` : ''}${s.title}`);
