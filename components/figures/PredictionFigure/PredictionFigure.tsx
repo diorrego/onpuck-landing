@@ -7,8 +7,6 @@ const pct = (v: number) => `${((v - MIN) / (MAX - MIN)) * 100}%`;
 const fmt = (v: number) => `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v).toFixed(3)}`;
 const TICKS = [-0.1, -0.05, 0, 0.05, 0.1, 0.15];
 
-const real = predictionVsReality.find((r) => r.kind === 'real')!;
-
 export default function PredictionFigure() {
   return (
     <Figure id="prediction">
@@ -17,38 +15,50 @@ export default function PredictionFigure() {
           <span role="columnheader">Source</span>
           <span role="columnheader">Change [95% interval]</span>
         </div>
-        {predictionVsReality.map((row) => {
-          const value = row.low !== undefined ? `${fmt(row.point)} [${fmt(row.low)}, ${fmt(row.high!)}]` : fmt(row.point);
+        {predictionVsReality.map((group, gi) => {
+          const real = group.rows.find((r) => r.kind === 'real')!;
           return (
-            <div
-              role="row"
-              key={row.id}
-              className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 md:grid-cols-[11rem_1fr_13rem]"
-            >
-              <span role="rowheader" className={`${row.kind === 'real' ? 'text-ink' : 'text-ink-soft'}`}>
-                {row.label}
-              </span>
-              <span role="cell" className="text-sm tabular-nums md:order-3">
-                {value}
-              </span>
-              <span aria-hidden="true" className="relative col-span-2 h-6 rounded-md bg-paper-sunk md:order-2 md:col-span-1">
-                {/* the real interval, faint on every row so each estimate reads against it */}
-                <span className="absolute inset-y-0 bg-line/70" style={{ left: pct(real.low!), right: `calc(100% - ${pct(real.high!)})` }} />
-                <span className="absolute inset-y-0 w-px bg-ink-faint" style={{ left: pct(0) }} />
-                {row.low !== undefined && (
-                  <span
-                    className={`absolute top-2 h-2 rounded-full ${row.kind === 'real' ? 'bg-ink-soft' : 'bg-primary'}`}
-                    style={{ left: pct(row.low), right: `calc(100% - ${pct(row.high!)})` }}
-                  />
-                )}
-                {row.kind === 'baseline' && row.point !== 0 ? (
-                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] bg-frustration" style={{ left: pct(row.point) }} />
-                ) : row.kind === 'baseline' ? (
-                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink-soft bg-white" style={{ left: pct(row.point) }} />
-                ) : (
-                  <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-ink shadow-sm" style={{ left: pct(row.point) }} />
-                )}
-              </span>
+            <div role="rowgroup" key={group.id} aria-label={group.title} className={`grid gap-y-3 ${gi > 0 ? 'mt-4 border-t border-line pt-5' : ''}`}>
+              <div role="row">
+                <span role="columnheader" aria-colspan={2} className="text-sm text-primary">
+                  {group.title}
+                </span>
+              </div>
+              {group.rows.map((row) => {
+                const value = row.low !== undefined ? `${fmt(row.point)} [${fmt(row.low)}, ${fmt(row.high!)}]` : fmt(row.point);
+                return (
+                  <div
+                    role="row"
+                    key={`${group.id}-${row.id}`}
+                    className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 md:grid-cols-[11rem_1fr_13rem]"
+                  >
+                    <span role="rowheader" className={`${row.kind === 'real' ? 'text-ink' : 'text-ink-soft'}`}>
+                      {row.label}
+                    </span>
+                    <span role="cell" className="text-sm tabular-nums md:order-3">
+                      {value}
+                    </span>
+                    <span aria-hidden="true" className="relative col-span-2 h-6 rounded-md bg-paper-sunk md:order-2 md:col-span-1">
+                      {/* the group's real interval, faint on every row so each estimate reads against it */}
+                      <span className="absolute inset-y-0 bg-line/70" style={{ left: pct(real.low!), right: `calc(100% - ${pct(real.high!)})` }} />
+                      <span className="absolute inset-y-0 w-px bg-ink-faint" style={{ left: pct(0) }} />
+                      {row.low !== undefined && (
+                        <span
+                          className={`absolute top-2 h-2 rounded-full ${row.kind === 'real' ? 'bg-ink-soft' : 'bg-primary'}`}
+                          style={{ left: pct(row.low), right: `calc(100% - ${pct(row.high!)})` }}
+                        />
+                      )}
+                      {row.kind === 'baseline' && row.point !== 0 ? (
+                        <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] bg-frustration" style={{ left: pct(row.point) }} />
+                      ) : row.kind === 'baseline' ? (
+                        <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink-soft bg-white" style={{ left: pct(row.point) }} />
+                      ) : (
+                        <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-ink shadow-sm" style={{ left: pct(row.point) }} />
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           );
         })}

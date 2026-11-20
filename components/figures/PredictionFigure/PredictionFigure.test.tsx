@@ -7,8 +7,16 @@ describe('PredictionFigure', () => {
     render(<PredictionFigure />);
     const table = screen.getByRole('table', { name: /predicted and real change/i });
     expect(table).toBeInTheDocument();
-    expect(screen.getByRole('rowheader', { name: 'Real change' })).toBeInTheDocument();
+    expect(screen.getAllByRole('rowheader', { name: 'Real change' })).toHaveLength(2);
     expect(screen.getByText('−0.011 [−0.046, +0.025]')).toBeInTheDocument();
     expect(screen.getByText('+0.062')).toBeInTheDocument();
+  });
+
+  it('scores exp-04 against its own live A/B, not the backtest', () => {
+    render(<PredictionFigure />);
+    const group = screen.getByRole('rowgroup', { name: /live A\/B/ });
+    expect(group).toHaveTextContent('exp-04 simulator');
+    expect(group).toHaveTextContent('−0.017 [−0.031, −0.002]');
+    expect(group).toHaveTextContent('−0.020 [−0.074, +0.035]');
   });
 });

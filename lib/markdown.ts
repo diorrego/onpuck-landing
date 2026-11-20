@@ -54,10 +54,16 @@ function figure(id: FigureId): string {
         ]),
       )}\n\n${simulatedRun.outcome}`;
     case 'prediction':
-      return `${head}\n\n${table(
-        ['Source', 'Change in submission rate [95% interval]'],
-        predictionVsReality.map((r) => [r.label, r.low !== undefined ? `${r.point} [${r.low}, ${r.high}]` : `${r.point}`]),
-      )}`;
+      return [
+        head,
+        ...predictionVsReality.map(
+          (g) =>
+            `${g.title}.\n\n${table(
+              ['Source', 'Change in submission rate [95% interval]'],
+              g.rows.map((r) => [r.label, r.low !== undefined ? `${r.point} [${r.low}, ${r.high}]` : `${r.point}`]),
+            )}`,
+        ),
+      ].join('\n\n');
   }
 }
 

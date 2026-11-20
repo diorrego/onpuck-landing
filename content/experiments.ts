@@ -65,7 +65,8 @@ export const experiments: Experiment[] = [
   },
 ];
 
-// Fig. 4: predicted vs real change in submission rate, same segment, same real interval.
+// Fig. 4: predicted vs real change in submission rate, QR mobile. One group per real comparison,
+// each scored against its own real interval: the P0 to P2 backtest and the exp-04 live A/B.
 export type IntervalRow = {
   id: string;
   label: string;
@@ -75,13 +76,34 @@ export type IntervalRow = {
   high?: number;
 };
 
-export const predictionVsReality: IntervalRow[] = [
-  { id: 'real', label: 'Real change', kind: 'real', point: -0.022, low: -0.084, high: 0.04 },
-  { id: 'exp-01', label: 'exp-01 simulator', kind: 'simulator', point: 0.028, low: -0.016, high: 0.072 },
-  { id: 'exp-02', label: 'exp-02 simulator', kind: 'simulator', point: 0.061, low: -0.018, high: 0.147 },
-  { id: 'exp-03', label: 'exp-03 simulator', kind: 'simulator', point: -0.011, low: -0.046, high: 0.025 },
-  { id: 'prior', label: 'Generic latency prior', kind: 'baseline', point: 0.062 },
-  { id: 'nothing', label: '"Nothing changes"', kind: 'baseline', point: 0 },
+export type IntervalGroup = {
+  id: string;
+  title: string;
+  rows: IntervalRow[];
+};
+
+export const predictionVsReality: IntervalGroup[] = [
+  {
+    id: 'backtest',
+    title: 'Backtest: two past versions of woku',
+    rows: [
+      { id: 'real', label: 'Real change', kind: 'real', point: -0.022, low: -0.084, high: 0.04 },
+      { id: 'exp-01', label: 'exp-01 simulator', kind: 'simulator', point: 0.028, low: -0.016, high: 0.072 },
+      { id: 'exp-02', label: 'exp-02 simulator', kind: 'simulator', point: 0.061, low: -0.018, high: 0.147 },
+      { id: 'exp-03', label: 'exp-03 simulator', kind: 'simulator', point: -0.011, low: -0.046, high: 0.025 },
+      { id: 'prior', label: 'Generic latency prior', kind: 'baseline', point: 0.062 },
+      { id: 'nothing', label: '"Nothing changes"', kind: 'baseline', point: 0 },
+    ],
+  },
+  {
+    id: 'exp-04',
+    title: 'Blind prediction: live A/B, rating after the comment',
+    rows: [
+      { id: 'real', label: 'Real change', kind: 'real', point: -0.02, low: -0.074, high: 0.035 },
+      { id: 'exp-04', label: 'exp-04 simulator', kind: 'simulator', point: -0.017, low: -0.031, high: -0.002 },
+      { id: 'nothing', label: '"Nothing changes"', kind: 'baseline', point: 0 },
+    ],
+  },
 ];
 
 // Fig. 3: exp-04 registered prediction and the real A/B, QR mobile, among people who start.

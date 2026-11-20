@@ -88,7 +88,7 @@ const figures: FigureMeta[] = [
     id: 'prediction',
     number: 4,
     title: 'Prediction vs reality',
-    caption: 'Change in review submissions between two versions of woku, on mobile. Bars are 95% intervals. Real data.',
+    caption: 'Change in review submissions on mobile: a backtest of two past woku versions, and the exp-04 live A/B. Bars are 95% intervals. Real data.',
     synthetic: false,
   },
 ];
