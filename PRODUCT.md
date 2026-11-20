@@ -51,7 +51,7 @@ accuracy; analytics tools show how many, never why.
   human-led interviews and agent-assisted investigation. Resulting projects have recorded
   production rollouts. The repeatable platform and automated interviews remain under development.
 - The simulator is a research prototype (LLM plus explicit fatigue/frustration state, Playwright
-  sandbox), used in experiments exp-01 to exp-04.
+  sandbox), used in experiments exp-01 to exp-05.
 - Must not claim: exact magnitudes, "users will love it", replacing talking to users, any
   accuracy figure not measured, customers, logos or testimonials.
 - Stack: Next.js 16, React 19, Tailwind 4, deployed on Vercel at www.onpuck.com; GTM and
@@ -96,6 +96,10 @@ accuracy; analytics tools show how many, never why.
     first action = writing went from 14 % to 26 % (Δ +0.116 [+0.052, +0.179]) vs +0.131 predicted
     (7 % to 20 %). Submissions did not change detectably. Absolute levels missed (real people start
     less and write longer comments).
+  - exp-04b: exp-04 rerun with 5 seeds. 4 of 5 runs inside the real interval; mean Δ +0.081 vs
+    +0.131 in the original run, which was at the high end. Rule: register the mean of 5+ runs.
+  - exp-05: second blind prediction, of absolute levels in the following weeks. Missed (2 of 6
+    levels). Levels move with the traffic mix (events vs QR codes left in place).
 - Integration logos in `public/` (GitHub, Sentry, PostHog, CloudWatch, Axiom, Postgres, MongoDB,
   Google Meet, Claude Code, Codex, Cursor, OpenCode, Kimi, Copilot).
 - Absent and must not be fabricated: customers, testimonials, logos of users, pricing, accuracy

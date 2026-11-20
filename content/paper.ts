@@ -88,7 +88,7 @@ const figures: FigureMeta[] = [
     id: 'prediction',
     number: 4,
     title: 'Prediction vs reality',
-    caption: 'Change in review submissions on mobile: a backtest of two past woku versions, and the exp-04 live A/B. Bars are 95% intervals. Real data.',
+    caption: 'Change in review submissions on mobile: past woku versions and the exp-04 live A/B. Bars: 95% intervals; exp-04b shows five reruns.',
     synthetic: false,
   },
 ];
@@ -148,7 +148,7 @@ const steps: Step[] = [
     n: 7,
     name: 'Calibrate',
     output: 'An accuracy record',
-    status: 'By hand in exp-01 to exp-04',
+    status: 'By hand in exp-01 to exp-05',
     body: ['We compare prediction and reality, then recalibrate. Model versions are pinned [13].'],
     evidence: [],
   },
@@ -189,7 +189,7 @@ const faq: Faq[] = [
   },
   {
     q: 'Is the simulator ready?',
-    a: ['It is a research prototype: four experiments on woku, misses published, and one blind prediction of a live A/B that landed inside the real interval. Every prediction we make for you comes with an interval and gets scored.'],
+    a: ['It is a research prototype: six experiments on woku, misses published. One blind prediction of a live A/B passed and held in 4 of 5 reruns; one missed. Every prediction we make for you comes with an interval and gets scored.'],
   },
   {
     q: 'Does this replace talking to our users?',
@@ -360,7 +360,7 @@ export const simulatedRun = {
   wroteFirst: 'wrote first',
   submitted: 'submitted',
   real: 'Real',
-  outcome: 'The live A/B landed inside the registered interval: +12 points against +13 predicted.',
+  outcome: 'The live A/B landed inside the registered interval: +12 points against +13 predicted. Rerun five times, 4 of 5 runs landed inside.',
 };
 
 export const paper = {
@@ -487,7 +487,7 @@ export const paper = {
       number: '5',
       short: 'Validation',
       title: 'How accurate are simulated users? Our validation',
-      lede: 'Four experiments on woku, misses included. Our first blind prediction of a live A/B landed inside the real interval.',
+      lede: 'Six experiments on woku, misses included. Our first blind prediction of a live A/B held in 4 of 5 reruns; our second missed.',
       blocks: [
         { type: 'experiments' },
         { type: 'figure', figure: 'prediction' },
@@ -498,6 +498,10 @@ export const paper = {
         {
           type: 'p',
           text: 'In exp-04 the simulator got the change right and the levels wrong: real people start less often and write longer comments than our simulated ones.',
+        },
+        {
+          type: 'p',
+          text: 'Two lessons since. One run varies by about 9 points, so we register the average of five ([exp-04b](#exp-04b)). Levels depend on context, an event or a QR code left on a table, so we predict changes against a recent real baseline ([exp-05](#exp-05)).',
         },
       ],
     },

@@ -21,7 +21,7 @@ export async function GET() {
       `- [${overview.title}](${SITE_URL}/#${overview.id}): ${overview.steps.map((s) => s.title.toLowerCase()).join(', ')}; works with ${overview.stack.map((s) => s.name).join(', ')}`,
       `- [${title('model')}](${SITE_URL}/#model): connect, listen, anchor, spec, simulate, ship, calibrate`,
       `- [${title('field-work')}](${SITE_URL}/#field-work): human-led interviews, 79 trackers, evidence-backed specs and recorded production rollouts; no claim of causal uplift or simulator accuracy`,
-      `- [${title('evidence')}](${SITE_URL}/#evidence): four experiments on woku, misses included, one blind prediction of a live A/B passed`,
+      `- [${title('evidence')}](${SITE_URL}/#evidence): six experiments on woku, misses included, one blind prediction of a live A/B passed and replicated in 4 of 5 reruns, one missed`,
       `- [${title('limits')}](${SITE_URL}/#limits): what OnPuck cannot promise, and the mitigation for each`,
     ].join('\n'),
     '## Design partner program',

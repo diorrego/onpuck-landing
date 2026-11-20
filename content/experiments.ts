@@ -1,4 +1,4 @@
-// onpuck's own experiments, woku as the lab (onpuck/research, exp-01 to exp-04).
+// onpuck's own experiments, woku as the lab (onpuck/research, exp-01 to exp-05).
 // Misses stay in. Numbers are woku review-app QR mobile unless stated.
 
 export type ExperimentOutcome = 'hit' | 'partial' | 'miss' | 'pending';
@@ -63,10 +63,34 @@ export const experiments: Experiment[] = [
     outcomeLabel: 'Hit',
     blind: true,
   },
+  {
+    id: 'exp-04b',
+    name: 'Replication',
+    question: 'Same model, rerun five times: does the exp-04 prediction hold?',
+    n: '5 runs of 150 paired simulated sessions',
+    predicted: 'Δ +0.081 on average (runs from +0.041 to +0.118)',
+    real: 'Δ +0.116 [+0.052, +0.179] (the exp-04 A/B)',
+    verdict: 'Inside the real interval in 4 of 5 runs. The original run was at the high end. We now register the average of at least five runs.',
+    outcome: 'hit',
+    outcomeLabel: 'Held in 4 of 5',
+  },
+  {
+    id: 'exp-05',
+    name: 'Blind levels',
+    question: 'Blind, on the following weeks: can a recalibrated simulator also predict the levels, not just the change?',
+    n: '600 simulated vs 744 real sessions',
+    predicted: 'Start 49%, submit 38%; writing first Δ +0.093',
+    real: 'Start 55% to 61%, submit 42% to 49%; Δ +0.020 [−0.047, +0.088]',
+    verdict: 'Miss: 2 of 6 levels inside the real interval. Levels moved with the traffic mix, events against QR codes left in place, and the real change shrank too.',
+    outcome: 'miss',
+    outcomeLabel: 'Miss',
+    blind: true,
+  },
 ];
 
 // Fig. 4: predicted vs real change in submission rate, QR mobile. One group per real comparison,
 // each scored against its own real interval: the P0 to P2 backtest and the exp-04 live A/B.
+// The exp-04b row is the range of five reruns (research/exp-04b-replica), not a 95% interval.
 export type IntervalRow = {
   id: string;
   label: string;
@@ -101,6 +125,7 @@ export const predictionVsReality: IntervalGroup[] = [
     rows: [
       { id: 'real', label: 'Real change', kind: 'real', point: -0.02, low: -0.074, high: 0.035 },
       { id: 'exp-04', label: 'exp-04 simulator', kind: 'simulator', point: -0.017, low: -0.031, high: -0.002 },
+      { id: 'exp-04b', label: 'exp-04b, range of 5 reruns', kind: 'simulator', point: 0.001, low: -0.012, high: 0.017 },
       { id: 'nothing', label: '"Nothing changes"', kind: 'baseline', point: 0 },
     ],
   },

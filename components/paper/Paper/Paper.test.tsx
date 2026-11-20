@@ -72,7 +72,7 @@ describe('the light paper page', () => {
 
   it('gives each experiment a row anchor', () => {
     const { container } = setup();
-    for (const id of ['exp-01', 'exp-02', 'exp-03', 'exp-04']) expect(container.querySelector(`#${id}`)).not.toBeNull();
+    for (const id of ['exp-01', 'exp-02', 'exp-03', 'exp-04', 'exp-04b', 'exp-05']) expect(container.querySelector(`#${id}`)).not.toBeNull();
   });
 
   it('points every CTA at the apply section with the one label', () => {

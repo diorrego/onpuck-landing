@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { experiments } from './experiments';
 
 describe('experiments', () => {
-  it('lists exp-01 to exp-04 in order', () => {
-    expect(experiments.map((e) => e.id)).toEqual(['exp-01', 'exp-02', 'exp-03', 'exp-04']);
+  it('lists exp-01 to exp-05 in order, the exp-04 replication after exp-04', () => {
+    expect(experiments.map((e) => e.id)).toEqual(['exp-01', 'exp-02', 'exp-03', 'exp-04', 'exp-04b', 'exp-05']);
   });
 
   it('gives every experiment a question, n, prediction, reality and verdict', () => {
