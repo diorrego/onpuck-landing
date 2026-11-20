@@ -8,7 +8,7 @@ describe('Hero', () => {
     expect(screen.getByText('Know what your users will do before your agent builds it.').tagName).toBe('P');
     expect(screen.getByRole('link', { name: 'Apply to be a design partner' })).toHaveAttribute('href', '#apply');
     expect(screen.getByRole('link', { name: 'Read the light paper' })).toHaveAttribute('href', '#abstract');
-    expect(screen.getByText('P. Riquelme and D. Orrego')).toBeInTheDocument();
+    expect(screen.getByText('D. Orrego and P. Riquelme')).toBeInTheDocument();
   });
 
   it('centres the title page and puts the H1 (what, for whom, where) under the scene', () => {

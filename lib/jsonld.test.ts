@@ -22,8 +22,8 @@ describe('JSON-LD graph', () => {
 
   it('names both founders as authors, with their LinkedIn profiles', () => {
     const article = byType('TechArticle');
-    expect(article.author.map((a: { name: string }) => a.name)).toEqual(['Paula Riquelme', 'Diego Orrego']);
-    expect(article.author[1].sameAs).toEqual(['https://www.linkedin.com/in/diorrego']);
+    expect(article.author.map((a: { name: string }) => a.name)).toEqual(['Diego Orrego', 'Paula Riquelme']);
+    expect(article.author[0].sameAs).toEqual(['https://www.linkedin.com/in/diorrego']);
   });
 
   it('cites every reference from the article', () => {

@@ -96,7 +96,7 @@ components:
 
 **Creative North Star: "The LaTeX paper with a live figure"**
 
-The page is a research paper written as marketing: a centred title page (display line, one line, two actions, the authors "P. Riquelme and D. Orrego", the live figure, then the H1), then numbered sections, numbered figures, citations and a references list that the visitor opens on demand. It is set in Computer Modern with regular-weight titles and justified, hyphenated prose, like an article compiled with LaTeX, on a plain white page.
+The page is a research paper written as marketing: a centred title page (display line, one line, two actions, the authors "D. Orrego and P. Riquelme", the live figure, then the H1), then numbered sections, numbered figures, citations and a references list that the visitor opens on demand. It is set in Computer Modern with regular-weight titles and justified, hyphenated prose, like an article compiled with LaTeX, on a plain white page.
 
 Controls are conventional and calm, in the family of woku.app and simile.com: rounded blue-700 buttons, white cards with a soft border and shadow, rounded pills, a segmented control. The only illustration is the isometric pixel-art simulation floor under the title, where simulated people work, get frustrated and leave by the paper's own hazard rule. Pixel art never appears in the interface chrome.
 

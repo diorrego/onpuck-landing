@@ -9,8 +9,8 @@ export const SITE_URL = 'https://www.onpuck.com';
 export const PURPOSE_LINE = 'We exist to turn stories into evidence, and evidence into better decisions.';
 
 export const founders = [
-  { name: 'Paula Riquelme', short: 'P. Riquelme', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/pauriquelme/' },
   { name: 'Diego Orrego', short: 'D. Orrego', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/diorrego' },
+  { name: 'Paula Riquelme', short: 'P. Riquelme', role: 'Co-founder, engineer', line: 'Researches and builds the models behind OnPuck.', linkedin: 'https://www.linkedin.com/in/pauriquelme/' },
 ];
 
 /** Primary nav: the overview and section ids of the paper (checked in content/site.test.ts). */

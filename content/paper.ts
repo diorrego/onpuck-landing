@@ -206,7 +206,7 @@ const faq: Faq[] = [
   },
   {
     q: 'Who runs it?',
-    a: [`The founders, P. Riquelme and D. Orrego: two engineers who research and build the models behind OnPuck, and run woku, our lab. Write to ${CONTACT_EMAIL}.`],
+    a: [`The founders, D. Orrego and P. Riquelme: two engineers who research and build the models behind OnPuck, and run woku, our lab. Write to ${CONTACT_EMAIL}.`],
   },
   {
     q: 'What have you already applied in Woku?',
@@ -371,7 +371,7 @@ export const paper = {
     'OnPuck checks user stories against your data, writes specs for your coding agent and tests them on simulated users. For growing startups in San Francisco, CA, USA.',
   version: VERSION,
   hero: {
-    authors: 'P. Riquelme and D. Orrego',
+    authors: 'D. Orrego and P. Riquelme',
     // The display line is a paragraph; the H1 says what, for whom and where (like the description).
     headline: 'Know what your users will do before your agent builds it.',
     h1: 'AI user research for coding agents: user stories checked against your data and specs tested on simulated users, for growing startups in San Francisco, CA, USA.',
