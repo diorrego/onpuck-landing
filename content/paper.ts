@@ -172,6 +172,7 @@ const limits: Limit[] = [
   { title: 'Brand-new features', because: 'Hypothetical answers flatter [16]; twins transfer poorly to new behaviour [14].', mitigation: 'We test changes to flows people already use.' },
   { title: 'One person’s exact session', because: 'Next-action accuracy is 11 to 21% [35, 36].', mitigation: 'We predict rates across a population, never one person.' },
   { title: 'Replacing interviews', because: 'Without real input, simulated people are generic [15].', mitigation: 'Interviews feed every step.' },
+  { title: 'Absolute levels', because: 'Real levels move with context: at an event most people start, at a QR code left in place few do.', mitigation: 'We predict changes against a recent real baseline, by context.' },
   { title: 'Stable results across models', because: 'Results shift with prompts and models [13].', mitigation: 'Model versions are pinned and baselines re-run.' },
   { title: 'Transfer beyond Woku', because: 'The evidence workflow has been applied in the founders’ product.', mitigation: 'Design partners test repeatability, cost and usefulness in other teams.' },
 ];
@@ -502,6 +503,10 @@ export const paper = {
         {
           type: 'p',
           text: 'Two lessons since. One run varies by about 9 points, so we register the average of five ([exp-04b](#exp-04b)). Levels depend on context, an event or a QR code left on a table, so we predict changes against a recent real baseline ([exp-05](#exp-05)).',
+        },
+        {
+          type: 'p',
+          text: 'Every analysis reruns from our saved files and gives the same numbers. These six experiments did not save the model’s raw answers, so their runs can be replicated, not replayed. We save them from now on.',
         },
       ],
     },
