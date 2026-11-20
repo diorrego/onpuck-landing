@@ -81,7 +81,7 @@ const figures: FigureMeta[] = [
     id: 'simulated-run',
     number: 3,
     title: 'Simulated run',
-    caption: 'Illustration replaying our registered exp-04 prediction for a live A/B on woku. Drawn, not recorded.',
+    caption: 'Illustration replaying our registered exp-04 prediction for a live A/B on woku, next to the real result. Drawn, not recorded.',
     synthetic: true,
   },
   {
@@ -189,7 +189,7 @@ const faq: Faq[] = [
   },
   {
     q: 'Is the simulator ready?',
-    a: ['It is a research prototype: four experiments on woku, misses published, one blind prediction pending. Every prediction we make for you comes with an interval and gets scored.'],
+    a: ['It is a research prototype: four experiments on woku, misses published, and one blind prediction of a live A/B that landed inside the real interval. Every prediction we make for you comes with an interval and gets scored.'],
   },
   {
     q: 'Does this replace talking to our users?',
@@ -327,7 +327,7 @@ export const overview = {
   bridge: {
     title: 'We publish our misses.',
     body: 'The light paper shows how we applied it in Woku, every simulator experiment and what simulation can’t do yet.',
-    proof: { references: 'references', experiments: 'simulator experiments', pending: 'blind prediction pending' },
+    proof: { references: 'references', experiments: 'simulator experiments', blindPassed: 'blind prediction passed' },
     cta: { label: 'Read the light paper', href: '#abstract' },
   },
 } as const;
@@ -359,7 +359,8 @@ export const simulatedRun = {
   started: 'started',
   wroteFirst: 'wrote first',
   submitted: 'submitted',
-  pending: 'Result pending. We publish it either way.',
+  real: 'Real',
+  outcome: 'The live A/B landed inside the registered interval: +12 points against +13 predicted.',
 };
 
 export const paper = {
@@ -486,13 +487,17 @@ export const paper = {
       number: '5',
       short: 'Validation',
       title: 'How accurate are simulated users? Our validation',
-      lede: 'Four experiments on woku, misses included, and one blind prediction waiting for its result.',
+      lede: 'Four experiments on woku, misses included. Our first blind prediction of a live A/B landed inside the real interval.',
       blocks: [
         { type: 'experiments' },
         { type: 'figure', figure: 'prediction' },
         {
           type: 'p',
-          text: 'Best result so far: a simulated user found a real bug on woku’s review form ([exp-02](#exp-02)). It was fixed in production.',
+          text: 'Best results so far: our blind prediction of a live A/B landed inside the real interval ([exp-04](#exp-04)), and a simulated user found a real bug on woku’s review form ([exp-02](#exp-02)), fixed in production.',
+        },
+        {
+          type: 'p',
+          text: 'In exp-04 the simulator got the change right and the levels wrong: real people start less often and write longer comments than our simulated ones.',
         },
       ],
     },

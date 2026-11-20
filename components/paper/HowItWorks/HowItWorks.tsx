@@ -79,11 +79,11 @@ const visuals = [Connections, Story, Terminal];
 /** The pitch between the title page and the paper: hook, three steps, what changes, the tools,
  *  and a bridge that sells the paper as the proof. */
 export default function HowItWorks() {
-  const pending = experiments.filter((e) => e.outcome === 'pending').length;
+  const blindPassed = experiments.filter((e) => e.blind && e.outcome === 'hit').length;
   const proof = [
     { n: references.length, label: o.bridge.proof.references },
     { n: experiments.length, label: o.bridge.proof.experiments },
-    { n: pending, label: o.bridge.proof.pending },
+    { n: blindPassed, label: o.bridge.proof.blindPassed },
   ];
   return (
     <section id={o.id} aria-labelledby={`${o.id}-title`} className="border-b border-line bg-paper-sunk">

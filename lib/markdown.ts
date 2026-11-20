@@ -10,6 +10,7 @@ import {
   program,
   PURPOSE_LINE,
   SITE_URL,
+  simulatedRun,
   trackerExample,
   VERSION,
   figureMeta,
@@ -45,9 +46,13 @@ function figure(id: FigureId): string {
       ].join('\n\n');
     case 'simulated-run':
       return `${head}\n\n${table(
-        ['Arm', 'Registered prediction: first action is writing'],
-        (['control', 'test'] as const).map((a) => [exp04Arms[a].label, `${Math.round(exp04Arms[a].firstActionWriting * 100)}%`]),
-      )}\n\nResult pending.`;
+        ['Arm', 'Registered prediction: first action is writing', 'Real'],
+        (['control', 'test'] as const).map((a) => [
+          exp04Arms[a].label,
+          `${Math.round(exp04Arms[a].firstActionWriting * 100)}%`,
+          `${Math.round(exp04Arms[a].realFirstActionWriting * 100)}%`,
+        ]),
+      )}\n\n${simulatedRun.outcome}`;
     case 'prediction':
       return `${head}\n\n${table(
         ['Source', 'Change in submission rate [95% interval]'],

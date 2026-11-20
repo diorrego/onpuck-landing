@@ -4,11 +4,11 @@ import { describe, expect, it } from 'vitest';
 import SimulatedRunFigure from '@/components/figures/SimulatedRunFigure';
 
 describe('SimulatedRunPanel (through its figure)', () => {
-  it('shows the registered prediction for both arms', () => {
+  it('shows the registered prediction next to the real result for both arms', () => {
     render(<SimulatedRunFigure />);
-    expect(screen.getAllByText('7%').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('20%').length).toBeGreaterThan(0);
-    expect(screen.getByText(/Result pending/)).toBeInTheDocument();
+    for (const v of ['7%', '20%', '14%', '26%']) expect(screen.getAllByText(v).length, v).toBeGreaterThan(0);
+    expect(screen.getByText(/landed inside the registered interval/)).toBeInTheDocument();
+    expect(screen.queryByText(/pending/i)).toBeNull();
   });
 
   it('switches arms through a toggle group', async () => {

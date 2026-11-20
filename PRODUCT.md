@@ -92,8 +92,10 @@ accuracy; analytics tools show how many, never why.
     tabs submitted the form), fixed in production.
   - exp-03: predicted Δ −0.011 [−0.046, +0.025] vs real −0.022 [−0.084, +0.040]; interval 62 %
     narrower; excludes the generic prior.
-  - exp-04: blind prediction registered before a live A/B (first action = writing, 7 % to 20 %);
-    resolves 2026-11-19.
+  - exp-04: blind prediction registered before a live A/B, then scored. Main criterion passed:
+    first action = writing went from 14 % to 26 % (Δ +0.116 [+0.052, +0.179]) vs +0.131 predicted
+    (7 % to 20 %). Submissions did not change detectably. Absolute levels missed (real people start
+    less and write longer comments).
 - Integration logos in `public/` (GitHub, Sentry, PostHog, CloudWatch, Axiom, Postgres, MongoDB,
   Google Meet, Claude Code, Codex, Cursor, OpenCode, Kimi, Copilot).
 - Absent and must not be fabricated: customers, testimonials, logos of users, pricing, accuracy

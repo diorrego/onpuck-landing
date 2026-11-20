@@ -5,7 +5,7 @@ import SceneIsland from '@/components/scene/SceneIsland';
 import SegmentedToggle from '@/components/ui/SegmentedToggle';
 import type { Arm } from '@/lib/scene/sim';
 
-type ArmData = { label: string; firstActionWriting: number };
+type ArmData = { label: string; firstActionWriting: number; realFirstActionWriting: number };
 export type SimulatedRunCopy = {
   armsLabel: string;
   prediction: string;
@@ -14,7 +14,8 @@ export type SimulatedRunCopy = {
   started: string;
   wroteFirst: string;
   submitted: string;
-  pending: string;
+  real: string;
+  outcome: string;
   sceneLabel: string;
 };
 type Props = { copy: SimulatedRunCopy; arms: Record<Arm, ArmData> };
@@ -22,7 +23,7 @@ type Props = { copy: SimulatedRunCopy; arms: Record<Arm, ArmData> };
 const ARMS: Arm[] = ['control', 'test'];
 const pct = (v: number) => `${Math.round(v * 100)}%`;
 
-/** The interactive half of Fig. 3: arm toggle, replay scene, registered prediction, tally. */
+/** The interactive half of Fig. 3: arm toggle, replay scene, registered prediction next to the real result, tally. */
 export default function SimulatedRunPanel({ copy, arms: exp04Arms }: Props) {
   const [arm, setArm] = useState<Arm>('test');
   const [tally, setTally] = useState({ started: 0, writingFirst: 0, submitted: 0 });
@@ -53,6 +54,7 @@ export default function SimulatedRunPanel({ copy, arms: exp04Arms }: Props) {
           <ul className="mt-3 grid gap-2">
             {ARMS.map((a) => {
               const v = exp04Arms[a].firstActionWriting;
+              const r = exp04Arms[a].realFirstActionWriting;
               return (
                 <li key={a} className={`grid gap-1 ${arm === a ? '' : 'opacity-60'}`}>
                   <span className="flex justify-between text-sm">
@@ -61,6 +63,13 @@ export default function SimulatedRunPanel({ copy, arms: exp04Arms }: Props) {
                   </span>
                   <span className="block h-2 overflow-hidden rounded-full bg-muted" aria-hidden="true">
                     <span className="block h-full rounded-full bg-primary" style={{ width: pct(v) }} />
+                  </span>
+                  <span className="flex justify-between text-sm text-ink-soft">
+                    <span>{copy.real}</span>
+                    <span className="tabular-nums">{pct(r)}</span>
+                  </span>
+                  <span className="block h-2 overflow-hidden rounded-full bg-muted" aria-hidden="true">
+                    <span className="block h-full rounded-full bg-ink-soft" style={{ width: pct(r) }} />
                   </span>
                 </li>
               );
@@ -78,7 +87,7 @@ export default function SimulatedRunPanel({ copy, arms: exp04Arms }: Props) {
             <dd className="text-ink-soft">{copy.submitted}</dd>
           </dl>
         </div>
-        <p className="border-t border-line pt-3 text-sm text-ink-soft">{copy.pending}</p>
+        <p className="border-t border-line pt-3 text-sm text-ink-soft">{copy.outcome}</p>
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ export type Experiment = {
   verdict: string;
   outcome: ExperimentOutcome;
   outcomeLabel: string;
+  /** Registered before any real data (git tag), then scored against a live A/B. */
+  blind?: boolean;
 };
 
 export const experiments: Experiment[] = [
@@ -53,12 +55,13 @@ export const experiments: Experiment[] = [
     id: 'exp-04',
     name: 'Blind prediction',
     question: 'Blind, before a live A/B: what changes when the rating moves after the comment?',
-    n: '540 simulated; up to 600 real sessions per arm',
+    n: '540 simulated vs 1,234 real sessions',
     predicted: 'Writing first goes from 7% to 20% (Δ +0.131 [+0.059, +0.202])',
-    real: 'Result pending',
-    verdict: 'Registered (git tag and SHA-256) before any real data. It can clearly fail, and we will publish it either way.',
-    outcome: 'pending',
-    outcomeLabel: 'Registered, result pending',
+    real: 'Writing first went from 14% to 26% (Δ +0.116 [+0.052, +0.179])',
+    verdict: 'Inside the real interval, which excludes zero. Most people still rated first, so "follow the page order" was wrong. Submissions did not change detectably. Levels were off.',
+    outcome: 'hit',
+    outcomeLabel: 'Hit',
+    blind: true,
   },
 ];
 
@@ -81,8 +84,8 @@ export const predictionVsReality: IntervalRow[] = [
   { id: 'nothing', label: '"Nothing changes"', kind: 'baseline', point: 0 },
 ];
 
-// Fig. 3: exp-04 registered prediction, QR mobile, among people who start.
+// Fig. 3: exp-04 registered prediction and the real A/B, QR mobile, among people who start.
 export const exp04Arms = {
-  control: { label: 'Rating first', firstActionWriting: 0.069, submitRate: 0.506 },
-  test: { label: 'Rating after the comment', firstActionWriting: 0.2, submitRate: 0.489 },
+  control: { label: 'Rating first', firstActionWriting: 0.069, realFirstActionWriting: 0.144, submitRate: 0.506 },
+  test: { label: 'Rating after the comment', firstActionWriting: 0.2, realFirstActionWriting: 0.259, submitRate: 0.489 },
 } as const;

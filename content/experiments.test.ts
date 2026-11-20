@@ -18,10 +18,12 @@ describe('experiments', () => {
     expect(experiments.some((e) => e.outcome === 'partial' || e.outcome === 'miss')).toBe(true);
   });
 
-  it('shows exp-04 as a registered prediction with the result pending', () => {
+  it('scores exp-04, the blind prediction, against the live A/B', () => {
     const exp04 = experiments.find((e) => e.id === 'exp-04')!;
-    expect(exp04.outcome).toBe('pending');
-    expect(exp04.real.toLowerCase()).toContain('pending');
+    expect(exp04.blind).toBe(true);
+    expect(exp04.outcome).toBe('hit');
+    expect(exp04.real).toContain('+0.116 [+0.052, +0.179]');
+    expect(experiments.some((e) => e.outcome === 'pending')).toBe(false);
   });
 
   it('keeps each row short enough to scan', () => {
